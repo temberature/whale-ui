@@ -3,7 +3,7 @@
  */
 'use strict';
 import Style from './index.less';
-import Util from '../util';
+import Util from '@js/util';
 var initZ = 300;
 var popManager = {
     //初始z值

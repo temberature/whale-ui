@@ -4,11 +4,22 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no,minimal-ui">
-    <title>la-ui</title>
-    <link href="./test.css" rel="stylesheet">
 </head>
 
 <body>
+    <div id="main" style="position: relative;width: 100%; height: 500px; background-color: #999;overflow: hidden;margin-top: 100px;">
+        <div id="test" style="position: absolute;
+        background-color: red;
+        width: 100px;
+        height: 1000px;">
+            <div id="refresh" style="margin-top: -50px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 12px;
+            background-color: yellow;">Pull to Refresh</div>
+            <div>下拉刷新</div>
+        </div>
+    </div>
     <div id="app">
         <div class="page-button">
             <h1 class="page-title">Button</h1>
@@ -785,8 +796,6 @@
             </a>
         </div>
     </div>
-    <!-- built files will be auto injected -->
-    <script type="text/javascript" src="./test.js"></script>
 </body>
 
 </html>

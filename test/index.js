@@ -1,5 +1,26 @@
 import LMUI from '../src/index.js';
 window.onload = function () {
+    var refresh = document.getElementById('refresh');
+    window.scroll = new LMUI.Scroller(document.getElementById('test'), {
+        PullToRefresh: true
+    }).onCreate(function () {
+        console.log(this);
+    }).onScroll(function (left, top, zoom) {
+        console.log(left, top, zoom);
+    }).onRefreshLess(function () {
+        console.log('onRefreshLess');
+        refresh.innerHTML = '未触发刷新';
+    }).onRefresh(function () {
+        console.log('onRefresh');
+        refresh.innerHTML = '刷新中';
+        setTimeout(function () {
+            window.scroll.finishPullToRefresh();
+            refresh.innerHTML = '刷新完毕';
+        }, 2000);
+    }).onRefreshMore(function () {
+        console.log('onRefreshMore');
+        refresh.innerHTML = '松开触发刷新';
+    });
     LMUI.toast('我是一个Toast', function () {
         console.log(123);
     }, {

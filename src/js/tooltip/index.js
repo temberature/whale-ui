@@ -1,7 +1,7 @@
 'use strict';
 import Style from './index.less';
-import util from '../util';
-import Popover from '../popover';
+import util from '@js/util';
+import Popover from '@js/popover';
 var defaultOption = {
     // 外包容器class
     containerClass: 'ui-tooltip-normal'

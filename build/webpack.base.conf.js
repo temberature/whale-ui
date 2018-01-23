@@ -1,27 +1,20 @@
 'use strict'
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-const HOST = process.env.HOST
-const PORT = process.env.PORT && Number(process.env.PORT)
+const config = require('../config');
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir)
 }
-const extractLess = new ExtractTextPlugin({
-    filename: "[name].css"
-});
-
 module.exports = {
     context: path.resolve(__dirname, '../'),
     entry: {
-        app: './src/index.js'
+        lmui: './src/index.js',
+        test: './test/index.js'
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: '[name].js',
-        publicPath: '/',
+        publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
         libraryTarget: "umd",
         library: {
             root: "LMUI",
@@ -32,7 +25,9 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js', '.less'],
-        alias: {}
+        alias: {
+            '@js': resolve('src/js')
+        }
     },
     module: {
         rules: [{
@@ -44,27 +39,6 @@ module.exports = {
             test: /\.js$/,
             loader: 'babel-loader',
             include: [resolve('src'), resolve('test')]
-        }, {
-            test: /\.less$/,
-            use: extractLess.extract({
-                use: [{
-                    loader: 'css-loader',
-                    options: {
-                        importLoaders: 1,
-                    }
-                }, {
-                    loader: 'less-loader'
-                }, {
-                    loader: 'postcss-loader',
-                    options: {
-                        ident: 'postcss',
-                        plugins: (loader) => [
-                            require('postcss-cssnext')()
-                        ]
-                    }
-                }],
-                fallback: "style-loader"
-            })
         }, {
             test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
             loader: 'url-loader',
@@ -89,35 +63,10 @@ module.exports = {
         }, {
             test: /\.html$/,
             loader: 'html-loader',
-            options: {
-                // minimize: true
-            }
+            // options: {
+            //     // minimize: true
+            // }
         }]
-    },
-    devtool: 'eval-source-map',
-    devServer: {
-        clientLogLevel: 'warning',
-        historyApiFallback: true,
-        hot: true,
-        compress: true,
-        host: HOST,
-        port: PORT,
-        open: true,
-        overlay: { warnings: false, errors: true },
-        publicPath: '/',
-        proxy: {},
-        quiet: true, // necessary for FriendlyErrorsPlugin
-        watchOptions: {
-            poll: false
-        }
-    },
-    plugins: [
-        extractLess,
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: 'index.html',
-            inject: true
-        })
-    ]
+    }
 }
 
