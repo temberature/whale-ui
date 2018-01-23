@@ -1,4 +1,4 @@
-.mint-cell {
+.lmui-cell {
     background-color: #fff;
     box-sizing: border-box;
     font-size: 18px;
@@ -10,15 +10,15 @@
     text-decoration: none;
 }
 
-.mint-cell img {
+.lmui-cell img {
     vertical-align: middle;
 }
 
-.mint-cell:first-child .mint-cell-wrapper {
+.lmui-cell:first-child .lmui-cell-wrapper {
     background-origin: border-box;
 }
 
-.mint-cell:last-child {
+.lmui-cell:last-child {
     background-image: -webkit-linear-gradient(bottom, #d9d9d9, #d9d9d9 50%, transparent 50%);
     background-image: linear-gradient(0deg, #d9d9d9, #d9d9d9 50%, transparent 50%);
     background-size: 100% 1px;
@@ -26,7 +26,7 @@
     background-position: bottom;
 }
 
-.mint-cell-wrapper {
+.lmui-cell-wrapper {
     background-image: -webkit-linear-gradient(top, #d9d9d9, #d9d9d9 50%, transparent 50%);
     background-image: linear-gradient(180deg, #d9d9d9, #d9d9d9 50%, transparent 50%);
     background-size: 120% 1px;
@@ -48,9 +48,9 @@
     width: 100%;
 }
 
-.mint-cell-mask {}
+.lmui-cell-mask {}
 
-.mint-cell-mask::after {
+.lmui-cell-mask::after {
     background-color: #000;
     content: " ";
     opacity: 0;
@@ -61,33 +61,33 @@
     position: absolute;
 }
 
-.mint-cell-mask:active::after {
+.lmui-cell-mask:active::after {
     opacity: .1;
 }
 
-.mint-cell-text {
+.lmui-cell-text {
     margin-left: 10px;
     font-size: 15px;
     letter-spacing: -0.84px;
     vertical-align: middle;
 }
 
-.mint-cell-text:first-child {
+.lmui-cell-text:first-child {
     margin-left: 0;
 }
 
-.mint-cell-text:first-child:only-child {
+.lmui-cell-text:first-child:only-child {
     font-size: 18px;
 }
 
-.mint-cell-label {
+.lmui-cell-label {
     color: #888;
     display: block;
     font-size: 12px;
     margin-top: 6px;
 }
 
-.mint-cell-title {
+.lmui-cell-title {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -95,11 +95,11 @@
     font-size: 0;
 }
 
-.mint-cell-title div {
+.lmui-cell-title div {
     font-size: 18px;
 }
 
-.mint-cell-value {
+.lmui-cell-value {
     color: #888;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -110,11 +110,11 @@
     letter-spacing: -0.65px;
 }
 
-.mint-cell-value.is-link {
+.lmui-cell-value.is-link {
     margin-right: 18px;
 }
 
-.mint-cell-left {
+.lmui-cell-left {
     position: absolute;
     height: 100%;
     left: 0;
@@ -122,7 +122,7 @@
     transform: translate3d(-100%, 0, 0);
 }
 
-.mint-cell-right {
+.lmui-cell-right {
     position: absolute;
     height: 100%;
     right: 0;
@@ -131,7 +131,7 @@
     transform: translate3d(100%, 0, 0);
 }
 
-.mint-cell-allow-right::after {
+.lmui-cell-allow-right::after {
     border: solid 2px #c8c8cd;
     border-bottom-width: 0;
     border-left-width: 0;

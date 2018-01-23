@@ -12,7 +12,7 @@ var defaultOption = {
     // 是否默认打开
     autoShow: false,
     // 外包容器class
-    containerClass: 'ui-popover-normal',
+    containerClass: 'lmui-popover-normal',
     // 位置 top left right bottom topLeft topRight bottomLeft bottomRight leftTop leftBottom rightTop rightBottom
     placement: 'top',
     // 长度
@@ -41,14 +41,14 @@ var Popover = Popbase.extend({
     _initDom: function () {
         var me = this;
         this.root = document.createElement('div');
-        this.root.className = 'ui-popover-root';
+        this.root.className = 'lmui-popover-root';
         document.body.appendChild(this.root);
         this.container = document.createElement('div');
-        this.container.className = this.containerClass + ' ui-popover-container ui-popover-' + this.placement;
+        this.container.className = this.containerClass + ' lmui-popover-container lmui-popover-' + this.placement;
         this.container.innerHTML = [
-            '<div class="ui-popover-content">',
-            '<div class="ui-popover-arrow"></div>',
-            '<div class="ui-popover-inner">',
+            '<div class="lmui-popover-content">',
+            '<div class="lmui-popover-arrow"></div>',
+            '<div class="lmui-popover-inner">',
             this.content,
             '</div>',
             '</div>'
@@ -102,10 +102,10 @@ var Popover = Popbase.extend({
     },
     _onOpen: function () {
         this._position();
-        util.addClass(this.container, 'ui-popover-' + this.placement + '-enter');
+        util.addClass(this.container, 'lmui-popover-' + this.placement + '-enter');
     },
     _onClose: function () {
-        util.removeClass(this.container, 'ui-popover-' + this.placement + '-enter');
+        util.removeClass(this.container, 'lmui-popover-' + this.placement + '-enter');
     }
 });
 export default Popover;

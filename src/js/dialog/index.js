@@ -6,7 +6,7 @@ var defaultOption = {
     // 是否默认打开
     autoShow: true,
     // 外包容器class
-    containerClass: 'ui-dialog-normal',
+    containerClass: 'lmui-dialog-normal',
     // 弹出
     placement: 'center', // left right top bottom    // 外包容器className
     // 长度
@@ -41,7 +41,7 @@ var Dialog = Popbase.extend({
     _initDom: function () {
         var me = this;
         this.container = document.createElement('div');
-        this.container.className = this.containerClass + ' ui-dialog-container ui-dialog-' + this.placement;
+        this.container.className = this.containerClass + ' lmui-dialog-container lmui-dialog-' + this.placement;
         this.width == 'auto' ? '' : this.container.style.width = this.width;
         this.height == 'auto' ? '' : this.container.style.height = this.height;
         var title = this.title;
@@ -51,22 +51,22 @@ var Dialog = Popbase.extend({
                 var btnhtml = '';
                 if (title) {
                     btnhtml = [
-                        '<div class="ui-dialog-head">',
-                        title ? '<div class="ui-dialog-title">' + title + '</div>' : '',
+                        '<div class="lmui-dialog-head">',
+                        title ? '<div class="lmui-dialog-title">' + title + '</div>' : '',
                         // '<span class="icon icon-mid"><span class="icodispatchWithContextn-plus"></span></span>',
                         '</div>'
                     ].join('');
                 }
                 return btnhtml;
             })(),
-            '<div class="ui-dialog-body">' + this.content + '</div>',
+            '<div class="lmui-dialog-body">' + this.content + '</div>',
             (function () {
                 var btnhtml = '';
                 var size = button.length;
                 if (size) {
                     var btnCssMap = Dialog.GlobalConf.btnCssMap;
                     var getBtnRetId = Dialog.GlobalConf.getBtnRetId;
-                    btnhtml += '<div class="ui-dialog-foot">';
+                    btnhtml += '<div class="lmui-dialog-foot">';
                     for (var i = 0; i < size; i++) {
                         var btnText = button[i];
                         var mapCss = btnCssMap[btnText.slice(0, 1)];
@@ -97,7 +97,7 @@ var Dialog = Popbase.extend({
     },
     _onOpen: function () {
         this.transition = true;
-        util.addClass(this.container, 'ui-dialog-' + this.placement + '-enter');
+        util.addClass(this.container, 'lmui-dialog-' + this.placement + '-enter');
         var me = this;
         window.setTimeout(function () {
             me.transition = false;
@@ -106,7 +106,7 @@ var Dialog = Popbase.extend({
     },
     _onClose: function () {
         this.transition = true;
-        util.removeClass(this.container, 'ui-dialog-' + this.placement + '-enter');
+        util.removeClass(this.container, 'lmui-dialog-' + this.placement + '-enter');
         var me = this;
         window.setTimeout(function () {
             me.transition = false;

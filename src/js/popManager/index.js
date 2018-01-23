@@ -60,9 +60,9 @@ var popManager = {
         }
         this.modalFade = modalFade;
         var overlayDom = this.getOverlay();
-        Util.addClass(overlayDom, 'ui-overlay');
+        Util.addClass(overlayDom, 'lmui-overlay');
         if (this.modalFade && !this.hasOverlay) {
-            Util.addClass(overlayDom, 'ui-overlay-enter');
+            Util.addClass(overlayDom, 'lmui-overlay-enter');
         }
         if (modalClass) {
             var classArr = modalClass.trim().split(/\s+/),
@@ -73,7 +73,7 @@ var popManager = {
             }
         }
         window.setTimeout(function () {
-            Util.removeClass(overlayDom, 'ui-overlay-enter');
+            Util.removeClass(overlayDom, 'lmui-overlay-enter');
         }, 300);
         if (dom && dom.parentNode && dom.parentNode.nodeType !== 11) {
             dom.parentNode.appendChild(overlayDom);
@@ -123,7 +123,7 @@ var popManager = {
         }
         if (popStack.length === 0) {
             if (this.modalFade) {
-                Util.addClass(overlayDom, 'ui-overlay-leave');
+                Util.addClass(overlayDom, 'lmui-overlay-leave');
             }
             window.setTimeout(function () {
                 if (popStack.length === 0) {
@@ -131,7 +131,7 @@ var popManager = {
                     overlayDom.style.display = 'none';
                     this.overlayDom = undefined;
                 }
-                Util.removeClass(overlayDom, 'ui-overlay-leave');
+                Util.removeClass(overlayDom, 'lmui-overlay-leave');
             }, 300);
         }
     },

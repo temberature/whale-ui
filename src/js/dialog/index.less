@@ -1,4 +1,4 @@
-.ui-dialog-container {
+.lmui-dialog-container {
     position: fixed;
     overflow: hidden;
     -webkit-user-select: none;
@@ -7,9 +7,9 @@
     opacity: 0;
     pointer-events: none;
     transition: .3s;
-    .ui-dialog-head {
+    .lmui-dialog-head {
         // padding: 15px 0 0;
-        .ui-dialog-title {
+        .lmui-dialog-title {
             text-align: center;
         }
         .icon {
@@ -42,12 +42,12 @@
             }
         }
     }
-    .ui-dialog-body {
+    .lmui-dialog-body {
         position: relative;
         text-align: center;
         // padding: 10px 20px 15px;
     }
-    .ui-dialog-foot {
+    .lmui-dialog-foot {
         display: flex;
         button {
             cursor: pointer;
@@ -56,39 +56,39 @@
     }
 }
 
-.ui-dialog-center {
+.lmui-dialog-center {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(.5);
 }
 
-.ui-dialog-center-enter {
+.lmui-dialog-center-enter {
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
     transform: translate(-50%, -50%) scale(1);
 }
 
-.ui-dialog-top {
+.lmui-dialog-top {
     top: 0;
     left: 50%;
     transform: translate(-50%, -100%);
 }
 
-.ui-dialog-top-enter {
+.lmui-dialog-top-enter {
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
     transform: translate(-50%, 0);
 }
 
-.ui-dialog-bottom {
+.lmui-dialog-bottom {
     bottom: 0;
     left: 50%;
     transform: translate(-50%, 100%);
 }
 
-.ui-dialog-bottom-enter {
+.lmui-dialog-bottom-enter {
     visibility: visible;
     opacity: 1;
     pointer-events: auto;

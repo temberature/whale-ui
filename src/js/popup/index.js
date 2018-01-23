@@ -6,7 +6,7 @@ var defaultOption = {
     // 是否默认打开
     autoShow: true,
     // 外包容器class
-    containerClass: 'ui-popup-normal',
+    containerClass: 'lmui-popup-normal',
     // 位置 left right top bottom    
     placement: 'bottom',
     // 长度
@@ -38,7 +38,7 @@ var Popup = Popbase.extend({
     _initDom: function () {
         var me = this;
         this.container = document.createElement('div');
-        this.container.className = this.containerClass + ' ui-popup-container ui-popup-' + this.placement;
+        this.container.className = this.containerClass + ' lmui-popup-container lmui-popup-' + this.placement;
         this.width == 'auto' ? '' : this.container.style.width = this.width;
         this.height == 'auto' ? '' : this.container.style.height = this.height;
         this.container.innerHTML = this.content;
@@ -46,7 +46,7 @@ var Popup = Popbase.extend({
         if (this.contentPosition) {
             var clist = this.container.children;
             for (var i = 0; i < clist.length; i++) {
-                util.addClass(clist[i], 'ui-popup-' + this.contentPosition);
+                util.addClass(clist[i], 'lmui-popup-' + this.contentPosition);
             }
         }
     },
@@ -61,7 +61,7 @@ var Popup = Popbase.extend({
     },
     _onOpen: function () {
         this.transition = true;
-        util.addClass(this.container, 'ui-popup-' + this.placement + '-enter');
+        util.addClass(this.container, 'lmui-popup-' + this.placement + '-enter');
         var me = this;
         window.setTimeout(function () {
             me.transition = false;
@@ -70,7 +70,7 @@ var Popup = Popbase.extend({
     },
     _onClose: function () {
         this.transition = true;
-        util.removeClass(this.container, 'ui-popup-' + this.placement + '-enter');
+        util.removeClass(this.container, 'lmui-popup-' + this.placement + '-enter');
         var me = this;
         window.setTimeout(function () {
             me.transition = false;

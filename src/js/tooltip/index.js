@@ -4,7 +4,7 @@ import util from '@js/util';
 import Popover from '@js/popover';
 var defaultOption = {
     // 外包容器class
-    containerClass: 'ui-tooltip-normal'
+    containerClass: 'lmui-tooltip-normal'
 };
 var Tooltip = Popover.extend({
     _className: "Tooltip",
@@ -15,14 +15,14 @@ var Tooltip = Popover.extend({
     _initDom: function () {
         var me = this;
         this.root = document.createElement('div');
-        this.root.className = 'ui-tooltip-root';
+        this.root.className = 'lmui-tooltip-root';
         document.body.appendChild(this.root);
         this.container = document.createElement('div');
-        this.container.className = this.containerClass + ' ui-tooltip-container ui-tooltip-' + this.placement;
+        this.container.className = this.containerClass + ' lmui-tooltip-container lmui-tooltip-' + this.placement;
         this.container.innerHTML = [
-            '<div class="ui-tooltip-content">',
-            '<div class="ui-tooltip-arrow"></div>',
-            '<div class="ui-tooltip-inner">',
+            '<div class="lmui-tooltip-content">',
+            '<div class="lmui-tooltip-arrow"></div>',
+            '<div class="lmui-tooltip-inner">',
             this.content,
             '</div>',
             '</div>'
@@ -34,10 +34,10 @@ var Tooltip = Popover.extend({
     },
     _onOpen: function () {
         this._position();
-        util.addClass(this.container, 'ui-tooltip-' + this.placement + '-enter');
+        util.addClass(this.container, 'lmui-tooltip-' + this.placement + '-enter');
     },
     _onClose: function () {
-        util.removeClass(this.container, 'ui-tooltip-' + this.placement + '-enter');
+        util.removeClass(this.container, 'lmui-tooltip-' + this.placement + '-enter');
     }
 });
 export default Tooltip;
