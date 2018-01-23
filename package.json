@@ -1,0 +1,48 @@
+{
+    "name": "lmui",
+    "version": "1.0.0",
+    "description": "立马理财前端ui组件库",
+    "main": "./dist/lmui.js",
+    "scripts": {
+        "dev": "webpack-dev-server --hot --inline --progress --config build/webpack.base.conf.js",
+        "build": "node build/build.js"
+    },
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-eslint": "^8.2.1",
+        "babel-loader": "^7.1.2",
+        "babel-plugin-add-module-exports": "^0.2.1",
+        "babel-preset-es2015": "^6.24.1",
+        "chalk": "^2.3.0",
+        "css-loader": "^0.28.9",
+        "cssnano": "^3.10.0",
+        "eslint": "^4.16.0",
+        "eslint-loader": "^1.9.0",
+        "extract-text-webpack-plugin": "^3.0.2",
+        "file-loader": "^1.1.6",
+        "html-loader": "^0.5.5",
+        "html-webpack-plugin": "^2.30.1",
+        "less": "^2.7.3",
+        "less-loader": "^4.0.5",
+        "postcss-cssnext": "^3.1.0",
+        "postcss-loader": "^2.0.10",
+        "style-loader": "^0.19.1",
+        "url-loader": "^0.6.2",
+        "webpack": "^3.10.0",
+        "webpack-dev-server": "^2.11.1"
+    },
+    "browserslist": [
+        "since 2013",
+        "ie 9"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://git.easecreate.com/lmfe/lmui.git"
+    },
+    "keywords": [
+        "lmlc",
+        "ui"
+    ],
+    "author": "lmfe",
+    "license": "ISC"
+}

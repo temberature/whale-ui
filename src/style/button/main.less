@@ -1,0 +1,95 @@
+.mint-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 2px;
+    border: 0;
+    box-sizing: border-box;
+    color: inherit;
+    display: block;
+    font-size: 15px;
+    height: 40px;
+    outline: 0;
+    overflow: hidden;
+    position: relative;
+    text-align: center
+}
+
+.mint-button::after {
+    background-color: #000;
+    content: " ";
+    opacity: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: absolute
+}
+
+.mint-button:not(.is-disabled):active::after {
+    opacity: .4
+}
+
+.mint-button.is-disabled {
+    border: 0;
+    color: #999999;
+    background: #E5E5E5
+}
+
+.mint-button-icon {
+    vertical-align: middle;
+    display: inline-block
+}
+
+.mint-button--default {
+    border: 1px solid #999;
+    color: #666;
+    background-color: #f6f8fa
+    /* box-shadow: $button-default-box-shadow; */
+}
+
+.mint-button--default.is-plain {
+    border: 1px solid #4990E2;
+    background-color: transparent;
+    box-shadow: none;
+    color: #4990E2
+}
+
+.mint-button--primary {
+    color: #7C5D48;
+    background-color: #FDCE43
+}
+
+.mint-button--primary.is-plain {
+    border: 1px solid #FF6600;
+    background-color: transparent;
+    color: #FF6600
+}
+
+.mint-button--danger {
+    color: #fff;
+    background-color: #ef4f4f
+}
+
+.mint-button--danger.is-plain {
+    border: 1px solid #ef4f4f;
+    background-color: transparent;
+    color: #ef4f4f
+}
+
+.mint-button--large {
+    display: block;
+    width: 100%
+}
+
+.mint-button--normal {
+    display: inline-block;
+    padding: 0 12px
+}
+
+.mint-button--small {
+    display: inline-block;
+    font-size: 14px;
+    padding: 0 16px;
+    height: 30px
+}

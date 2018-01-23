@@ -1,0 +1,29 @@
+.ui-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .5;
+    background: #000;
+}
+
+.ui-overlay-enter {
+    animation: ui-overlay-in .3s ease;
+}
+
+.ui-overlay-leave {
+    animation: ui-overlay-out .3s ease forwards;
+}
+
+@keyframes ui-overlay-in {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes ui-overlay-out {
+    to {
+        opacity: 0;
+    }
+}
