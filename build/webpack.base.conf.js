@@ -9,7 +9,7 @@ module.exports = {
     context: path.resolve(__dirname, '../'),
     entry: {
         lmui: './src/index.js',
-        test: './test/index.js'
+        example: './example/index.js'
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
@@ -26,7 +26,8 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.less'],
         alias: {
-            '@js': resolve('src/js')
+            '@js': resolve('src/js'),
+            '@lmui': resolve('src')
         }
     },
     module: {
@@ -34,11 +35,11 @@ module.exports = {
             test: /\.js$/,
             loader: 'eslint-loader',
             enforce: 'pre',
-            include: [resolve('src'), resolve('test')]
+            include: [resolve('src'), resolve('example')]
         }, {
             test: /\.js$/,
             loader: 'babel-loader',
-            include: [resolve('src'), resolve('test')]
+            include: [resolve('src'), resolve('example')]
         }, {
             test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
             loader: 'url-loader',
@@ -63,9 +64,10 @@ module.exports = {
         }, {
             test: /\.html$/,
             loader: 'html-loader',
-            // options: {
-            //     // minimize: true
-            // }
+            include: [resolve('src'), resolve('example')]
+                // options: {
+                //     // minimize: true
+                // }
         }]
     }
 }
