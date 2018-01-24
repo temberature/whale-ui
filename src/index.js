@@ -20,7 +20,7 @@ export default {
         config = config || {};
         var defaultOption = {
             width: '85%',
-            containerClass: 'ui-toast',
+            containerClass: 'lmui-toast',
             content: text,
             timeout: +timeout || 2000,
             button: []
