@@ -70,6 +70,9 @@ var EasyScroller = Class.extend({
     finishPullToRefresh: function () {
         this.option.PullToRefresh && this.scroller.finishPullToRefresh();
     },
+    setDimensions: function (clientWidth, clientHeight, contentWidth, contentHeight) {
+        this.scroller.setDimensions(clientWidth, clientHeight, contentWidth, contentHeight);
+    },
     render: (function () {
         var docStyle = document.documentElement.style
         var engine;
