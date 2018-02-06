@@ -60,7 +60,7 @@ var Animate = {
           requestCount = 0;
 
           for (var key in currentRequests) {
-            if (currentRequests.hasOwnProperty(key)) {
+            if (Object.prototype.hasOwnProperty.call(currentRequests, key)) {
               currentRequests[key](time);
               lastActive = time;
             }
