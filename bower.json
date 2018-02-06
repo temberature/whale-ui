@@ -2,5 +2,5 @@
   "name": "lmfe.ui",
   "description": "lmfe.ui",
   "main": "./dist/lmui.js",
-  "ignore": ["**/.*", "node_modules", "bower_components", "test", "tests"]
+  "ignore": ["**/.*", "node_modules", "build", "example", "test", "./index.html"]
 }
