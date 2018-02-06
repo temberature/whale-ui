@@ -1,13 +1,6 @@
 {
-    "name": "lmfe.ui",
-    "description": "lmfe.ui",
-    "main": "./dist/lmui.js",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ]
+  "name": "lmfe.ui",
+  "description": "lmfe.ui",
+  "main": "./dist/lmui.js",
+  "ignore": ["**/.*", "node_modules", "bower_components", "test", "tests"]
 }
-
