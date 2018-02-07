@@ -2,7 +2,7 @@
  * PopupManager
  */
 'use strict';
-import Style from './index.less';
+import './index.less';
 import Util from '@js/util';
 var initZ = 300;
 var popManager = {
@@ -50,7 +50,9 @@ var popManager = {
   },
   // 打开一个遮罩层
   openOverlay: function (id, zIndex, dom, modalClass, modalFade) {
-    if (!id /* || zIndex === undefined */) {return;}
+    if (!id /* || zIndex === undefined */) {
+      return;
+    }
     // 判断id唯一性
     for (var i = 0, j = this.popStack.length; i < j; i++) {
       var item = this.popStack[i];
@@ -127,9 +129,11 @@ var popManager = {
       }
       window.setTimeout(function () {
         if (popStack.length === 0) {
-          if (overlayDom.parentNode) {overlayDom.parentNode.removeChild(overlayDom);}
+          if (overlayDom.parentNode) {
+            overlayDom.parentNode.removeChild(overlayDom);
+          }
           overlayDom.style.display = 'none';
-          this.overlayDom = undefined;
+          overlayDom = null;
         }
         Util.removeClass(overlayDom, 'lmui-overlay-leave');
       }, 300);
@@ -170,5 +174,5 @@ window.addEventListener('keydown', function (event) {
     }
   }
 });
-// window.popManager = popManager;
+
 export default popManager;
