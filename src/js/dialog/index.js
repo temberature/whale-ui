@@ -1,5 +1,5 @@
 'use strict';
-import Style from './index.less';
+import './index.less';
 import util from '@js/util';
 import Popbase from '@js/popbase';
 var defaultOption = {
@@ -39,7 +39,6 @@ var Dialog = Popbase.extend({
     this._createEvent('onBtnClick');
   },
   _initDom: function () {
-    var me = this;
     this.container = document.createElement('div');
     this.container.className = this.containerClass + ' lmui-dialog-container lmui-dialog-' + this.placement;
     this.width == 'auto' ? '' : (this.container.style.width = this.width);

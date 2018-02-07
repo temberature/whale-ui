@@ -1,5 +1,5 @@
 'use strict';
-import Style from './index.less';
+import './index.less';
 import util from '@js/util';
 import Popbase from '@js/popbase';
 var defaultOption = {
@@ -57,7 +57,7 @@ var Popover = Popbase.extend({
   },
   _initEvent: function () {
     var me = this;
-    if (this.action == 'click') {
+    if (this.action === 'click') {
       this.target.addEventListener(
         'click',
         function (e) {
@@ -74,7 +74,7 @@ var Popover = Popbase.extend({
         },
         false
       );
-    } else if (this.action == 'focus') {
+    } else if (this.action === 'focus') {
       this.target.addEventListener(
         'focus',
         function (e) {
@@ -109,13 +109,13 @@ var Popover = Popbase.extend({
   _position: function () {
     var targetRect = this.target.getClientRects()[0],
       containerRect = this.container.getClientRects()[0];
-    if (this.placement.indexOf('right') == 0) {
+    if (this.placement.indexOf('right') === 0) {
       this.container.style.left = targetRect.right + this.distance + 'px';
       this.container.style.top = targetRect.top + targetRect.height / 2 + 'px';
-    } else if (this.placement.indexOf('bottom') == 0) {
+    } else if (this.placement.indexOf('bottom') === 0) {
       this.container.style.left = targetRect.left + targetRect.width / 2 + 'px';
       this.container.style.top = targetRect.top + targetRect.height + this.distance + 'px';
-    } else if (this.placement.indexOf('left') == 0) {
+    } else if (this.placement.indexOf('left') === 0) {
       this.container.style.left = targetRect.left - containerRect.width - this.distance + 'px';
       this.container.style.top = targetRect.top + targetRect.height / 2 + 'px';
     } else {

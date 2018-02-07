@@ -42,7 +42,9 @@ var popManager = {
   // 背景dom被点击 关闭最新创建popup
   closeCurrentPop: function () {
     var currentPop = this.popStack[this.popStack.length - 1];
-    if (!currentPop) {return;}
+    if (!currentPop) {
+      return;
+    }
     var instance = this.getInstance(currentPop.id);
     if (instance && instance.closeOnClickModal) {
       instance.close();
@@ -127,13 +129,15 @@ var popManager = {
       if (this.modalFade) {
         Util.addClass(overlayDom, 'lmui-overlay-leave');
       }
+      var me = this;
       window.setTimeout(function () {
         if (popStack.length === 0) {
           if (overlayDom.parentNode) {
             overlayDom.parentNode.removeChild(overlayDom);
           }
           overlayDom.style.display = 'none';
-          overlayDom = null;
+          // 为了避免在300ms内调用新的getOverlay这里需要强调为me.
+          me.overlayDom = null;
         }
         Util.removeClass(overlayDom, 'lmui-overlay-leave');
       }, 300);
@@ -166,7 +170,9 @@ window.addEventListener('keydown', function (event) {
     // ESC
     if (popManager.popStack.length > 0) {
       var currentPop = popManager.popStack[popManager.popStack.length - 1];
-      if (!currentPop) {return;}
+      if (!currentPop) {
+        return;
+      }
       var instance = popManager.getInstance(currentPop.id);
       if (instance.closeOnPressEscape) {
         instance.close();

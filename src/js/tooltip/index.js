@@ -1,5 +1,5 @@
 'use strict';
-import Style from './index.less';
+import './index.less';
 import util from '@js/util';
 import Popover from '@js/popover';
 var defaultOption = {
@@ -13,7 +13,6 @@ var Tooltip = Popover.extend({
     this._super(obj);
   },
   _initDom: function () {
-    var me = this;
     this.root = document.createElement('div');
     this.root.className = 'lmui-tooltip-root';
     document.body.appendChild(this.root);

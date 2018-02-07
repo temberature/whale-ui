@@ -104,17 +104,17 @@ var EasyScroller = Class.extend({
       return function (left, top, zoom) {
         this.content.style[transformProperty] = 'translate3d(' + -left + 'px,' + -top + 'px,0) scale(' + zoom + ')';
       };
-    } if (helperElem.style[transformProperty] !== undef) {
+    }
+    if (helperElem.style[transformProperty] !== undef) {
       return function (left, top, zoom) {
         this.content.style[transformProperty] = 'translate(' + -left + 'px,' + -top + 'px) scale(' + zoom + ')';
       };
-    } 
+    }
     return function (left, top, zoom) {
       this.content.style.marginLeft = left ? -left / zoom + 'px' : '';
       this.content.style.marginTop = top ? -top / zoom + 'px' : '';
       this.content.style.zoom = zoom || '';
     };
-    
   }()),
   bindEvents: function () {
     var me = this;

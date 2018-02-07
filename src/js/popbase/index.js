@@ -34,8 +34,7 @@ var defaultOption = {
   // overlay的zIndex固定
   fixOverlay: false
 };
-var uuid = 1;
-var scrollBarWidth;
+
 var Popbase = Class.extend({
   _className: 'Popbase',
   init: function (option) {
@@ -43,7 +42,6 @@ var Popbase = Class.extend({
     util.merge(this, defaultOption, option);
     this._super();
     this._createEvent('onCreate onBeforeShow onShow onBeforeClose onClose onDestory');
-    // this._popupId = 'popup-' + uuid++;
     popManager.register(this.instanceId(), this);
     this._initDom();
     this._initEvent();
@@ -64,7 +62,9 @@ var Popbase = Class.extend({
   // 显示pop
   show: function () {
     // 如果已经开启状态 或者 onBeforeShow 返回 false 则不会打开
-    if (this.isOpened || this.dispatch('onBeforeShow') === false) {return;}
+    if (this.isOpened || this.dispatch('onBeforeShow') === false) {
+      return;
+    }
     if (this._closeTimer) {
       window.clearTimeout(this._closeTimer);
       this._closeTimer = null;
@@ -84,7 +84,9 @@ var Popbase = Class.extend({
   },
   // 执行显示pop
   _doOpen: function () {
-    if (this.willShow && !this.willShow()) {return;}
+    if (this.willShow && !this.willShow()) {
+      return;
+    }
     this.isOpening = true;
     var container = this.container;
     var modal = this.modal;
@@ -171,7 +173,9 @@ var Popbase = Class.extend({
   },
   // 执行关闭
   _doClose: function () {
-    if (this.willClose && !this.willClose()) {return;}
+    if (this.willClose && !this.willClose()) {
+      return;
+    }
     this.isClosing = true;
     if (this.lockScroll) {
       var me = this;
@@ -195,7 +199,9 @@ var Popbase = Class.extend({
   _doAfterClose: function () {
     popManager.closeOverlay(this.instanceId());
     this.isClosing = false;
-    this.destoryOnClose ? this.destory() : '';
+    if (this.destoryOnClose) {
+      this.destory();
+    }
   },
   // 销毁
   destory: function () {
@@ -208,7 +214,9 @@ var Popbase = Class.extend({
     }
     this.bodyOverflow = null;
     // this.bodyPaddingRight = null;
-    if (this.container) {this.container.parentNode.removeChild(this.container);}
+    if (this.container) {
+      this.container.parentNode.removeChild(this.container);
+    }
     delete this.container;
     delete this;
   }

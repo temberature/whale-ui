@@ -131,9 +131,8 @@ var EventClass = Class.extend({
           if (Object.prototype.toString.call(fn) == '[object Function]') {
             me.bind(ename, fn);
             return me;
-          } 
+          }
           return me.dispatch.apply(me, [ename].concat(Array.prototype.slice.call(arguments, 0)));
-          
         };
       }(eventName));
     }
