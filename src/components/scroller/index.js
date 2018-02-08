@@ -1,7 +1,7 @@
 'use strict';
-import Class from '@js/class';
-import util from '@js/util';
-import Scroller from '@js/util/scroller';
+import Class from '@components/class';
+import util from '@common/util';
+import Scroller from '@common/util/scroller';
 var defaultOption = {
   // 是否支持横向滚动
   scrollingX: false,
@@ -34,7 +34,7 @@ var EasyScroller = Class.extend({
   _className: 'EasyScroller',
   init: function (content, option) {
     this._super();
-    this._createEvent('onCreate onScroll onRefreshLess onRefresh onRefreshMore');
+    this._createEvent('onCreate onScroll onScrollOver onRefreshLess onRefresh onRefreshMore');
     this.content = content;
     this.container = content.parentNode;
     this.option = util.merge({}, defaultOption, option);
@@ -53,6 +53,9 @@ var EasyScroller = Class.extend({
   },
   initScroller: function () {
     var me = this;
+    this.option.scrollingComplete = function () {
+      me.dispatch('onScrollOver');
+    };
     this.scroller = new Scroller(function (left, top, zoom) {
       me.dispatch('onScroll', left, top, zoom);
       me.render(left, top, zoom);

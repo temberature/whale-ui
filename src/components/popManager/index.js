@@ -3,7 +3,7 @@
  */
 'use strict';
 import './index.less';
-import Util from '@js/util';
+import util from '@common/util';
 var initZ = 300;
 var popManager = {
   // 初始z值
@@ -64,20 +64,20 @@ var popManager = {
     }
     this.modalFade = modalFade;
     var overlayDom = this.getOverlay();
-    Util.addClass(overlayDom, 'lmui-overlay');
+    util.addClass(overlayDom, 'lmui-overlay');
     if (this.modalFade && !this.hasOverlay) {
-      Util.addClass(overlayDom, 'lmui-overlay-enter');
+      util.addClass(overlayDom, 'lmui-overlay-enter');
     }
     if (modalClass) {
       var classArr = modalClass.trim().split(/\s+/),
         classArrLength = classArr.length;
       for (var i = 0; i < classArrLength; i++) {
         var item = classArr[i];
-        Util.addClass(overlayDom, item);
+        util.addClass(overlayDom, item);
       }
     }
     window.setTimeout(function () {
-      Util.removeClass(overlayDom, 'lmui-overlay-enter');
+      util.removeClass(overlayDom, 'lmui-overlay-enter');
     }, 300);
     if (dom && dom.parentNode && dom.parentNode.nodeType !== 11) {
       dom.parentNode.appendChild(overlayDom);
@@ -104,7 +104,7 @@ var popManager = {
             classArrLength = classArr.length;
           for (var i = 0; i < classArrLength; i++) {
             var item = classArr[i];
-            Util.removeClass(overlayDom, item);
+            util.removeClass(overlayDom, item);
           }
         }
         popStack.pop();
@@ -127,7 +127,7 @@ var popManager = {
     }
     if (popStack.length === 0) {
       if (this.modalFade) {
-        Util.addClass(overlayDom, 'lmui-overlay-leave');
+        util.addClass(overlayDom, 'lmui-overlay-leave');
       }
       var me = this;
       window.setTimeout(function () {
@@ -139,7 +139,7 @@ var popManager = {
           // 为了避免在300ms内调用新的getOverlay这里需要强调为me.
           me.overlayDom = null;
         }
-        Util.removeClass(overlayDom, 'lmui-overlay-leave');
+        util.removeClass(overlayDom, 'lmui-overlay-leave');
       }, 300);
     }
   },

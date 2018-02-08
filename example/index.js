@@ -1,4 +1,4 @@
-import style from './index.less';
+import './index.less';
 import LMUI from '@lmui';
 import button from './button';
 import toast from './toast';

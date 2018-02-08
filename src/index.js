@@ -1,11 +1,11 @@
-import style from './index.less';
-import Popup from '@js/popup';
-import Dialog from '@js/dialog';
-import Popover from '@js/popover';
-import Tooltip from '@js/tooltip';
-import Scroller from '@js/scroller';
-import Picker from '@js/picker';
-import util from '@js/util';
+import './index.less';
+import util from '@common/util';
+import Popup from '@components/popup';
+import Dialog from '@components/dialog';
+import Popover from '@components/popover';
+import Tooltip from '@components/tooltip';
+import Scroller from '@components/scroller';
+import Picker from '@components/picker';
 
 export default {
   Popup: Popup,
@@ -13,7 +13,7 @@ export default {
   Popover: Popover,
   Tooltip: Tooltip,
   toast: function (text, timeout, callback, config) {
-    if (Object.prototype.toString.call(timeout) == '[object Function]') {
+    if (Object.prototype.toString.call(timeout) === '[object Function]') {
       config = callback;
       callback = timeout;
       timeout = null;

@@ -26,7 +26,8 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.less'],
     alias: {
-      '@js': resolve('src/js'),
+      '@common': resolve('src/common'),
+      '@components': resolve('src/components'),
       '@lmui': resolve('src')
     }
   },

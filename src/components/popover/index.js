@@ -1,7 +1,7 @@
 'use strict';
 import './index.less';
-import util from '@js/util';
-import Popbase from '@js/popbase';
+import util from '@common/util';
+import Popbase from '@components/popbase';
 var defaultOption = {
   // 目标元素dom
   target: null,

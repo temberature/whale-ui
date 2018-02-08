@@ -1,7 +1,7 @@
 'use strict';
-import Class from '@js/class';
-import util from '@js/util';
-import popManager from '@js/popManager';
+import util from '@common/util';
+import Class from '@components/class';
+import popManager from '@components/popManager';
 var defaultOption = {
   // 是否默认打开
   autoShow: false,

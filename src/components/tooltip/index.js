@@ -1,7 +1,7 @@
 'use strict';
 import './index.less';
-import util from '@js/util';
-import Popover from '@js/popover';
+import util from '@common/util';
+import Popover from '@components/popover';
 var defaultOption = {
   // 外包容器class
   containerClass: 'lmui-tooltip-normal'

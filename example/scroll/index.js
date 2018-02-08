@@ -41,6 +41,9 @@ export default function () {
     .onScroll(function (left, top, zoom) {
       console.log(left, top, zoom);
     })
+    .onScrollOver(function () {
+      console.log('onScrollOver');
+    })
     .onRefreshLess(function () {
       console.log('onRefreshLess');
       refresh.innerHTML = '未触发刷新';

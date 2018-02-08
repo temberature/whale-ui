@@ -1,7 +1,7 @@
 'use strict';
 import './index.less';
-import util from '@js/util';
-import Popbase from '@js/popbase';
+import util from '@common/util';
+import Popbase from '@components/popbase';
 var defaultOption = {
   // 是否默认打开
   autoShow: true,
