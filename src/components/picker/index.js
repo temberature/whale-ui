@@ -1,4 +1,6 @@
 'use strict';
+import './index.less';
+import tpl from './index.html';
 import Class from '@components/class';
 import util from '@common/util';
 import Scroller from '@common/util/scroller';
@@ -24,43 +26,54 @@ var defaultOption = {
   // 缩放最小值
   minZoom: 0.5,
   // 缩放最大值
-  maxZoom: 3
+  maxZoom: 3,
+  // 数据
+  data: []
 };
 var EasyScroller = Class.extend({
   _className: 'EasyScroller',
-  init: function (content, option) {
+  init: function (wrapper, option) {
     this._super();
     this._createEvent('onCreate onScroll onScrollOver');
-    this.content = content;
-    this.container = content.parentNode;
     this.option = util.merge({}, defaultOption, option);
+    this._initDom(wrapper);
     // create Scroller instance
-    this.initScroller();
+    this._initScroller();
     // bind events
-    this.bindEvents();
+    this._bindEvents();
     // the content element needs a correct transform origin for zooming
     this.content.style[defaultOption.vendorPrefix + 'TransformOrigin'] = 'left top';
     // reflow for the first time
     this.reflow();
+    this._currentIndex = 0;
     var me = this;
     window.setTimeout(function () {
       me.dispatch('onCreate');
     }, 0);
   },
-  initScroller: function () {
+  _initDom: function (wrapper) {
+    this.wrapper = wrapper;
+    this.wrapper.innerHTML = util.render(tpl, this.option);
+    this.container = this.wrapper.firstElementChild.firstElementChild;
+    this.content = this.container.firstElementChild;
+  },
+  _initScroller: function () {
     var me = this;
     this.option.scrollingComplete = function () {
       me.dispatch('onScrollOver');
     };
     this.scroller = new Scroller(function (left, top, zoom) {
-      me.dispatch('onScroll', left, top, zoom);
-      me.render(left, top, zoom);
+      var height = me.container.clientHeight,
+        index = parseInt(top / height, 10);
+      me._currentIndex = index;
+      me.dispatch('onScroll', me._currentIndex, me.option.data[me._currentIndex]);
+      me._render(left, top, zoom);
     }, this.option);
   },
   setDimensions: function (clientWidth, clientHeight, contentWidth, contentHeight) {
     this.scroller.setDimensions(clientWidth, clientHeight, contentWidth, contentHeight);
   },
-  render: (function () {
+  _render: (function () {
     var docStyle = document.documentElement.style;
     var engine;
     if (window.opera && Object.prototype.toString.call(opera) === '[object Opera]') {
@@ -86,19 +99,19 @@ var EasyScroller = Class.extend({
       return function (left, top, zoom) {
         this.content.style[transformProperty] = 'translate3d(' + -left + 'px,' + -top + 'px,0) scale(' + zoom + ')';
       };
-    } if (helperElem.style[transformProperty] !== undef) {
+    }
+    if (helperElem.style[transformProperty] !== undef) {
       return function (left, top, zoom) {
         this.content.style[transformProperty] = 'translate(' + -left + 'px,' + -top + 'px) scale(' + zoom + ')';
       };
-    } 
+    }
     return function (left, top, zoom) {
       this.content.style.marginLeft = left ? -left / zoom + 'px' : '';
       this.content.style.marginTop = top ? -top / zoom + 'px' : '';
       this.content.style.zoom = zoom || '';
     };
-    
   }()),
-  bindEvents: function () {
+  _bindEvents: function () {
     var me = this;
     // reflow handling
     window.addEventListener(

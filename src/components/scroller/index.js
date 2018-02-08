@@ -36,6 +36,7 @@ var EasyScroller = Class.extend({
     this._super();
     this._createEvent('onCreate onScroll onScrollOver onRefreshLess onRefresh onRefreshMore');
     this.content = content;
+    // 默认会把父节点当成滚动的外部容器
     this.container = content.parentNode;
     this.option = util.merge({}, defaultOption, option);
     // create Scroller instance
