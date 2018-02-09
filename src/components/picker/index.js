@@ -1,7 +1,7 @@
 'use strict';
 import './index.less';
 import tpl from './index.html';
-import EventCore from '@components/eventcore';
+import EventClass from '@components/eventclass';
 import { merge, render } from '@common/util';
 import Scroller from '@common/util/scroller';
 var defaultOption = {
@@ -69,7 +69,7 @@ var renderScroll = (function () {
     content.style.zoom = zoom || '';
   };
 }());
-class Picker extends EventCore {
+class Picker extends EventClass {
   constructor (wrapper, option) {
     super();
     this._className = 'Picker';

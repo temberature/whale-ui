@@ -1,5 +1,5 @@
 'use strict';
-import EventCore from '@components/eventcore';
+import EventClass from '@components/eventclass';
 import { merge } from '@common/util';
 import Scroller from '@common/util/scroller';
 var defaultOption = {
@@ -70,7 +70,7 @@ var renderScroll = (function () {
   };
 }());
 
-class EasyScroller extends EventCore {
+class EasyScroller extends EventClass {
   constructor (content, option) {
     super();
     this._className = 'Scroller';

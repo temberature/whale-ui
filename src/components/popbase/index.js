@@ -1,6 +1,6 @@
 'use strict';
 import { merge } from '@common/util';
-import EventCore from '@components/eventcore';
+import EventClass from '@components/eventclass';
 import popManager from '@components/popManager';
 var defaultOption = {
   // 是否默认打开
@@ -34,7 +34,7 @@ var defaultOption = {
   // overlay的zIndex固定
   fixOverlay: false
 };
-class Popbase extends EventCore {
+class Popbase extends EventClass {
   constructor (option) {
     super();
     popManager.register(this.instanceId(), this);

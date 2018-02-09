@@ -22,7 +22,7 @@ class ClassBase {
   }
 }
 
-class EventCore extends ClassBase {
+class EventClass extends ClassBase {
   constructor () {
     super();
     this._className = 'EventClass';
@@ -160,4 +160,4 @@ class EventCore extends ClassBase {
     }
   }
 }
-export default EventCore;
+export default EventClass;
