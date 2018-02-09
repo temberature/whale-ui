@@ -31,13 +31,13 @@ var defaultOption = {
   button: ['*我知道了']
 };
 
-var Dialog = Popbase.extend({
-  _className: 'Dialog',
-  init: function (option) {
+class Dialog extends Popbase {
+  constructor (option) {
     var obj = merge({}, defaultOption, option);
-    this._super(obj);
-  },
-  _initDom: function () {
+    super(obj);
+    this._className = 'Dialog';
+  }
+  _initDom () {
     this.container = document.createElement('div');
     this.container.className = this.containerClass + ' lmui-dialog-container lmui-dialog-' + this.placement;
     this.width == 'auto' ? '' : (this.container.style.width = this.width);
@@ -87,8 +87,8 @@ var Dialog = Popbase.extend({
     ].join('');
     this.container.innerHTML = html;
     this.warp.appendChild(this.container);
-  },
-  _initEvent: function () {
+  }
+  _initEvent () {
     var me = this;
     this.container.addEventListener(
       'click',
@@ -105,26 +105,24 @@ var Dialog = Popbase.extend({
       },
       false
     );
-  },
-  _onOpen: function () {
+  }
+  _onOpen () {
     this.transition = true;
     addClass(this.container, 'lmui-dialog-' + this.placement + '-enter');
-    var me = this;
-    window.setTimeout(function () {
-      me.transition = false;
-      me._doAfterOpen();
-    }, 300);
-  },
-  _onClose: function () {
-    this.transition = true;
-    removeClass(this.container, 'lmui-dialog-' + this.placement + '-enter');
-    var me = this;
-    window.setTimeout(function () {
-      me.transition = false;
-      me._doAfterClose();
+    window.setTimeout(() => {
+      this.transition = false;
+      this._doAfterOpen();
     }, 300);
   }
-});
+  _onClose () {
+    this.transition = true;
+    removeClass(this.container, 'lmui-dialog-' + this.placement + '-enter');
+    window.setTimeout(() => {
+      this.transition = false;
+      this._doAfterClose();
+    }, 300);
+  }
+}
 Dialog.GlobalConf = {
   btnCssMap: {
     def: 'btn',

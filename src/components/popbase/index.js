@@ -1,6 +1,6 @@
 'use strict';
 import { merge } from '@common/util';
-import Class from '@components/class';
+import EventCore from '@components/eventcore';
 import popManager from '@components/popManager';
 var defaultOption = {
   // 是否默认打开
@@ -34,33 +34,32 @@ var defaultOption = {
   // overlay的zIndex固定
   fixOverlay: false
 };
-
-var Popbase = Class.extend({
-  _className: 'Popbase',
-  init: function (option) {
-    // 扩展/覆盖私有属性
-    merge(this, defaultOption, option);
-    this._super();
-    this._createEvent('onCreate onBeforeShow onShow onBeforeClose onClose onDestory');
+class Popbase extends EventCore {
+  constructor (option) {
+    super();
     popManager.register(this.instanceId(), this);
+    this._className = 'Popbase';
+    this._createEvent('onCreate onBeforeShow onShow onBeforeClose onClose onDestory');
+    merge(this, defaultOption, option);
     this._initDom();
     this._initEvent();
-    var me = this;
-    window.setTimeout(function () {
-      me.dispatch('onCreate');
-      if (me.autoShow) {
-        me.show();
+    window.setTimeout(() => {
+      this.dispatch('onCreate');
+      if (this.autoShow) {
+        this.show();
       }
     }, 0);
-  },
+  }
   // 初始化dom 该方法需要继承
-  _initDom: function () {
+  _initDom () {
     this.container = null;
-  },
+  }
   // 初始化事件 该方法需要继承
-  _initEvent: function () {},
+  _initEvent () {
+    console.log(this);
+  }
   // 显示pop
-  show: function () {
+  show () {
     // 如果已经开启状态 或者 onBeforeShow 返回 false 则不会打开
     if (this.isOpened || this.dispatch('onBeforeShow') === false) {
       return;
@@ -81,9 +80,9 @@ var Popbase = Class.extend({
     } else {
       this._doOpen();
     }
-  },
+  }
   // 执行显示pop
-  _doOpen: function () {
+  _doOpen () {
     if (this.willShow && !this.willShow()) {
       return;
     }
@@ -144,13 +143,13 @@ var Popbase = Class.extend({
       // 如果有过渡
       this._doAfterOpen();
     }
-  },
+  }
   // 打开完毕后操作
-  _doAfterOpen: function () {
+  _doAfterOpen () {
     this.isOpening = false;
-  },
+  }
   // 关闭
-  close: function () {
+  close () {
     if (!this.isOpened || this.dispatch('onBeforeClose') === false) {
       return;
     }
@@ -170,9 +169,9 @@ var Popbase = Class.extend({
     } else {
       this._doClose();
     }
-  },
+  }
   // 执行关闭
-  _doClose: function () {
+  _doClose () {
     if (this.willClose && !this.willClose()) {
       return;
     }
@@ -194,17 +193,17 @@ var Popbase = Class.extend({
     if (!this.transition) {
       this._doAfterClose();
     }
-  },
+  }
   // 关闭完毕后操作
-  _doAfterClose: function () {
+  _doAfterClose () {
     popManager.closeOverlay(this.instanceId());
     this.isClosing = false;
     if (this.destoryOnClose) {
       this.destory();
     }
-  },
+  }
   // 销毁
-  destory: function () {
+  destory () {
     this.dispatch('onDestory');
     popManager.deregister(this.instanceId());
     popManager.closeOverlay(this.instanceId());
@@ -220,5 +219,6 @@ var Popbase = Class.extend({
     delete this.container;
     delete this;
   }
-});
+}
+
 export default Popbase;

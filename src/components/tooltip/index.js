@@ -6,13 +6,13 @@ var defaultOption = {
   // 外包容器class
   containerClass: 'lmui-tooltip-normal'
 };
-var Tooltip = Popover.extend({
-  _className: 'Tooltip',
-  init: function (option) {
+class Tooltip extends Popover {
+  constructor (option) {
     var obj = merge({}, defaultOption, option);
-    this._super(obj);
-  },
-  _initDom: function () {
+    super(obj);
+    this._className = 'Tooltip';
+  }
+  _initDom () {
     this.root = document.createElement('div');
     this.root.className = 'lmui-tooltip-root';
     document.body.appendChild(this.root);
@@ -27,16 +27,13 @@ var Tooltip = Popover.extend({
       '</div>'
     ].join('');
     this.root.appendChild(this.container);
-  },
-  _initEvent: function () {
-    this._super();
-  },
-  _onOpen: function () {
+  }
+  _onOpen () {
     this._position();
     addClass(this.container, 'lmui-tooltip-' + this.placement + '-enter');
-  },
-  _onClose: function () {
+  }
+  _onClose () {
     removeClass(this.container, 'lmui-tooltip-' + this.placement + '-enter');
   }
-});
+}
 export default Tooltip;

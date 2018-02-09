@@ -5,6 +5,9 @@ import toast from './toast';
 import scroll from './scroll';
 import picker from './picker';
 import actionsheet from './actionsheet';
+import popover from './popover';
+import popup from './popup';
+import dialog from './dialog';
 
 window.LMUI = LMUI;
 window.container = document.getElementById('container');
@@ -17,7 +20,10 @@ var routes = {
   '/toast': toast,
   '/scroll': scroll,
   '/picker': picker,
-  '/actionsheet': actionsheet
+  '/actionsheet': actionsheet,
+  '/popover': popover,
+  '/popup': popup,
+  '/dialog': dialog
 };
 
 var router = Router(routes);

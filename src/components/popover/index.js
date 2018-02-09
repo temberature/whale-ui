@@ -32,14 +32,13 @@ var defaultOption = {
   // 是否关闭时销毁
   destoryOnClose: false
 };
-var Popover = Popbase.extend({
-  _className: 'Popover',
-  init: function (option) {
+class Popover extends Popbase {
+  constructor (option) {
     var obj = merge({}, defaultOption, option);
-    this._super(obj);
-  },
-  _initDom: function () {
-    var me = this;
+    super(obj);
+    this._className = 'Popover';
+  }
+  _initDom () {
     this.root = document.createElement('div');
     this.root.className = 'lmui-popover-root';
     document.body.appendChild(this.root);
@@ -54,8 +53,8 @@ var Popover = Popbase.extend({
       '</div>'
     ].join('');
     this.root.appendChild(this.container);
-  },
-  _initEvent: function () {
+  }
+  _initEvent () {
     var me = this;
     if (this.action === 'click') {
       this.target.addEventListener(
@@ -105,8 +104,8 @@ var Popover = Popbase.extend({
         false
       );
     }
-  },
-  _position: function () {
+  }
+  _position () {
     var targetRect = this.target.getClientRects()[0],
       containerRect = this.container.getClientRects()[0];
     if (this.placement.indexOf('right') === 0) {
@@ -123,13 +122,13 @@ var Popover = Popbase.extend({
       this.container.style.left = targetRect.left + targetRect.width / 2 + 'px';
       this.container.style.top = targetRect.top - containerRect.height - this.distance + 'px';
     }
-  },
-  _onOpen: function () {
+  }
+  _onOpen () {
     this._position();
     addClass(this.container, 'lmui-popover-' + this.placement + '-enter');
-  },
-  _onClose: function () {
+  }
+  _onClose () {
     removeClass(this.container, 'lmui-popover-' + this.placement + '-enter');
   }
-});
+}
 export default Popover;

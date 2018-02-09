@@ -1,5 +1,5 @@
 'use strict';
-import Class from '@components/class';
+import EventCore from '@components/eventcore';
 import { merge } from '@common/util';
 import Scroller from '@common/util/scroller';
 var defaultOption = {
@@ -30,10 +30,50 @@ var defaultOption = {
   // 下拉刷新高度（像素）
   PullToRefreshHeight: 50
 };
-var EasyScroller = Class.extend({
-  _className: 'EasyScroller',
-  init: function (content, option) {
-    this._super();
+
+var renderScroll = (function () {
+  var docStyle = document.documentElement.style;
+  var engine;
+  if (window.opera && Object.prototype.toString.call(opera) === '[object Opera]') {
+    engine = 'presto';
+  } else if ('MozAppearance' in docStyle) {
+    engine = 'gecko';
+  } else if ('WebkitAppearance' in docStyle) {
+    engine = 'webkit';
+  } else if (typeof navigator.cpuClass === 'string') {
+    engine = 'trident';
+  }
+  var vendorPrefix = (defaultOption.vendorPrefix = {
+    trident: 'ms',
+    gecko: 'Moz',
+    webkit: 'Webkit',
+    presto: 'O'
+  }[engine]);
+  var helperElem = document.createElement('div');
+  var undef;
+  var perspectiveProperty = vendorPrefix + 'Perspective';
+  var transformProperty = vendorPrefix + 'Transform';
+  if (helperElem.style[perspectiveProperty] !== undef) {
+    return function (content, left, top, zoom) {
+      content.style[transformProperty] = 'translate3d(' + -left + 'px,' + -top + 'px,0) scale(' + zoom + ')';
+    };
+  }
+  if (helperElem.style[transformProperty] !== undef) {
+    return function (content, left, top, zoom) {
+      content.style[transformProperty] = 'translate(' + -left + 'px,' + -top + 'px) scale(' + zoom + ')';
+    };
+  }
+  return function (content, left, top, zoom) {
+    content.style.marginLeft = left ? -left / zoom + 'px' : '';
+    content.style.marginTop = top ? -top / zoom + 'px' : '';
+    content.style.zoom = zoom || '';
+  };
+}());
+
+class EasyScroller extends EventCore {
+  constructor (content, option) {
+    super();
+    this._className = 'Scroller';
     this._createEvent('onCreate onScroll onScrollOver onRefreshLess onRefresh onRefreshMore');
     this.content = content;
     // 默认会把父节点当成滚动的外部容器
@@ -47,80 +87,43 @@ var EasyScroller = Class.extend({
     this.content.style[defaultOption.vendorPrefix + 'TransformOrigin'] = 'left top';
     // reflow for the first time
     this.reflow();
-    var me = this;
-    window.setTimeout(function () {
-      me.dispatch('onCreate');
+    window.setTimeout(() => {
+      this.dispatch('onCreate');
     }, 0);
-  },
-  initScroller: function () {
-    var me = this;
-    this.option.scrollingComplete = function () {
-      me.dispatch('onScrollOver');
+  }
+  initScroller () {
+    this.option.scrollingComplete = () => {
+      this.dispatch('onScrollOver');
     };
-    this.scroller = new Scroller(function (left, top, zoom) {
-      me.dispatch('onScroll', left, top, zoom);
-      me.render(left, top, zoom);
+    this.scroller = new Scroller((left, top, zoom) => {
+      this.dispatch('onScroll', left, top, zoom);
+      this._render(left, top, zoom);
     }, this.option);
     if (this.option.PullToRefresh) {
       this.scroller.activatePullToRefresh(
         this.option.PullToRefreshHeight,
-        function () {
-          me.dispatch('onRefreshMore');
+        () => {
+          this.dispatch('onRefreshMore');
         },
-        function () {
-          me.dispatch('onRefreshLess');
+        () => {
+          this.dispatch('onRefreshLess');
         },
-        function () {
-          me.dispatch('onRefresh');
+        () => {
+          this.dispatch('onRefresh');
         }
       );
     }
-  },
-  finishPullToRefresh: function () {
+  }
+  finishPullToRefresh () {
     this.option.PullToRefresh && this.scroller.finishPullToRefresh();
-  },
-  setDimensions: function (clientWidth, clientHeight, contentWidth, contentHeight) {
+  }
+  setDimensions (clientWidth, clientHeight, contentWidth, contentHeight) {
     this.scroller.setDimensions(clientWidth, clientHeight, contentWidth, contentHeight);
-  },
-  render: (function () {
-    var docStyle = document.documentElement.style;
-    var engine;
-    if (window.opera && Object.prototype.toString.call(opera) === '[object Opera]') {
-      engine = 'presto';
-    } else if ('MozAppearance' in docStyle) {
-      engine = 'gecko';
-    } else if ('WebkitAppearance' in docStyle) {
-      engine = 'webkit';
-    } else if (typeof navigator.cpuClass === 'string') {
-      engine = 'trident';
-    }
-    var vendorPrefix = (defaultOption.vendorPrefix = {
-      trident: 'ms',
-      gecko: 'Moz',
-      webkit: 'Webkit',
-      presto: 'O'
-    }[engine]);
-    var helperElem = document.createElement('div');
-    var undef;
-    var perspectiveProperty = vendorPrefix + 'Perspective';
-    var transformProperty = vendorPrefix + 'Transform';
-    if (helperElem.style[perspectiveProperty] !== undef) {
-      return function (left, top, zoom) {
-        this.content.style[transformProperty] = 'translate3d(' + -left + 'px,' + -top + 'px,0) scale(' + zoom + ')';
-      };
-    }
-    if (helperElem.style[transformProperty] !== undef) {
-      return function (left, top, zoom) {
-        this.content.style[transformProperty] = 'translate(' + -left + 'px,' + -top + 'px) scale(' + zoom + ')';
-      };
-    }
-    return function (left, top, zoom) {
-      this.content.style.marginLeft = left ? -left / zoom + 'px' : '';
-      this.content.style.marginTop = top ? -top / zoom + 'px' : '';
-      this.content.style.zoom = zoom || '';
-    };
-  }()),
-  bindEvents: function () {
+  }
+  _render (left, top, zoom) {
+    renderScroll(this.content, left, top, zoom);
+  }
+  bindEvents () {
     var me = this;
     // reflow handling
     window.addEventListener(
@@ -233,8 +236,8 @@ var EasyScroller = Class.extend({
         false
       );
     }
-  },
-  reflow: function () {
+  }
+  reflow () {
     // set the right scroller dimensions
     this.scroller.setDimensions(
       this.container.clientWidth,
@@ -246,5 +249,6 @@ var EasyScroller = Class.extend({
     var rect = this.container.getBoundingClientRect();
     this.scroller.setPosition(rect.left + this.container.clientLeft, rect.top + this.container.clientTop);
   }
-});
+}
+
 export default EasyScroller;

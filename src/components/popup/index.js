@@ -1,6 +1,5 @@
 'use strict';
 import './index.less';
-import util from '@common/util';
 import { merge, addClass, removeClass } from '@common/util';
 import Popbase from '@components/popbase';
 var defaultOption = {
@@ -29,14 +28,14 @@ var defaultOption = {
   // 是否关闭时销毁
   destoryOnClose: false
 };
-var Popup = Popbase.extend({
-  _className: 'Popup',
-  init: function (option) {
+class Popup extends Popbase {
+  constructor (option) {
     var obj = merge({}, defaultOption, option);
     obj.closeOnClickModal = obj.backClose;
-    this._super(obj);
-  },
-  _initDom: function () {
+    super(obj);
+    this._className = 'Popup';
+  }
+  _initDom () {
     this.container = document.createElement('div');
     this.container.className = this.containerClass + ' lmui-popup-container lmui-popup-' + this.placement;
     this.width == 'auto' ? '' : (this.container.style.width = this.width);
@@ -49,8 +48,8 @@ var Popup = Popbase.extend({
         addClass(clist[i], 'lmui-popup-' + this.contentPosition);
       }
     }
-  },
-  _initEvent: function () {
+  }
+  _initEvent () {
     var me = this;
     this.container.addEventListener(
       'click',
@@ -62,24 +61,22 @@ var Popup = Popbase.extend({
       },
       false
     );
-  },
-  _onOpen: function () {
+  }
+  _onOpen () {
     this.transition = true;
     addClass(this.container, 'lmui-popup-' + this.placement + '-enter');
-    var me = this;
-    window.setTimeout(function () {
-      me.transition = false;
-      me._doAfterOpen();
-    }, 300);
-  },
-  _onClose: function () {
-    this.transition = true;
-    removeClass(this.container, 'lmui-popup-' + this.placement + '-enter');
-    var me = this;
-    window.setTimeout(function () {
-      me.transition = false;
-      me._doAfterClose();
+    window.setTimeout(() => {
+      this.transition = false;
+      this._doAfterOpen();
     }, 300);
   }
-});
+  _onClose () {
+    this.transition = true;
+    removeClass(this.container, 'lmui-popup-' + this.placement + '-enter');
+    window.setTimeout(() => {
+      this.transition = false;
+      this._doAfterClose();
+    }, 300);
+  }
+}
 export default Popup;

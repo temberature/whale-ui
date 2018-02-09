@@ -25,21 +25,22 @@ var defaultOption = {
   // 取消按钮配置
   cancelText: '取消'
 };
-var Actionsheet = Popbase.extend({
-  _className: 'Actionsheet',
-  init: function (option) {
+
+class Actionsheet extends Popbase {
+  constructor (option) {
     var obj = merge({}, defaultOption, option);
     obj.closeOnClickModal = obj.backClose;
-    this._super(obj);
+    super(obj);
+    this._className = 'Actionsheet';
     this._createEvent('onBtnClick');
-  },
-  _initDom: function () {
+  }
+  _initDom () {
     this.container = document.createElement('div');
     this.container.className = this.containerClass + ' lmui-popup-container lmui-popup-' + this.placement;
     this.container.innerHTML = render(tpl, this);
     this.warp.appendChild(this.container);
-  },
-  _initEvent: function () {
+  }
+  _initEvent () {
     var me = this;
     this.container.addEventListener(
       'click',
@@ -57,24 +58,22 @@ var Actionsheet = Popbase.extend({
       },
       false
     );
-  },
-  _onOpen: function () {
+  }
+  _onOpen () {
     this.transition = true;
     addClass(this.container, 'lmui-popup-' + this.placement + '-enter');
-    var me = this;
-    window.setTimeout(function () {
-      me.transition = false;
-      me._doAfterOpen();
-    }, 300);
-  },
-  _onClose: function () {
-    this.transition = true;
-    removeClass(this.container, 'lmui-popup-' + this.placement + '-enter');
-    var me = this;
-    window.setTimeout(function () {
-      me.transition = false;
-      me._doAfterClose();
+    window.setTimeout(() => {
+      this.transition = false;
+      this._doAfterOpen();
     }, 300);
   }
-});
+  _onClose () {
+    this.transition = true;
+    removeClass(this.container, 'lmui-popup-' + this.placement + '-enter');
+    window.setTimeout(() => {
+      this.transition = false;
+      this._doAfterClose();
+    }, 300);
+  }
+}
 export default Actionsheet;

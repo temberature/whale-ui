@@ -1,14 +1,36 @@
-import Class from './class.js';
-var EventClass = Class.extend({
-  _className: 'EventClass',
-  _handlers: null,
-  _eventCache: null,
-  init: function () {
+/**
+ * @namespace
+ * @name ClassManager
+ */
+var ClassManager = function () {
+  var instanceId = 0 | (Math.random() * 998);
+  this.getNewInstanceId = function () {
+    return instanceId++;
+  };
+};
+var classManager = new ClassManager();
+class ClassBase {
+  constructor () {
+    this._className = 'Class';
+    this._instanceId = classManager.getNewInstanceId();
+  }
+  className () {
+    return this._className;
+  }
+  instanceId () {
+    return this._instanceId;
+  }
+}
+
+class EventCore extends ClassBase {
+  constructor () {
+    super();
+    this._className = 'EventClass';
     this._handlers = {};
     this._eventCache = {};
-  },
+  }
   // 绑定监听一次
-  one: function (eventName, handler, context) {
+  one (eventName, handler, context) {
     if (!eventName || !handler) {
       return this;
     }
@@ -22,9 +44,9 @@ var EventClass = Class.extend({
       one: true
     });
     return this;
-  },
+  }
   // 绑定监听
-  bind: function (eventName, handler, context) {
+  bind (eventName, handler, context) {
     if (!eventName || !handler) {
       return this;
     }
@@ -38,9 +60,9 @@ var EventClass = Class.extend({
       one: false
     });
     return this;
-  },
+  }
   // 接触绑定
-  unbind: function (eventName, handler) {
+  unbind (eventName, handler) {
     var _handlers = this._handlers;
     if (!eventName) {
       this._handlers = {};
@@ -63,9 +85,9 @@ var EventClass = Class.extend({
       delete _handlers[eventName];
     }
     return this;
-  },
+  }
   // 事件派发
-  dispatch: function (eventName) {
+  dispatch (eventName) {
     var falseNum = 0;
     if (!eventName) {
       return falseNum === 0;
@@ -87,9 +109,9 @@ var EventClass = Class.extend({
       }
     }
     return falseNum === 0;
-  },
+  }
   // 指定上下文的事件派发
-  dispatchWithContext: function (eventName) {
+  dispatchWithContext (eventName) {
     var falseNum = 0;
     if (!eventName) {
       return falseNum === 0;
@@ -112,10 +134,10 @@ var EventClass = Class.extend({
       }
     }
     return falseNum === 0;
-  },
+  }
   // 动态添加自定义事件缓存
   // eventNames 仅仅支持字符串类型数据，空格分割的函数名称，建议事件名都添加 on/before/after 等明显前缀
-  _createEvent: function (eventNames) {
+  _createEvent (eventNames) {
     if (typeof eventNames !== 'string') {
       return;
     }
@@ -137,6 +159,5 @@ var EventClass = Class.extend({
       }(eventName));
     }
   }
-});
-
-export default EventClass;
+}
+export default EventCore;
