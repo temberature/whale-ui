@@ -1,6 +1,6 @@
 'use strict';
 import Class from '@components/class';
-import util from '@common/util';
+import { merge } from '@common/util';
 import Scroller from '@common/util/scroller';
 var defaultOption = {
   // 是否支持横向滚动
@@ -38,7 +38,7 @@ var EasyScroller = Class.extend({
     this.content = content;
     // 默认会把父节点当成滚动的外部容器
     this.container = content.parentNode;
-    this.option = util.merge({}, defaultOption, option);
+    this.option = merge({}, defaultOption, option);
     // create Scroller instance
     this.initScroller();
     // bind events

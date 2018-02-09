@@ -6,6 +6,7 @@ import Popover from '@components/popover';
 import Tooltip from '@components/tooltip';
 import Scroller from '@components/scroller';
 import Picker from '@components/picker';
+import Actionsheet from '@components/actionsheet';
 
 export default {
   Popup: Popup,
@@ -32,5 +33,6 @@ export default {
     return new Dialog();
   },
   Scroller: Scroller,
-  Picker: Picker
+  Picker: Picker,
+  Actionsheet: Actionsheet
 };

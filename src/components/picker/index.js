@@ -2,7 +2,7 @@
 import './index.less';
 import tpl from './index.html';
 import Class from '@components/class';
-import util from '@common/util';
+import { merge, render } from '@common/util';
 import Scroller from '@common/util/scroller';
 var defaultOption = {
   // 是否支持横向滚动
@@ -35,7 +35,7 @@ var EasyScroller = Class.extend({
   init: function (wrapper, option) {
     this._super();
     this._createEvent('onCreate onScroll onScrollOver');
-    this.option = util.merge({}, defaultOption, option);
+    this.option = merge({}, defaultOption, option);
     this._initDom(wrapper);
     // create Scroller instance
     this._initScroller();
@@ -53,7 +53,7 @@ var EasyScroller = Class.extend({
   },
   _initDom: function (wrapper) {
     this.wrapper = wrapper;
-    this.wrapper.innerHTML = util.render(tpl, this.option);
+    this.wrapper.innerHTML = render(tpl, this.option);
     this.container = this.wrapper.firstElementChild.firstElementChild;
     this.content = this.container.firstElementChild;
   },

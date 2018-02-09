@@ -1,6 +1,6 @@
 'use strict';
 import './index.less';
-import util from '@common/util';
+import { merge, addClass, removeClass } from '@common/util';
 import Popbase from '@components/popbase';
 var defaultOption = {
   // 是否默认打开
@@ -34,9 +34,8 @@ var defaultOption = {
 var Dialog = Popbase.extend({
   _className: 'Dialog',
   init: function (option) {
-    var obj = util.merge({}, defaultOption, option);
+    var obj = merge({}, defaultOption, option);
     this._super(obj);
-    this._createEvent('onBtnClick');
   },
   _initDom: function () {
     this.container = document.createElement('div');
@@ -109,7 +108,7 @@ var Dialog = Popbase.extend({
   },
   _onOpen: function () {
     this.transition = true;
-    util.addClass(this.container, 'lmui-dialog-' + this.placement + '-enter');
+    addClass(this.container, 'lmui-dialog-' + this.placement + '-enter');
     var me = this;
     window.setTimeout(function () {
       me.transition = false;
@@ -118,7 +117,7 @@ var Dialog = Popbase.extend({
   },
   _onClose: function () {
     this.transition = true;
-    util.removeClass(this.container, 'lmui-dialog-' + this.placement + '-enter');
+    removeClass(this.container, 'lmui-dialog-' + this.placement + '-enter');
     var me = this;
     window.setTimeout(function () {
       me.transition = false;

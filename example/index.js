@@ -4,6 +4,7 @@ import button from './button';
 import toast from './toast';
 import scroll from './scroll';
 import picker from './picker';
+import actionsheet from './actionsheet';
 
 window.LMUI = LMUI;
 window.container = document.getElementById('container');
@@ -15,7 +16,8 @@ var routes = {
   '/button': button,
   '/toast': toast,
   '/scroll': scroll,
-  '/picker': picker
+  '/picker': picker,
+  '/actionsheet': actionsheet
 };
 
 var router = Router(routes);

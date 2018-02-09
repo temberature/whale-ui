@@ -1,6 +1,6 @@
 'use strict';
 import './index.less';
-import util from '@common/util';
+import { merge, addClass, removeClass } from '@common/util';
 import Popover from '@components/popover';
 var defaultOption = {
   // 外包容器class
@@ -9,7 +9,7 @@ var defaultOption = {
 var Tooltip = Popover.extend({
   _className: 'Tooltip',
   init: function (option) {
-    var obj = util.merge({}, defaultOption, option);
+    var obj = merge({}, defaultOption, option);
     this._super(obj);
   },
   _initDom: function () {
@@ -33,10 +33,10 @@ var Tooltip = Popover.extend({
   },
   _onOpen: function () {
     this._position();
-    util.addClass(this.container, 'lmui-tooltip-' + this.placement + '-enter');
+    addClass(this.container, 'lmui-tooltip-' + this.placement + '-enter');
   },
   _onClose: function () {
-    util.removeClass(this.container, 'lmui-tooltip-' + this.placement + '-enter');
+    removeClass(this.container, 'lmui-tooltip-' + this.placement + '-enter');
   }
 });
 export default Tooltip;

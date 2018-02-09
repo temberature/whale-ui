@@ -1,6 +1,6 @@
 'use strict';
 import './index.less';
-import util from '@common/util';
+import { merge, addClass, removeClass } from '@common/util';
 import Popbase from '@components/popbase';
 var defaultOption = {
   // 目标元素dom
@@ -35,7 +35,7 @@ var defaultOption = {
 var Popover = Popbase.extend({
   _className: 'Popover',
   init: function (option) {
-    var obj = util.merge({}, defaultOption, option);
+    var obj = merge({}, defaultOption, option);
     this._super(obj);
   },
   _initDom: function () {
@@ -126,10 +126,10 @@ var Popover = Popbase.extend({
   },
   _onOpen: function () {
     this._position();
-    util.addClass(this.container, 'lmui-popover-' + this.placement + '-enter');
+    addClass(this.container, 'lmui-popover-' + this.placement + '-enter');
   },
   _onClose: function () {
-    util.removeClass(this.container, 'lmui-popover-' + this.placement + '-enter');
+    removeClass(this.container, 'lmui-popover-' + this.placement + '-enter');
   }
 });
 export default Popover;

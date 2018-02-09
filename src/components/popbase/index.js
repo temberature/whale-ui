@@ -1,5 +1,5 @@
 'use strict';
-import util from '@common/util';
+import { merge } from '@common/util';
 import Class from '@components/class';
 import popManager from '@components/popManager';
 var defaultOption = {
@@ -39,7 +39,7 @@ var Popbase = Class.extend({
   _className: 'Popbase',
   init: function (option) {
     // 扩展/覆盖私有属性
-    util.merge(this, defaultOption, option);
+    merge(this, defaultOption, option);
     this._super();
     this._createEvent('onCreate onBeforeShow onShow onBeforeClose onClose onDestory');
     popManager.register(this.instanceId(), this);
@@ -116,7 +116,7 @@ var Popbase = Class.extend({
           // this.bodyPaddingRight = document.body.style.paddingRight;
           this.bodyOverflow = document.body.style.overflow;
         }
-        // scrollBarWidth = util.getScrollBarWidth();
+        // scrollBarWidth = getScrollBarWidth();
         // var bodyHasOverflow = document.documentElement.clientHeight < document.body.scrollHeight;
         // if (scrollBarWidth > 0 && bodyHasOverflow) {
         //     document.body.style.paddingRight = scrollBarWidth + 'px';
