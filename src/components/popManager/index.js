@@ -56,9 +56,9 @@ var popManager = {
       return;
     }
     // 判断id唯一性
-    for (var i = 0, j = this.popStack.length; i < j; i++) {
-      var item = this.popStack[i];
-      if (item.id === id) {
+    for (var i = 0, popLength = this.popStack.length; i < popLength; i++) {
+      var popItem = this.popStack[i];
+      if (popItem.id === id) {
         return;
       }
     }
@@ -71,9 +71,9 @@ var popManager = {
     if (modalClass) {
       var classArr = modalClass.trim().split(/\s+/),
         classArrLength = classArr.length;
-      for (var i = 0; i < classArrLength; i++) {
-        var item = classArr[i];
-        addClass(overlayDom, item);
+      for (var calssIndex = 0; calssIndex < classArrLength; calssIndex++) {
+        var classItem = classArr[calssIndex];
+        addClass(overlayDom, classItem);
       }
     }
     window.setTimeout(function () {
