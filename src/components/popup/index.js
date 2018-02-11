@@ -2,7 +2,7 @@
 import './index.less';
 import { merge, addClass, removeClass } from '@common/util';
 import Popbase from '@components/popbase';
-var defaultOption = {
+const defaultOption = {
   // 是否默认打开
   autoShow: true,
   // 外包容器class
@@ -30,30 +30,30 @@ var defaultOption = {
 };
 class Popup extends Popbase {
   constructor (option) {
-    var obj = merge({}, defaultOption, option);
+    const obj = merge({}, defaultOption, option);
     obj.closeOnClickModal = obj.backClose;
     super(obj);
     this._className = 'Popup';
   }
   _initDom () {
     this.container = document.createElement('div');
-    this.container.className = this.containerClass + ' lmui-popup-container lmui-popup-' + this.placement;
-    this.width == 'auto' ? '' : (this.container.style.width = this.width);
-    this.height == 'auto' ? '' : (this.container.style.height = this.height);
+    this.container.className = `${this.containerClass} lmui-popup-container lmui-popup-${this.placement}`;
+    this.width === 'auto' ? '' : (this.container.style.width = this.width);
+    this.height === 'auto' ? '' : (this.container.style.height = this.height);
     this.container.innerHTML = this.content;
     this.warp.appendChild(this.container);
     if (this.contentPosition) {
-      var clist = this.container.children;
-      for (var i = 0; i < clist.length; i++) {
-        addClass(clist[i], 'lmui-popup-' + this.contentPosition);
+      const clist = this.container.children;
+      for (let i = 0; i < clist.length; i++) {
+        addClass(clist[i], `lmui-popup-${this.contentPosition}`);
       }
     }
   }
   _initEvent () {
-    var me = this;
+    const me = this;
     this.container.addEventListener(
       'click',
-      function (e) {
+      (e) => {
         if (e.target.className.indexOf(me.closeClass) >= 0) {
           me.close();
           return false;
@@ -64,7 +64,7 @@ class Popup extends Popbase {
   }
   _onOpen () {
     this.transition = true;
-    addClass(this.container, 'lmui-popup-' + this.placement + '-enter');
+    addClass(this.container, `lmui-popup-${this.placement}-enter`);
     window.setTimeout(() => {
       this.transition = false;
       this._doAfterOpen();
@@ -72,7 +72,7 @@ class Popup extends Popbase {
   }
   _onClose () {
     this.transition = true;
-    removeClass(this.container, 'lmui-popup-' + this.placement + '-enter');
+    removeClass(this.container, `lmui-popup-${this.placement}-enter`);
     window.setTimeout(() => {
       this.transition = false;
       this._doAfterClose();

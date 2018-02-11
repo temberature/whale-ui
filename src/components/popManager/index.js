@@ -4,8 +4,8 @@
 'use strict';
 import './index.less';
 import { addClass, removeClass } from '@common/util';
-var initZ = 300;
-var popManager = {
+const initZ = 300;
+const popManager = {
   // 初始z值
   zIndex: initZ,
   // 是否模态
@@ -41,11 +41,11 @@ var popManager = {
   },
   // 背景dom被点击 关闭最新创建popup
   closeCurrentPop: function () {
-    var currentPop = this.popStack[this.popStack.length - 1];
+    const currentPop = this.popStack[this.popStack.length - 1];
     if (!currentPop) {
       return;
     }
-    var instance = this.getInstance(currentPop.id);
+    const instance = this.getInstance(currentPop.id);
     if (instance && instance.closeOnClickModal) {
       instance.close();
     }
@@ -56,27 +56,27 @@ var popManager = {
       return;
     }
     // 判断id唯一性
-    for (var i = 0, popLength = this.popStack.length; i < popLength; i++) {
-      var popItem = this.popStack[i];
+    for (let i = 0, popLength = this.popStack.length; i < popLength; i++) {
+      const popItem = this.popStack[i];
       if (popItem.id === id) {
         return;
       }
     }
     this.modalFade = modalFade;
-    var overlayDom = this.getOverlay();
+    const overlayDom = this.getOverlay();
     addClass(overlayDom, 'lmui-overlay');
     if (this.modalFade && !this.hasOverlay) {
       addClass(overlayDom, 'lmui-overlay-enter');
     }
     if (modalClass) {
-      var classArr = modalClass.trim().split(/\s+/),
+      const classArr = modalClass.trim().split(/\s+/),
         classArrLength = classArr.length;
-      for (var calssIndex = 0; calssIndex < classArrLength; calssIndex++) {
-        var classItem = classArr[calssIndex];
+      for (let calssIndex = 0; calssIndex < classArrLength; calssIndex++) {
+        const classItem = classArr[calssIndex];
         addClass(overlayDom, classItem);
       }
     }
-    window.setTimeout(function () {
+    window.setTimeout(() => {
       removeClass(overlayDom, 'lmui-overlay-enter');
     }, 300);
     if (dom && dom.parentNode && dom.parentNode.nodeType !== 11) {
@@ -94,22 +94,22 @@ var popManager = {
   },
   // 关闭一个遮罩层
   closeOverlay: function (id) {
-    var popStack = this.popStack;
-    var overlayDom = this.getOverlay();
+    const { popStack } = this;
+    const overlayDom = this.getOverlay();
     if (popStack.length > 0) {
-      var currentPop = popStack[popStack.length - 1];
+      const currentPop = popStack[popStack.length - 1];
       if (currentPop.id === id) {
         if (currentPop.modalClass) {
-          var classArr = currentPop.modalClass.trim().split(/\s+/),
+          const classArr = currentPop.modalClass.trim().split(/\s+/),
             classArrLength = classArr.length;
-          for (var i = 0; i < classArrLength; i++) {
-            var item = classArr[i];
+          for (let i = 0; i < classArrLength; i++) {
+            const item = classArr[i];
             removeClass(overlayDom, item);
           }
         }
         popStack.pop();
         if (popStack.length > 0) {
-          var pop = popStack[popStack.length - 1];
+          const pop = popStack[popStack.length - 1];
           if (pop.fixOverlay) {
             overlayDom.style.zIndex = initZ;
           } else {
@@ -117,7 +117,7 @@ var popManager = {
           }
         }
       } else {
-        for (var i = popStack.length - 1; i >= 0; i--) {
+        for (let i = popStack.length - 1; i >= 0; i--) {
           if (popStack[i].id === id) {
             popStack.splice(i, 1);
             break;
@@ -129,8 +129,8 @@ var popManager = {
       if (this.modalFade) {
         addClass(overlayDom, 'lmui-overlay-leave');
       }
-      var me = this;
-      window.setTimeout(function () {
+      const me = this;
+      window.setTimeout(() => {
         if (popStack.length === 0) {
           if (overlayDom.parentNode) {
             overlayDom.parentNode.removeChild(overlayDom);
@@ -145,19 +145,19 @@ var popManager = {
   },
   // 获取遮罩层dom 如果没有则创建
   getOverlay: function () {
-    var overlayDom = this.overlayDom;
+    let { overlayDom } = this;
     if (overlayDom) {
       this.hasOverlay = true;
     } else {
       this.hasOverlay = false;
       overlayDom = document.createElement('div');
       this.overlayDom = overlayDom;
-      overlayDom.addEventListener('touchmove', function (event) {
+      overlayDom.addEventListener('touchmove', (event) => {
         event.preventDefault();
         event.stopPropagation();
       });
-      var me = this;
-      overlayDom.addEventListener('click', function () {
+      const me = this;
+      overlayDom.addEventListener('click', () => {
         me.closeCurrentPop && me.closeCurrentPop();
       });
     }
@@ -165,15 +165,15 @@ var popManager = {
   }
 };
 
-window.addEventListener('keydown', function (event) {
+window.addEventListener('keydown', (event) => {
   if (event.keyCode === 27) {
     // ESC
     if (popManager.popStack.length > 0) {
-      var currentPop = popManager.popStack[popManager.popStack.length - 1];
+      const currentPop = popManager.popStack[popManager.popStack.length - 1];
       if (!currentPop) {
         return;
       }
-      var instance = popManager.getInstance(currentPop.id);
+      const instance = popManager.getInstance(currentPop.id);
       if (instance.closeOnPressEscape) {
         instance.close();
       }

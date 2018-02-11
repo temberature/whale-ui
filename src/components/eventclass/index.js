@@ -2,13 +2,13 @@
  * @namespace
  * @name ClassManager
  */
-var ClassManager = function () {
-  var instanceId = 0 | (Math.random() * 998);
+const ClassManager = function () {
+  let instanceId = 0 | (Math.random() * 998);
   this.getNewInstanceId = function () {
     return instanceId++;
   };
 };
-var classManager = new ClassManager();
+const classManager = new ClassManager();
 class ClassBase {
   constructor () {
     this._className = 'Class';
@@ -34,7 +34,7 @@ class EventClass extends ClassBase {
     if (!eventName || !handler) {
       return this;
     }
-    var _handlers = this._handlers;
+    const { _handlers } = this;
     if (!_handlers[eventName]) {
       _handlers[eventName] = [];
     }
@@ -50,7 +50,7 @@ class EventClass extends ClassBase {
     if (!eventName || !handler) {
       return this;
     }
-    var _handlers = this._handlers;
+    const { _handlers } = this;
     if (!_handlers[eventName]) {
       _handlers[eventName] = [];
     }
@@ -63,16 +63,16 @@ class EventClass extends ClassBase {
   }
   // 接触绑定
   unbind (eventName, handler) {
-    var _handlers = this._handlers;
+    const { _handlers } = this;
     if (!eventName) {
       this._handlers = {};
       return this;
     }
     if (handler) {
       if (_handlers[eventName]) {
-        var newList = [];
-        for (var i = 0, l = _handlers[eventName].length; i < l; i++) {
-          if (_handlers[eventName][i]['handler'] != handler) {
+        const newList = [];
+        for (let i = 0, l = _handlers[eventName].length; i < l; i++) {
+          if (_handlers[eventName][i]['handler'] !== handler) {
             newList.push(_handlers[eventName][i]);
           }
         }
@@ -88,20 +88,20 @@ class EventClass extends ClassBase {
   }
   // 事件派发
   dispatch (eventName) {
-    var falseNum = 0;
+    let falseNum = 0;
     if (!eventName) {
       return falseNum === 0;
     }
-    var _handlers = this._handlers[eventName];
-    if (_handlers) {
-      var args = Array.prototype.slice.call(arguments, 1),
-        len = _handlers.length;
-      for (var i = 0; i < len;) {
-        if (_handlers[i]['handler'].apply(_handlers[i]['context'], args) === false) {
+    const _handler = this._handlers[eventName];
+    if (_handler) {
+      const args = Array.prototype.slice.call(arguments, 1);
+      let len = _handler.length;
+      for (let i = 0; i < len;) {
+        if (_handler[i]['handler'].apply(_handler[i]['context'], args) === false) {
           falseNum++;
         }
-        if (_handlers[i]['one']) {
-          _handlers.splice(i, 1);
+        if (_handler[i]['one']) {
+          _handler.splice(i, 1);
           len--;
         } else {
           i++;
@@ -112,21 +112,21 @@ class EventClass extends ClassBase {
   }
   // 指定上下文的事件派发
   dispatchWithContext (eventName) {
-    var falseNum = 0;
+    let falseNum = 0;
     if (!eventName) {
       return falseNum === 0;
     }
-    var _handlers = this._handlers[eventName];
-    if (this._handlers[eventName]) {
-      var context = arguments[arguments.length - 1],
-        args = Array.prototype.slice.call(arguments, 1, arguments.length - 1),
-        len = _handlers.length;
-      for (var i = 0; i < len;) {
-        if (_handlers[i]['handler'].apply(context, args) === false) {
+    const _handler = this._handlers[eventName];
+    if (this._handler[eventName]) {
+      const context = arguments[arguments.length - 1],
+        args = Array.prototype.slice.call(arguments, 1, arguments.length - 1);
+      let len = _handler.length;
+      for (let i = 0; i < len;) {
+        if (_handler[i]['handler'].apply(context, args) === false) {
           falseNum++;
         }
-        if (_handlers[i]['one']) {
-          _handlers.splice(i, 1);
+        if (_handler[i]['one']) {
+          _handler.splice(i, 1);
           len--;
         } else {
           i++;
@@ -141,20 +141,20 @@ class EventClass extends ClassBase {
     if (typeof eventNames !== 'string') {
       return;
     }
-    var me = this,
+    const me = this,
       cache = me._eventCache,
       eventList = eventNames.split(' '),
       len = eventList.length;
-    for (var i = 0; i < len; i++) {
-      var eventName = eventList[i];
+    for (let i = 0; i < len; i++) {
+      const eventName = eventList[i];
       cache[eventName] = cache[eventName] || [];
       me[eventName] = (function (ename) {
         return function (fn) {
-          if (Object.prototype.toString.call(fn) == '[object Function]') {
+          if (Object.prototype.toString.call(fn) === '[object Function]') {
             me.bind(ename, fn);
             return me;
           }
-          return me.dispatch.apply(me, [ename].concat(Array.prototype.slice.call(arguments, 0)));
+          return me.dispatch(...[ename].concat(Array.prototype.slice.call(arguments, 0)));
         };
       }(eventName));
     }

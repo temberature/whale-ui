@@ -2,7 +2,7 @@
 import { merge } from '@common/util';
 import EventClass from '@components/eventclass';
 import popManager from '@components/popManager';
-var defaultOption = {
+const defaultOption = {
   // 是否默认打开
   autoShow: false,
   // 外包容器
@@ -69,11 +69,11 @@ class Popbase extends EventClass {
       this._closeTimer = null;
     }
     window.clearTimeout(this._openTimer);
-    var openDelay = Number(this.openDelay);
+    const openDelay = Number(this.openDelay);
     if (openDelay > 0) {
       // 执行延迟打开逻辑
-      var me = this;
-      this._openTimer = window.setTimeout(function () {
+      const me = this;
+      this._openTimer = window.setTimeout(() => {
         me._openTimer = null;
         me._doOpen();
       }, openDelay);
@@ -87,9 +87,7 @@ class Popbase extends EventClass {
       return;
     }
     this.isOpening = true;
-    var container = this.container;
-    var modal = this.modal;
-    var zIndex = this.zIndex;
+    const { container, modal, zIndex } = this;
     if (zIndex) {
       popManager.zIndex = zIndex;
     }
@@ -99,8 +97,8 @@ class Popbase extends EventClass {
         popManager.closePop(this.instanceId());
         this.isClosing = false;
       }
-      var fixOverlay = this.fixOverlay;
-      var nextZIndex = popManager.nextZIndex();
+      const { fixOverlay } = this;
+      const nextZIndex = popManager.nextZIndex();
       // 打开遮罩层
       popManager.openOverlay(
         this.instanceId(),
@@ -133,10 +131,9 @@ class Popbase extends EventClass {
     this.dispatch('onShow');
     if (this.timeout) {
       // 如果有定时关闭
-      var me = this;
-      this._timeout = window.setTimeout(function () {
-        me.close();
-        me._timeout = null;
+      this._timeout = window.setTimeout(() => {
+        this.close();
+        this._timeout = null;
       }, this.timeout);
     }
     if (!this.transition) {
@@ -159,12 +156,11 @@ class Popbase extends EventClass {
     }
     window.clearTimeout(this._closeTimer);
     window.clearTimeout(this._timeout);
-    var closeDelay = Number(this.closeDelay);
+    const closeDelay = Number(this.closeDelay);
     if (closeDelay > 0) {
-      var me = this;
-      this._closeTimer = window.setTimeout(function () {
-        me._closeTimer = null;
-        me._doClose();
+      this._closeTimer = window.setTimeout(() => {
+        this._closeTimer = null;
+        this._doClose();
       }, closeDelay);
     } else {
       this._doClose();
@@ -177,14 +173,13 @@ class Popbase extends EventClass {
     }
     this.isClosing = true;
     if (this.lockScroll) {
-      var me = this;
-      window.setTimeout(function () {
-        if (me.modal && me.bodyOverflow !== 'hidden') {
-          document.body.style.overflow = me.bodyOverflow;
-          // document.body.style.paddingRight = me.bodyPaddingRight;
+      window.setTimeout(() => {
+        if (this.modal && this.bodyOverflow !== 'hidden') {
+          document.body.style.overflow = this.bodyOverflow;
+          // document.body.style.paddingRight = this.bodyPaddingRight;
         }
-        me.bodyOverflow = null;
-        // me.bodyPaddingRight = null;
+        this.bodyOverflow = null;
+        // this.bodyPaddingRight = null;
       }, 300);
     }
     this._onClose && this._onClose();

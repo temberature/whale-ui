@@ -2,7 +2,7 @@
 import './index.less';
 import { merge, addClass, removeClass } from '@common/util';
 import Popbase from '@components/popbase';
-var defaultOption = {
+const defaultOption = {
   // 目标元素dom
   target: null,
   // 触发行为 hover focus click
@@ -34,7 +34,7 @@ var defaultOption = {
 };
 class Popover extends Popbase {
   constructor (option) {
-    var obj = merge({}, defaultOption, option);
+    const obj = merge({}, defaultOption, option);
     super(obj);
     this._className = 'Popover';
   }
@@ -43,7 +43,7 @@ class Popover extends Popbase {
     this.root.className = 'lmui-popover-root';
     document.body.appendChild(this.root);
     this.container = document.createElement('div');
-    this.container.className = this.containerClass + ' lmui-popover-container lmui-popover-' + this.placement;
+    this.container.className = `${this.containerClass} lmui-popover-container lmui-popover-${this.placement}`;
     this.container.innerHTML = [
       '<div class="lmui-popover-content">',
       '<div class="lmui-popover-arrow"></div>',
@@ -55,18 +55,18 @@ class Popover extends Popbase {
     this.root.appendChild(this.container);
   }
   _initEvent () {
-    var me = this;
+    const me = this;
     if (this.action === 'click') {
       this.target.addEventListener(
         'click',
-        function (e) {
+        (e) => {
           me.show();
         },
         false
       );
       window.addEventListener(
         'click',
-        function (e) {
+        (e) => {
           if (e.target != me.target) {
             me.close();
           }
@@ -76,14 +76,14 @@ class Popover extends Popbase {
     } else if (this.action === 'focus') {
       this.target.addEventListener(
         'focus',
-        function (e) {
+        (e) => {
           me.show();
         },
         false
       );
       this.target.addEventListener(
         'blur',
-        function (e) {
+        (e) => {
           me.close();
         },
         false
@@ -91,14 +91,14 @@ class Popover extends Popbase {
     } else {
       this.target.addEventListener(
         'mouseenter',
-        function (e) {
+        (e) => {
           me.show();
         },
         false
       );
       this.target.addEventListener(
         'mouseout',
-        function (e) {
+        (e) => {
           me.close();
         },
         false
@@ -106,29 +106,29 @@ class Popover extends Popbase {
     }
   }
   _position () {
-    var targetRect = this.target.getClientRects()[0],
+    const targetRect = this.target.getClientRects()[0],
       containerRect = this.container.getClientRects()[0];
     if (this.placement.indexOf('right') === 0) {
-      this.container.style.left = targetRect.right + this.distance + 'px';
-      this.container.style.top = targetRect.top + targetRect.height / 2 + 'px';
+      this.container.style.left = `${targetRect.right + this.distance}px`;
+      this.container.style.top = `${targetRect.top + targetRect.height / 2}px`;
     } else if (this.placement.indexOf('bottom') === 0) {
-      this.container.style.left = targetRect.left + targetRect.width / 2 + 'px';
-      this.container.style.top = targetRect.top + targetRect.height + this.distance + 'px';
+      this.container.style.left = `${targetRect.left + targetRect.width / 2}px`;
+      this.container.style.top = `${targetRect.top + targetRect.height + this.distance}px`;
     } else if (this.placement.indexOf('left') === 0) {
-      this.container.style.left = targetRect.left - containerRect.width - this.distance + 'px';
-      this.container.style.top = targetRect.top + targetRect.height / 2 + 'px';
+      this.container.style.left = `${targetRect.left - containerRect.width - this.distance}px`;
+      this.container.style.top = `${targetRect.top + targetRect.height / 2}px`;
     } else {
       // top
-      this.container.style.left = targetRect.left + targetRect.width / 2 + 'px';
-      this.container.style.top = targetRect.top - containerRect.height - this.distance + 'px';
+      this.container.style.left = `${targetRect.left + targetRect.width / 2}px`;
+      this.container.style.top = `${targetRect.top - containerRect.height - this.distance}px`;
     }
   }
   _onOpen () {
     this._position();
-    addClass(this.container, 'lmui-popover-' + this.placement + '-enter');
+    addClass(this.container, `lmui-popover-${this.placement}-enter`);
   }
   _onClose () {
-    removeClass(this.container, 'lmui-popover-' + this.placement + '-enter');
+    removeClass(this.container, `lmui-popover-${this.placement}-enter`);
   }
 }
 export default Popover;

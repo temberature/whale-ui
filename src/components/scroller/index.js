@@ -2,7 +2,7 @@
 import EventClass from '@components/eventclass';
 import { merge } from '@common/util';
 import Scroller from '@common/util/scroller';
-var defaultOption = {
+const defaultOption = {
   // 是否支持横向滚动
   scrollingX: false,
   // 是否支持竖向滚动
@@ -31,10 +31,10 @@ var defaultOption = {
   PullToRefreshHeight: 50
 };
 
-var renderScroll = (function () {
-  var docStyle = document.documentElement.style;
-  var engine;
-  if (window.opera && Object.prototype.toString.call(opera) === '[object Opera]') {
+const renderScroll = (function () {
+  const docStyle = document.documentElement.style;
+  let engine;
+  if (window.opera && Object.prototype.toString.call(window.opera) === '[object Opera]') {
     engine = 'presto';
   } else if ('MozAppearance' in docStyle) {
     engine = 'gecko';
@@ -43,29 +43,29 @@ var renderScroll = (function () {
   } else if (typeof navigator.cpuClass === 'string') {
     engine = 'trident';
   }
-  var vendorPrefix = (defaultOption.vendorPrefix = {
+  const vendorPrefix = (defaultOption.vendorPrefix = {
     trident: 'ms',
     gecko: 'Moz',
     webkit: 'Webkit',
     presto: 'O'
   }[engine]);
-  var helperElem = document.createElement('div');
-  var undef;
-  var perspectiveProperty = vendorPrefix + 'Perspective';
-  var transformProperty = vendorPrefix + 'Transform';
+  const helperElem = document.createElement('div');
+  let undef;
+  const perspectiveProperty = `${vendorPrefix}Perspective`;
+  const transformProperty = `${vendorPrefix}Transform`;
   if (helperElem.style[perspectiveProperty] !== undef) {
     return function (content, left, top, zoom) {
-      content.style[transformProperty] = 'translate3d(' + -left + 'px,' + -top + 'px,0) scale(' + zoom + ')';
+      content.style[transformProperty] = `translate3d(${-left}px,${-top}px,0) scale(${zoom})`;
     };
   }
   if (helperElem.style[transformProperty] !== undef) {
     return function (content, left, top, zoom) {
-      content.style[transformProperty] = 'translate(' + -left + 'px,' + -top + 'px) scale(' + zoom + ')';
+      content.style[transformProperty] = `translate(${-left}px,${-top}px) scale(${zoom})`;
     };
   }
   return function (content, left, top, zoom) {
-    content.style.marginLeft = left ? -left / zoom + 'px' : '';
-    content.style.marginTop = top ? -top / zoom + 'px' : '';
+    content.style.marginLeft = left ? `${-left / zoom}px` : '';
+    content.style.marginTop = top ? `${-top / zoom}px` : '';
     content.style.zoom = zoom || '';
   };
 }());
@@ -84,7 +84,7 @@ class EasyScroller extends EventClass {
     // bind events
     this.bindEvents();
     // the content element needs a correct transform origin for zooming
-    this.content.style[defaultOption.vendorPrefix + 'TransformOrigin'] = 'left top';
+    this.content.style[`${defaultOption.vendorPrefix}TransformOrigin`] = 'left top';
     // reflow for the first time
     this.reflow();
     window.setTimeout(() => {
@@ -124,11 +124,11 @@ class EasyScroller extends EventClass {
     renderScroll(this.content, left, top, zoom);
   }
   bindEvents () {
-    var me = this;
+    const me = this;
     // reflow handling
     window.addEventListener(
       'resize',
-      function () {
+      () => {
         me.reflow();
       },
       false
@@ -137,7 +137,7 @@ class EasyScroller extends EventClass {
     if ('ontouchstart' in window) {
       this.container.addEventListener(
         'touchstart',
-        function (e) {
+        (e) => {
           // Don't react if initial down happens on a form element
           if (e.touches[0] && e.touches[0].target && e.touches[0].target.tagName.match(/input|textarea|select/i)) {
             return;
@@ -150,7 +150,7 @@ class EasyScroller extends EventClass {
       );
       this.container.addEventListener(
         'touchmove',
-        function (e) {
+        (e) => {
           e.preventDefault();
           me.scroller.doTouchMove(e.touches, e.timeStamp, e.scale);
         },
@@ -158,24 +158,24 @@ class EasyScroller extends EventClass {
       );
       this.container.addEventListener(
         'touchend',
-        function (e) {
+        (e) => {
           me.scroller.doTouchEnd(e.timeStamp);
         },
         false
       );
       this.container.addEventListener(
         'touchcancel',
-        function (e) {
+        (e) => {
           me.scroller.doTouchEnd(e.timeStamp);
         },
         false
       );
       // non-touch bind mouse events
     } else {
-      var mousedown = false;
+      let mousedown = false;
       this.container.addEventListener(
         'mousedown',
-        function (e) {
+        (e) => {
           if (e.target.tagName.match(/input|textarea|select/i)) {
             return;
           }
@@ -197,7 +197,7 @@ class EasyScroller extends EventClass {
       );
       document.addEventListener(
         'mousemove',
-        function (e) {
+        (e) => {
           if (!mousedown) {
             return;
           }
@@ -216,7 +216,7 @@ class EasyScroller extends EventClass {
       );
       document.addEventListener(
         'mouseup',
-        function (e) {
+        (e) => {
           if (!mousedown) {
             return;
           }
@@ -227,7 +227,7 @@ class EasyScroller extends EventClass {
       );
       this.container.addEventListener(
         'mousewheel',
-        function (e) {
+        (e) => {
           if (me.option.zooming) {
             me.scroller.doMouseZoom(e.wheelDelta, e.timeStamp, e.pageX, e.pageY);
             e.preventDefault();
@@ -246,7 +246,7 @@ class EasyScroller extends EventClass {
       this.option.PullToRefresh ? this.content.offsetHeight - 50 : this.content.offsetHeight
     );
     // refresh the position for zooming purposes
-    var rect = this.container.getBoundingClientRect();
+    const rect = this.container.getBoundingClientRect();
     this.scroller.setPosition(rect.left + this.container.clientLeft, rect.top + this.container.clientTop);
   }
 }

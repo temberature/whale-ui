@@ -2,7 +2,7 @@
 import './index.less';
 import { merge, addClass, removeClass } from '@common/util';
 import Popbase from '@components/popbase';
-var defaultOption = {
+const defaultOption = {
   // 是否默认打开
   autoShow: true,
   // 外包容器class
@@ -33,52 +33,44 @@ var defaultOption = {
 
 class Dialog extends Popbase {
   constructor (option) {
-    var obj = merge({}, defaultOption, option);
+    const obj = merge({}, defaultOption, option);
     super(obj);
     this._className = 'Dialog';
   }
   _initDom () {
     this.container = document.createElement('div');
-    this.container.className = this.containerClass + ' lmui-dialog-container lmui-dialog-' + this.placement;
-    this.width == 'auto' ? '' : (this.container.style.width = this.width);
-    this.height == 'auto' ? '' : (this.container.style.height = this.height);
-    var title = this.title;
-    var button = this.button;
-    var html = [
+    this.container.className = `${this.containerClass} lmui-dialog-container lmui-dialog-${this.placement}`;
+    this.width === 'auto' ? '' : (this.container.style.width = this.width);
+    this.height === 'auto' ? '' : (this.container.style.height = this.height);
+    const { title, button } = this;
+    const html = [
       (function () {
-        var btnhtml = '';
+        let btnhtml = '';
         if (title) {
           btnhtml = [
             '<div class="lmui-dialog-head">',
-            title ? '<div class="lmui-dialog-title">' + title + '</div>' : '',
+            title ? `<div class="lmui-dialog-title">${title}</div>` : '',
             // '<span class="icon icon-mid"><span class="icodispatchWithContextn-plus"></span></span>',
             '</div>'
           ].join('');
         }
         return btnhtml;
       }()),
-      '<div class="lmui-dialog-body">' + this.content + '</div>',
+      `<div class="lmui-dialog-body">${this.content}</div>`,
       (function () {
-        var btnhtml = '';
-        var size = button.length;
+        let btnhtml = '';
+        const size = button.length;
         if (size) {
-          var btnCssMap = Dialog.GlobalConf.btnCssMap;
-          var getBtnRetId = Dialog.GlobalConf.getBtnRetId;
+          const { btnCssMap, getBtnRetId } = Dialog.GlobalConf;
           btnhtml += '<div class="lmui-dialog-foot">';
-          for (var i = 0; i < size; i++) {
-            var btnText = button[i];
-            var mapCss = btnCssMap[btnText.slice(0, 1)];
-            var btnRetId = (getBtnRetId(i, size) + '').replace(/\"/g, '&quot;');
+          for (let i = 0; i < size; i++) {
+            let btnText = button[i];
+            const mapCss = btnCssMap[btnText.slice(0, 1)];
+            const btnRetId = `${getBtnRetId(i, size)}`.replace(/\"/g, '&quot;');
             btnText = mapCss ? btnText.slice(1) : btnText;
-            btnhtml +=
-              '<button data-action="btn" data-retid="' +
-              btnRetId +
-              '" class="' +
-              btnCssMap.def +
-              (mapCss ? ' ' + mapCss : '') +
-              '">' +
-              btnText +
-              '</button>';
+            btnhtml += `<button data-action="btn" data-retid="${btnRetId}" class="${btnCssMap.def}${
+              mapCss ? ` ${mapCss}` : ''
+            }">${btnText}</button>`;
           }
           btnhtml += '</div>';
         }
@@ -89,10 +81,10 @@ class Dialog extends Popbase {
     this.warp.appendChild(this.container);
   }
   _initEvent () {
-    var me = this;
+    const me = this;
     this.container.addEventListener(
       'click',
-      function (e) {
+      (e) => {
         if (e.target.className.indexOf(me.closeClass) >= 0) {
           if (me.dispatch('onBtnClick', 0) != false) {
             me.close();
@@ -108,7 +100,7 @@ class Dialog extends Popbase {
   }
   _onOpen () {
     this.transition = true;
-    addClass(this.container, 'lmui-dialog-' + this.placement + '-enter');
+    addClass(this.container, `lmui-dialog-${this.placement}-enter`);
     window.setTimeout(() => {
       this.transition = false;
       this._doAfterOpen();
@@ -116,7 +108,7 @@ class Dialog extends Popbase {
   }
   _onClose () {
     this.transition = true;
-    removeClass(this.container, 'lmui-dialog-' + this.placement + '-enter');
+    removeClass(this.container, `lmui-dialog-${this.placement}-enter`);
     window.setTimeout(() => {
       this.transition = false;
       this._doAfterClose();

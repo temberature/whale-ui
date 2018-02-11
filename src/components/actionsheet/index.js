@@ -3,7 +3,7 @@ import './index.less';
 import tpl from './index.html';
 import { merge, render, addClass, removeClass } from '@common/util';
 import Popbase from '@components/popbase';
-var defaultOption = {
+const defaultOption = {
   // 是否默认打开
   autoShow: true,
   // 外包容器class
@@ -28,7 +28,7 @@ var defaultOption = {
 
 class Actionsheet extends Popbase {
   constructor (option) {
-    var obj = merge({}, defaultOption, option);
+    const obj = merge({}, defaultOption, option);
     obj.closeOnClickModal = obj.backClose;
     super(obj);
     this._className = 'Actionsheet';
@@ -36,23 +36,22 @@ class Actionsheet extends Popbase {
   }
   _initDom () {
     this.container = document.createElement('div');
-    this.container.className = this.containerClass + ' lmui-popup-container lmui-popup-' + this.placement;
+    this.container.className = `${this.containerClass} lmui-popup-container lmui-popup-${this.placement}`;
     this.container.innerHTML = render(tpl, this);
     this.warp.appendChild(this.container);
   }
   _initEvent () {
-    var me = this;
     this.container.addEventListener(
       'click',
-      function (e) {
+      (e) => {
         if (e.target.dataset.index) {
-          var index = parseInt(e.target.dataset.index, 10);
-          if (me.dispatch('onBtnClick', index, me.data[index]) != false) {
-            me.close();
+          const index = parseInt(e.target.dataset.index, 10);
+          if (this.dispatch('onBtnClick', index, this.data[index]) !== false) {
+            this.close();
           }
         }
-        if (e.target.className.indexOf(me.closeClass) >= 0) {
-          me.close();
+        if (e.target.className.indexOf(this.closeClass) >= 0) {
+          this.close();
           return false;
         }
       },
@@ -61,7 +60,7 @@ class Actionsheet extends Popbase {
   }
   _onOpen () {
     this.transition = true;
-    addClass(this.container, 'lmui-popup-' + this.placement + '-enter');
+    addClass(this.container, `lmui-popup-${this.placement}-enter`);
     window.setTimeout(() => {
       this.transition = false;
       this._doAfterOpen();
@@ -69,7 +68,7 @@ class Actionsheet extends Popbase {
   }
   _onClose () {
     this.transition = true;
-    removeClass(this.container, 'lmui-popup-' + this.placement + '-enter');
+    removeClass(this.container, `lmui-popup-${this.placement}-enter`);
     window.setTimeout(() => {
       this.transition = false;
       this._doAfterClose();
