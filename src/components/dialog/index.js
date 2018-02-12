@@ -32,19 +32,20 @@ const defaultOption = {
 };
 
 class Dialog extends Popbase {
-  constructor (option) {
+  constructor(option) {
     const obj = merge({}, defaultOption, option);
     super(obj);
     this._className = 'Dialog';
   }
-  _initDom () {
+
+  _initDom() {
     this.container = document.createElement('div');
     this.container.className = `${this.containerClass} lmui-dialog-container lmui-dialog-${this.placement}`;
     this.width === 'auto' ? '' : (this.container.style.width = this.width);
     this.height === 'auto' ? '' : (this.container.style.height = this.height);
     const { title, button } = this;
     const html = [
-      (function () {
+      (function() {
         let btnhtml = '';
         if (title) {
           btnhtml = [
@@ -55,9 +56,9 @@ class Dialog extends Popbase {
           ].join('');
         }
         return btnhtml;
-      }()),
+      })(),
       `<div class="lmui-dialog-body">${this.content}</div>`,
-      (function () {
+      (function() {
         let btnhtml = '';
         const size = button.length;
         if (size) {
@@ -75,30 +76,32 @@ class Dialog extends Popbase {
           btnhtml += '</div>';
         }
         return btnhtml;
-      }())
+      })()
     ].join('');
     this.container.innerHTML = html;
     this.warp.appendChild(this.container);
   }
-  _initEvent () {
+
+  _initEvent() {
     const me = this;
     this.container.addEventListener(
       'click',
       (e) => {
         if (e.target.className.indexOf(me.closeClass) >= 0) {
-          if (me.dispatch('onBtnClick', 0) != false) {
+          if (me.dispatch('onBtnClick', 0) !== false) {
             me.close();
           }
           return false;
         }
-        if ((e.target.dataset && e.target.dataset.action == 'btn') || e.target.getAttribute('data-action') == 'btn') {
+        if ((e.target.dataset && e.target.dataset.action === 'btn') || e.target.getAttribute('data-action') === 'btn') {
           me.dispatch('onBtnClick', e.target.dataset ? e.target.dataset.retid : e.target.getAttribute('data-retid'));
         }
       },
       false
     );
   }
-  _onOpen () {
+
+  _onOpen() {
     this.transition = true;
     addClass(this.container, `lmui-dialog-${this.placement}-enter`);
     window.setTimeout(() => {
@@ -106,7 +109,8 @@ class Dialog extends Popbase {
       this._doAfterOpen();
     }, 300);
   }
-  _onClose () {
+
+  _onClose() {
     this.transition = true;
     removeClass(this.container, `lmui-dialog-${this.placement}-enter`);
     window.setTimeout(() => {
@@ -117,18 +121,18 @@ class Dialog extends Popbase {
 }
 Dialog.GlobalConf = {
   btnCssMap: {
-    def: 'btn',
+    'def': 'btn',
     '~': 'btn-default',
     '#': 'btn-normal',
     '*': 'btn-primary',
-    $: 'btn-success',
+    '$': 'btn-success',
     '%': 'btn-info',
     '@': 'btn-link',
     '^': 'btn-warning',
     '!': 'btn-danger'
   },
   // 按钮retId编码方法
-  getBtnRetId: function (i, n) {
+  getBtnRetId: function(i) {
     return i + 1;
   }
 };

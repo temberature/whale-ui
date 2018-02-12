@@ -31,7 +31,7 @@ const defaultOption = {
   PullToRefreshHeight: 50
 };
 
-const renderScroll = (function () {
+const renderScroll = (function() {
   const docStyle = document.documentElement.style;
   let engine;
   if (window.opera && Object.prototype.toString.call(window.opera) === '[object Opera]') {
@@ -54,24 +54,24 @@ const renderScroll = (function () {
   const perspectiveProperty = `${vendorPrefix}Perspective`;
   const transformProperty = `${vendorPrefix}Transform`;
   if (helperElem.style[perspectiveProperty] !== undef) {
-    return function (content, left, top, zoom) {
+    return function(content, left, top, zoom) {
       content.style[transformProperty] = `translate3d(${-left}px,${-top}px,0) scale(${zoom})`;
     };
   }
   if (helperElem.style[transformProperty] !== undef) {
-    return function (content, left, top, zoom) {
+    return function(content, left, top, zoom) {
       content.style[transformProperty] = `translate(${-left}px,${-top}px) scale(${zoom})`;
     };
   }
-  return function (content, left, top, zoom) {
+  return function(content, left, top, zoom) {
     content.style.marginLeft = left ? `${-left / zoom}px` : '';
     content.style.marginTop = top ? `${-top / zoom}px` : '';
     content.style.zoom = zoom || '';
   };
-}());
+})();
 
 class EasyScroller extends EventClass {
-  constructor (content, option) {
+  constructor(content, option) {
     super();
     this._className = 'Scroller';
     this._createEvent('onCreate onScroll onScrollOver onRefreshLess onRefresh onRefreshMore');
@@ -91,7 +91,8 @@ class EasyScroller extends EventClass {
       this.dispatch('onCreate');
     }, 0);
   }
-  initScroller () {
+
+  initScroller() {
     this.option.scrollingComplete = () => {
       this.dispatch('onScrollOver');
     };
@@ -114,16 +115,20 @@ class EasyScroller extends EventClass {
       );
     }
   }
-  finishPullToRefresh () {
+
+  finishPullToRefresh() {
     this.option.PullToRefresh && this.scroller.finishPullToRefresh();
   }
-  setDimensions (clientWidth, clientHeight, contentWidth, contentHeight) {
+
+  setDimensions(clientWidth, clientHeight, contentWidth, contentHeight) {
     this.scroller.setDimensions(clientWidth, clientHeight, contentWidth, contentHeight);
   }
-  _render (left, top, zoom) {
+
+  _render(left, top, zoom) {
     renderScroll(this.content, left, top, zoom);
   }
-  bindEvents () {
+
+  bindEvents() {
     const me = this;
     // reflow handling
     window.addEventListener(
@@ -237,7 +242,8 @@ class EasyScroller extends EventClass {
       );
     }
   }
-  reflow () {
+
+  reflow() {
     // set the right scroller dimensions
     this.scroller.setDimensions(
       this.container.clientWidth,

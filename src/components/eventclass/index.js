@@ -2,35 +2,38 @@
  * @namespace
  * @name ClassManager
  */
-const ClassManager = function () {
+const ClassManager = function() {
   let instanceId = 0 | (Math.random() * 998);
-  this.getNewInstanceId = function () {
+  this.getNewInstanceId = function() {
     return instanceId++;
   };
 };
 const classManager = new ClassManager();
 class ClassBase {
-  constructor () {
+  constructor() {
     this._className = 'Class';
     this._instanceId = classManager.getNewInstanceId();
   }
-  className () {
+
+  className() {
     return this._className;
   }
-  instanceId () {
+
+  instanceId() {
     return this._instanceId;
   }
 }
 
 class EventClass extends ClassBase {
-  constructor () {
+  constructor() {
     super();
     this._className = 'EventClass';
     this._handlers = {};
     this._eventCache = {};
   }
+
   // 绑定监听一次
-  one (eventName, handler, context) {
+  one(eventName, handler, context) {
     if (!eventName || !handler) {
       return this;
     }
@@ -45,8 +48,9 @@ class EventClass extends ClassBase {
     });
     return this;
   }
+
   // 绑定监听
-  bind (eventName, handler, context) {
+  bind(eventName, handler, context) {
     if (!eventName || !handler) {
       return this;
     }
@@ -61,8 +65,9 @@ class EventClass extends ClassBase {
     });
     return this;
   }
+
   // 接触绑定
-  unbind (eventName, handler) {
+  unbind(eventName, handler) {
     const { _handlers } = this;
     if (!eventName) {
       this._handlers = {};
@@ -86,8 +91,9 @@ class EventClass extends ClassBase {
     }
     return this;
   }
+
   // 事件派发
-  dispatch (eventName) {
+  dispatch(eventName) {
     let falseNum = 0;
     if (!eventName) {
       return falseNum === 0;
@@ -110,16 +116,17 @@ class EventClass extends ClassBase {
     }
     return falseNum === 0;
   }
+
   // 指定上下文的事件派发
-  dispatchWithContext (eventName) {
+  dispatchWithContext(eventName) {
     let falseNum = 0;
     if (!eventName) {
       return falseNum === 0;
     }
     const _handler = this._handlers[eventName];
     if (this._handler[eventName]) {
-      const context = arguments[arguments.length - 1],
-        args = Array.prototype.slice.call(arguments, 1, arguments.length - 1);
+      const context = arguments[arguments.length - 1];
+      const args = Array.prototype.slice.call(arguments, 1, arguments.length - 1);
       let len = _handler.length;
       for (let i = 0; i < len;) {
         if (_handler[i]['handler'].apply(context, args) === false) {
@@ -135,28 +142,29 @@ class EventClass extends ClassBase {
     }
     return falseNum === 0;
   }
+
   // 动态添加自定义事件缓存
   // eventNames 仅仅支持字符串类型数据，空格分割的函数名称，建议事件名都添加 on/before/after 等明显前缀
-  _createEvent (eventNames) {
+  _createEvent(eventNames) {
     if (typeof eventNames !== 'string') {
       return;
     }
-    const me = this,
-      cache = me._eventCache,
-      eventList = eventNames.split(' '),
-      len = eventList.length;
+    const me = this;
+    const cache = me._eventCache;
+    const eventList = eventNames.split(' ');
+    const len = eventList.length;
     for (let i = 0; i < len; i++) {
       const eventName = eventList[i];
       cache[eventName] = cache[eventName] || [];
-      me[eventName] = (function (ename) {
-        return function (fn) {
+      me[eventName] = (function(ename) {
+        return function(fn) {
           if (Object.prototype.toString.call(fn) === '[object Function]') {
             me.bind(ename, fn);
             return me;
           }
           return me.dispatch(...[ename].concat(Array.prototype.slice.call(arguments, 0)));
         };
-      }(eventName));
+      })(eventName);
     }
   }
 }

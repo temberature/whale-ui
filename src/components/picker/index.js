@@ -31,10 +31,10 @@ const defaultOption = {
   data: []
 };
 
-const renderScroll = (function () {
+const renderScroll = (function() {
   const docStyle = document.documentElement.style;
   let engine;
-  if (window.opera && Object.prototype.toString.call(opera) === '[object Opera]') {
+  if (window.opera && Object.prototype.toString.call(window.opera) === '[object Opera]') {
     engine = 'presto';
   } else if ('MozAppearance' in docStyle) {
     engine = 'gecko';
@@ -54,23 +54,23 @@ const renderScroll = (function () {
   const perspectiveProperty = `${vendorPrefix}Perspective`;
   const transformProperty = `${vendorPrefix}Transform`;
   if (helperElem.style[perspectiveProperty] !== undef) {
-    return function (content, left, top, zoom) {
+    return function(content, left, top, zoom) {
       content.style[transformProperty] = `translate3d(${-left}px,${-top}px,0) scale(${zoom})`;
     };
   }
   if (helperElem.style[transformProperty] !== undef) {
-    return function (content, left, top, zoom) {
+    return function(content, left, top, zoom) {
       content.style[transformProperty] = `translate(${-left}px,${-top}px) scale(${zoom})`;
     };
   }
-  return function (content, left, top, zoom) {
+  return function(content, left, top, zoom) {
     content.style.marginLeft = left ? `${-left / zoom}px` : '';
     content.style.marginTop = top ? `${-top / zoom}px` : '';
     content.style.zoom = zoom || '';
   };
-}());
+})();
 class Picker extends EventClass {
-  constructor (wrapper, option) {
+  constructor(wrapper, option) {
     super();
     this._className = 'Picker';
     this._createEvent('onCreate onScroll onScrollOver');
@@ -89,31 +89,36 @@ class Picker extends EventClass {
       this.dispatch('onCreate');
     }, 0);
   }
-  _initDom (wrapper) {
+
+  _initDom(wrapper) {
     this.wrapper = wrapper;
     this.wrapper.innerHTML = render(tpl, this.option);
     this.container = this.wrapper.firstElementChild.firstElementChild;
     this.content = this.container.firstElementChild;
   }
-  _initScroller () {
+
+  _initScroller() {
     this.option.scrollingComplete = () => {
       this.dispatch('onScrollOver');
     };
     this.scroller = new Scroller((left, top, zoom) => {
-      const height = this.container.clientHeight,
-        index = parseInt(top / height, 10);
+      const height = this.container.clientHeight;
+      const index = parseInt(top / height, 10);
       this._currentIndex = index;
       this.dispatch('onScroll', this._currentIndex, this.option.data[this._currentIndex]);
       this._render(left, top, zoom);
     }, this.option);
   }
-  setDimensions (clientWidth, clientHeight, contentWidth, contentHeight) {
+
+  setDimensions(clientWidth, clientHeight, contentWidth, contentHeight) {
     this.scroller.setDimensions(clientWidth, clientHeight, contentWidth, contentHeight);
   }
-  _render (left, top, zoom) {
+
+  _render(left, top, zoom) {
     renderScroll(this.content, left, top, zoom);
   }
-  _bindEvents () {
+
+  _bindEvents() {
     const me = this;
     // reflow handling
     window.addEventListener(
@@ -227,7 +232,8 @@ class Picker extends EventClass {
       );
     }
   }
-  reflow () {
+
+  reflow() {
     // set the right scroller dimensions
     this.scroller.setDimensions(
       this.container.clientWidth,

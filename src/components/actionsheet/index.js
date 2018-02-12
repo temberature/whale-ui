@@ -27,20 +27,22 @@ const defaultOption = {
 };
 
 class Actionsheet extends Popbase {
-  constructor (option) {
+  constructor(option) {
     const obj = merge({}, defaultOption, option);
     obj.closeOnClickModal = obj.backClose;
     super(obj);
     this._className = 'Actionsheet';
     this._createEvent('onBtnClick');
   }
-  _initDom () {
+
+  _initDom() {
     this.container = document.createElement('div');
     this.container.className = `${this.containerClass} lmui-popup-container lmui-popup-${this.placement}`;
     this.container.innerHTML = render(tpl, this);
     this.warp.appendChild(this.container);
   }
-  _initEvent () {
+
+  _initEvent() {
     this.container.addEventListener(
       'click',
       (e) => {
@@ -58,7 +60,8 @@ class Actionsheet extends Popbase {
       false
     );
   }
-  _onOpen () {
+
+  _onOpen() {
     this.transition = true;
     addClass(this.container, `lmui-popup-${this.placement}-enter`);
     window.setTimeout(() => {
@@ -66,7 +69,8 @@ class Actionsheet extends Popbase {
       this._doAfterOpen();
     }, 300);
   }
-  _onClose () {
+
+  _onClose() {
     this.transition = true;
     removeClass(this.container, `lmui-popup-${this.placement}-enter`);
     window.setTimeout(() => {

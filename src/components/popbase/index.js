@@ -35,7 +35,7 @@ const defaultOption = {
   fixOverlay: false
 };
 class Popbase extends EventClass {
-  constructor (option) {
+  constructor(option) {
     super();
     popManager.register(this.instanceId(), this);
     this._className = 'Popbase';
@@ -50,16 +50,19 @@ class Popbase extends EventClass {
       }
     }, 0);
   }
+
   // 初始化dom 该方法需要继承
-  _initDom () {
+  _initDom() {
     this.container = null;
   }
+
   // 初始化事件 该方法需要继承
-  _initEvent () {
+  _initEvent() {
     console.log(this);
   }
+
   // 显示pop
-  show () {
+  show() {
     // 如果已经开启状态 或者 onBeforeShow 返回 false 则不会打开
     if (this.isOpened || this.dispatch('onBeforeShow') === false) {
       return;
@@ -81,8 +84,9 @@ class Popbase extends EventClass {
       this._doOpen();
     }
   }
+
   // 执行显示pop
-  _doOpen () {
+  _doOpen() {
     if (this.willShow && !this.willShow()) {
       return;
     }
@@ -141,12 +145,14 @@ class Popbase extends EventClass {
       this._doAfterOpen();
     }
   }
+
   // 打开完毕后操作
-  _doAfterOpen () {
+  _doAfterOpen() {
     this.isOpening = false;
   }
+
   // 关闭
-  close () {
+  close() {
     if (!this.isOpened || this.dispatch('onBeforeClose') === false) {
       return;
     }
@@ -166,8 +172,9 @@ class Popbase extends EventClass {
       this._doClose();
     }
   }
+
   // 执行关闭
-  _doClose () {
+  _doClose() {
     if (this.willClose && !this.willClose()) {
       return;
     }
@@ -189,16 +196,18 @@ class Popbase extends EventClass {
       this._doAfterClose();
     }
   }
+
   // 关闭完毕后操作
-  _doAfterClose () {
+  _doAfterClose() {
     popManager.closeOverlay(this.instanceId());
     this.isClosing = false;
     if (this.destoryOnClose) {
       this.destory();
     }
   }
+
   // 销毁
-  destory () {
+  destory() {
     this.dispatch('onDestory');
     popManager.deregister(this.instanceId());
     popManager.closeOverlay(this.instanceId());

@@ -19,28 +19,28 @@ const popManager = {
   // 遮罩层dom对象
   overlayDom: null,
   // id获取实例
-  getInstance: function (id) {
+  getInstance: function(id) {
     return this.instances[id];
   },
   // 注册弹出对象
-  register: function (id, instance) {
+  register: function(id, instance) {
     if (id && instance) {
       this.instances[id] = instance;
     }
   },
   // 注销弹出对象
-  deregister: function (id) {
+  deregister: function(id) {
     if (id) {
       this.instances[id] = null;
       delete this.instances[id];
     }
   },
   // 获取zIndex
-  nextZIndex: function () {
+  nextZIndex: function() {
     return this.zIndex++;
   },
   // 背景dom被点击 关闭最新创建popup
-  closeCurrentPop: function () {
+  closeCurrentPop: function() {
     const currentPop = this.popStack[this.popStack.length - 1];
     if (!currentPop) {
       return;
@@ -51,7 +51,7 @@ const popManager = {
     }
   },
   // 打开一个遮罩层
-  openOverlay: function (id, zIndex, dom, modalClass, modalFade) {
+  openOverlay: function(id, zIndex, dom, modalClass, modalFade) {
     if (!id /* || zIndex === undefined */) {
       return;
     }
@@ -69,8 +69,8 @@ const popManager = {
       addClass(overlayDom, 'lmui-overlay-enter');
     }
     if (modalClass) {
-      const classArr = modalClass.trim().split(/\s+/),
-        classArrLength = classArr.length;
+      const classArr = modalClass.trim().split(/\s+/);
+      const classArrLength = classArr.length;
       for (let calssIndex = 0; calssIndex < classArrLength; calssIndex++) {
         const classItem = classArr[calssIndex];
         addClass(overlayDom, classItem);
@@ -93,15 +93,15 @@ const popManager = {
     });
   },
   // 关闭一个遮罩层
-  closeOverlay: function (id) {
+  closeOverlay: function(id) {
     const { popStack } = this;
     const overlayDom = this.getOverlay();
     if (popStack.length > 0) {
       const currentPop = popStack[popStack.length - 1];
       if (currentPop.id === id) {
         if (currentPop.modalClass) {
-          const classArr = currentPop.modalClass.trim().split(/\s+/),
-            classArrLength = classArr.length;
+          const classArr = currentPop.modalClass.trim().split(/\s+/);
+          const classArrLength = classArr.length;
           for (let i = 0; i < classArrLength; i++) {
             const item = classArr[i];
             removeClass(overlayDom, item);
@@ -144,7 +144,7 @@ const popManager = {
     }
   },
   // 获取遮罩层dom 如果没有则创建
-  getOverlay: function () {
+  getOverlay: function() {
     let { overlayDom } = this;
     if (overlayDom) {
       this.hasOverlay = true;

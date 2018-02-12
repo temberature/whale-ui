@@ -29,13 +29,14 @@ const defaultOption = {
   destoryOnClose: false
 };
 class Popup extends Popbase {
-  constructor (option) {
+  constructor(option) {
     const obj = merge({}, defaultOption, option);
     obj.closeOnClickModal = obj.backClose;
     super(obj);
     this._className = 'Popup';
   }
-  _initDom () {
+
+  _initDom() {
     this.container = document.createElement('div');
     this.container.className = `${this.containerClass} lmui-popup-container lmui-popup-${this.placement}`;
     this.width === 'auto' ? '' : (this.container.style.width = this.width);
@@ -49,7 +50,8 @@ class Popup extends Popbase {
       }
     }
   }
-  _initEvent () {
+
+  _initEvent() {
     const me = this;
     this.container.addEventListener(
       'click',
@@ -62,7 +64,8 @@ class Popup extends Popbase {
       false
     );
   }
-  _onOpen () {
+
+  _onOpen() {
     this.transition = true;
     addClass(this.container, `lmui-popup-${this.placement}-enter`);
     window.setTimeout(() => {
@@ -70,7 +73,8 @@ class Popup extends Popbase {
       this._doAfterOpen();
     }, 300);
   }
-  _onClose () {
+
+  _onClose() {
     this.transition = true;
     removeClass(this.container, `lmui-popup-${this.placement}-enter`);
     window.setTimeout(() => {

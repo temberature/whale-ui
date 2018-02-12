@@ -13,14 +13,14 @@ export default {
   Dialog: Dialog,
   Popover: Popover,
   Tooltip: Tooltip,
-  toast: function (text, timeout, callback, config) {
+  toast: function(text, timeout, callback, config) {
     if (Object.prototype.toString.call(timeout) === '[object Function]') {
       config = callback;
       callback = timeout;
       timeout = null;
     }
     config = config || {};
-    var defaultOption = {
+    const defaultOption = {
       width: '85%',
       containerClass: 'lmui-toast',
       content: text,
@@ -29,7 +29,7 @@ export default {
     };
     return new Dialog(util.merge(defaultOption, config)).onClose(callback);
   },
-  alert: function () {
+  alert: function() {
     return new Dialog();
   },
   Scroller: Scroller,

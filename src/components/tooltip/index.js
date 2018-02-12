@@ -7,12 +7,13 @@ const defaultOption = {
   containerClass: 'lmui-tooltip-normal'
 };
 class Tooltip extends Popover {
-  constructor (option) {
+  constructor(option) {
     const obj = merge({}, defaultOption, option);
     super(obj);
     this._className = 'Tooltip';
   }
-  _initDom () {
+
+  _initDom() {
     this.root = document.createElement('div');
     this.root.className = 'lmui-tooltip-root';
     document.body.appendChild(this.root);
@@ -28,11 +29,13 @@ class Tooltip extends Popover {
     ].join('');
     this.root.appendChild(this.container);
   }
-  _onOpen () {
+
+  _onOpen() {
     this._position();
     addClass(this.container, `lmui-tooltip-${this.placement}-enter`);
   }
-  _onClose () {
+
+  _onClose() {
     removeClass(this.container, `lmui-tooltip-${this.placement}-enter`);
   }
 }
