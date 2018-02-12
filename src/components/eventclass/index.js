@@ -93,14 +93,14 @@ class EventClass extends ClassBase {
   }
 
   // 事件派发
-  dispatch(eventName) {
+  dispatch(eventName, ...args) {
     let falseNum = 0;
     if (!eventName) {
       return falseNum === 0;
     }
     const _handler = this._handlers[eventName];
     if (_handler) {
-      const args = Array.prototype.slice.call(arguments, 1);
+      // const args = Array.prototype.slice.call(arguments, 1);
       let len = _handler.length;
       for (let i = 0; i < len;) {
         if (_handler[i]['handler'].apply(_handler[i]['context'], args) === false) {
@@ -118,15 +118,15 @@ class EventClass extends ClassBase {
   }
 
   // 指定上下文的事件派发
-  dispatchWithContext(eventName) {
+  dispatchWithContext(eventName, context, ...args) {
     let falseNum = 0;
     if (!eventName) {
       return falseNum === 0;
     }
     const _handler = this._handlers[eventName];
     if (this._handler[eventName]) {
-      const context = arguments[arguments.length - 1];
-      const args = Array.prototype.slice.call(arguments, 1, arguments.length - 1);
+      // const context = arguments[arguments.length - 1];
+      // const args = Array.prototype.slice.call(arguments, 1, arguments.length - 1);
       let len = _handler.length;
       for (let i = 0; i < len;) {
         if (_handler[i]['handler'].apply(context, args) === false) {
@@ -145,7 +145,7 @@ class EventClass extends ClassBase {
 
   // 动态添加自定义事件缓存
   // eventNames 仅仅支持字符串类型数据，空格分割的函数名称，建议事件名都添加 on/before/after 等明显前缀
-  _createEvent(eventNames) {
+  _createEvent(eventNames, ...args) {
     if (typeof eventNames !== 'string') {
       return;
     }
@@ -162,7 +162,7 @@ class EventClass extends ClassBase {
             me.bind(ename, fn);
             return me;
           }
-          return me.dispatch(...[ename].concat(Array.prototype.slice.call(arguments, 0)));
+          return me.dispatch(...[ename].concat(Array.prototype.slice.call(args, 0)));
         };
       })(eventName);
     }

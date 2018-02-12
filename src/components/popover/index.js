@@ -69,7 +69,7 @@ class Popover extends Popbase {
       window.addEventListener(
         'click',
         (e) => {
-          if (e.target != me.target) {
+          if (e.target !== me.target) {
             me.close();
           }
         },

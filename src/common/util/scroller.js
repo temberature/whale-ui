@@ -1,12 +1,11 @@
 'use strict';
 import Animate from './animate';
-var Scroller;
-var NOOP = function () {};
+const NOOP = () => {};
 
 /**
  * A pure logic 'component' for 'virtual' scrolling/zooming.
  */
-Scroller = function (callback, options) {
+const Scroller = function(callback, options) {
   this.__callback = callback;
 
   this.options = {
@@ -58,8 +57,10 @@ Scroller = function (callback, options) {
     penetrationAcceleration: 0.08
   };
 
-  for (var key in options) {
-    this.options[key] = options[key];
+  for (const key in options) {
+    if (Object.prototype.hasOwnProperty.call(options, key)) {
+      this.options[key] = options[key];
+    }
   }
 };
 
@@ -69,14 +70,14 @@ Scroller = function (callback, options) {
 /**
  * @param pos {Number} position between 0 (start of effect) and 1 (end of effect)
  **/
-var easeOutCubic = function (pos) {
+const easeOutCubic = function(pos) {
   return Math.pow(pos - 1, 3) + 1;
 };
 
 /**
  * @param pos {Number} position between 0 (start of effect) and 1 (end of effect)
  **/
-var easeInOutCubic = function (pos) {
+const easeInOutCubic = function(pos) {
   if ((pos /= 0.5) < 1) {
     return 0.5 * Math.pow(pos, 3);
   }
@@ -84,7 +85,7 @@ var easeInOutCubic = function (pos) {
   return 0.5 * (Math.pow(pos - 2, 3) + 2);
 };
 
-var members = {
+const members = {
   /*
     ---------------------------------------------------------------------------
         INTERNAL FIELDS :: STATUS
@@ -251,8 +252,8 @@ var members = {
    * @param contentWidth {Integer ? null} Outer width of inner element
    * @param contentHeight {Integer ? null} Outer height of inner element
    */
-  setDimensions: function (clientWidth, clientHeight, contentWidth, contentHeight) {
-    var me = this;
+  setDimensions: function(clientWidth, clientHeight, contentWidth, contentHeight) {
+    const me = this;
 
     // Only update values which are defined
     if (clientWidth === +clientWidth) {
@@ -284,8 +285,8 @@ var members = {
    * @param left {Integer ? 0} Left position of outer element
    * @param top {Integer ? 0} Top position of outer element
    */
-  setPosition: function (left, top) {
-    var me = this;
+  setPosition: function(left, top) {
+    const me = this;
 
     me.__clientLeft = left || 0;
     me.__clientTop = top || 0;
@@ -297,8 +298,8 @@ var members = {
    * @param width {Integer} Snapping width
    * @param height {Integer} Snapping height
    */
-  setSnapSize: function (width, height) {
-    var me = this;
+  setSnapSize: function(width, height) {
+    const me = this;
 
     me.__snapWidth = width;
     me.__snapHeight = height;
@@ -314,8 +315,8 @@ var members = {
    * @param deactivateCallback {Function} Callback to execute on deactivation. This is for signalling the user about the refresh being cancelled.
    * @param startCallback {Function} Callback to execute to start the real async refresh action. Call {@link #finishPullToRefresh} after finish of refresh.
    */
-  activatePullToRefresh: function (height, activateCallback, deactivateCallback, startCallback) {
-    var me = this;
+  activatePullToRefresh: function(height, activateCallback, deactivateCallback, startCallback) {
+    const me = this;
 
     me.__refreshHeight = height;
     me.__refreshActivate = activateCallback;
@@ -326,7 +327,7 @@ var members = {
   /**
    * Starts pull-to-refresh manually.
    */
-  triggerPullToRefresh: function () {
+  triggerPullToRefresh: function() {
     // Use publish instead of scrollTo to allow scrolling to out of boundary position
     // We don't need to normalize scrollLeft, zoomLevel, etc. here because we only y-scrolling when pull-to-refresh is enabled
     this.__publish(this.__scrollLeft, -this.__refreshHeight, this.__zoomLevel, true);
@@ -339,8 +340,8 @@ var members = {
   /**
    * Signalizes that pull-to-refresh is finished.
    */
-  finishPullToRefresh: function () {
-    var me = this;
+  finishPullToRefresh: function() {
+    const me = this;
 
     me.__refreshActive = false;
     if (me.__refreshDeactivate) {
@@ -355,8 +356,8 @@ var members = {
    *
    * @return {Map} `left` and `top` scroll position and `zoom` level
    */
-  getValues: function () {
-    var me = this;
+  getValues: function() {
+    const me = this;
 
     return {
       left: me.__scrollLeft,
@@ -370,8 +371,8 @@ var members = {
    *
    * @return {Map} `left` and `top` maximum scroll values
    */
-  getScrollMax: function () {
-    var me = this;
+  getScrollMax: function() {
+    const me = this;
 
     return {
       left: me.__maxScrollLeft,
@@ -389,8 +390,8 @@ var members = {
    * @param originTop {Number ? null} Zoom in at given top coordinate
    * @param callback {Function ? null} A callback that gets fired when the zoom is complete.
    */
-  zoomTo: function (level, animate, originLeft, originTop, callback) {
-    var me = this;
+  zoomTo: function(level, animate, originLeft, originTop, callback) {
+    const me = this;
 
     if (!me.options.zooming) {
       throw new Error('Zooming is not enabled!');
@@ -407,7 +408,7 @@ var members = {
       me.__isDecelerating = false;
     }
 
-    var oldLevel = me.__zoomLevel;
+    const oldLevel = me.__zoomLevel;
 
     // Normalize input origin to center of viewport if not defined
     if (originLeft == null) {
@@ -425,8 +426,8 @@ var members = {
     me.__computeScrollMax(level);
 
     // Recompute left and top coordinates based on new zoom level
-    var left = (originLeft + me.__scrollLeft) * level / oldLevel - originLeft;
-    var top = (originTop + me.__scrollTop) * level / oldLevel - originTop;
+    let left = (originLeft + me.__scrollLeft) * level / oldLevel - originLeft;
+    let top = (originTop + me.__scrollTop) * level / oldLevel - originTop;
 
     // Limit x-axis
     if (left > me.__maxScrollLeft) {
@@ -455,8 +456,8 @@ var members = {
    * @param originTop {Number ? 0} Zoom in at given top coordinate
    * @param callback {Function ? null} A callback that gets fired when the zoom is complete.
    */
-  zoomBy: function (factor, animate, originLeft, originTop, callback) {
-    var me = this;
+  zoomBy: function(factor, animate, originLeft, originTop, callback) {
+    const me = this;
 
     me.zoomTo(me.__zoomLevel * factor, animate, originLeft, originTop, callback);
   },
@@ -469,8 +470,8 @@ var members = {
    * @param animate {Boolean?false} Whether the scrolling should happen using an animation
    * @param zoom {Number?null} Zoom level to go to
    */
-  scrollTo: function (left, top, animate, zoom) {
-    var me = this;
+  scrollTo: function(left, top, animate, zoom) {
+    const me = this;
 
     // Stop deceleration
     if (me.__isDecelerating) {
@@ -533,11 +534,11 @@ var members = {
    * @param top {Number ? 0} Scroll x-axis by given offset
    * @param animate {Boolean ? false} Whether to animate the given change
    */
-  scrollBy: function (left, top, animate) {
-    var me = this;
+  scrollBy: function(left, top, animate) {
+    const me = this;
 
-    var startLeft = me.__isAnimating ? me.__scheduledLeft : me.__scrollLeft;
-    var startTop = me.__isAnimating ? me.__scheduledTop : me.__scrollTop;
+    const startLeft = me.__isAnimating ? me.__scheduledLeft : me.__scrollLeft;
+    const startTop = me.__isAnimating ? me.__scheduledTop : me.__scrollTop;
 
     me.scrollTo(startLeft + (left || 0), startTop + (top || 0), animate);
   },
@@ -551,9 +552,9 @@ var members = {
   /**
    * Mouse wheel handler for zooming support
    */
-  doMouseZoom: function (wheelDelta, timeStamp, pageX, pageY) {
-    var me = this;
-    var change = wheelDelta > 0 ? 0.97 : 1.03;
+  doMouseZoom: function(wheelDelta, timeStamp, pageX, pageY) {
+    const me = this;
+    const change = wheelDelta > 0 ? 0.97 : 1.03;
 
     return me.zoomTo(me.__zoomLevel * change, false, pageX - me.__clientLeft, pageY - me.__clientTop);
   },
@@ -561,20 +562,20 @@ var members = {
   /**
    * Touch start handler for scrolling support
    */
-  doTouchStart: function (touches, timeStamp) {
+  doTouchStart: function(touches, timeStamp) {
     // Array-like check is enough here
     if (touches.length == null) {
-      throw new Error('Invalid touch list: ' + touches);
+      throw new Error(`Invalid touch list: ${touches}`);
     }
 
     if (timeStamp instanceof Date) {
       timeStamp = timeStamp.valueOf();
     }
     if (typeof timeStamp !== 'number') {
-      throw new Error('Invalid timestamp value: ' + timeStamp);
+      throw new Error(`Invalid timestamp value: ${timeStamp}`);
     }
 
-    var me = this;
+    const me = this;
 
     // Reset interruptedAnimation flag
     me.__interruptedAnimation = true;
@@ -594,8 +595,9 @@ var members = {
     }
 
     // Use center point when dealing with two fingers
-    var currentTouchLeft, currentTouchTop;
-    var isSingleTouch = touches.length === 1;
+    let currentTouchLeft;
+    let currentTouchTop;
+    const isSingleTouch = touches.length === 1;
     if (isSingleTouch) {
       currentTouchLeft = touches[0].pageX;
       currentTouchTop = touches[0].pageY;
@@ -644,27 +646,28 @@ var members = {
   /**
    * Touch move handler for scrolling support
    */
-  doTouchMove: function (touches, timeStamp, scale) {
+  doTouchMove: function(touches, timeStamp, scale) {
     // Array-like check is enough here
     if (touches.length == null) {
-      throw new Error('Invalid touch list: ' + touches);
+      throw new Error(`Invalid touch list: ${touches}`);
     }
 
     if (timeStamp instanceof Date) {
       timeStamp = timeStamp.valueOf();
     }
     if (typeof timeStamp !== 'number') {
-      throw new Error('Invalid timestamp value: ' + timeStamp);
+      throw new Error(`Invalid timestamp value: ${timeStamp}`);
     }
 
-    var me = this;
+    const me = this;
 
     // Ignore event when tracking is not enabled (event might be outside of element)
     if (!me.__isTracking) {
       return;
     }
 
-    var currentTouchLeft, currentTouchTop;
+    let currentTouchLeft;
+    let currentTouchTop;
 
     // Compute move based around of center of fingers
     if (touches.length === 2) {
@@ -675,22 +678,22 @@ var members = {
       currentTouchTop = touches[0].pageY;
     }
 
-    var positions = me.__positions;
+    const positions = me.__positions;
 
     // Are we already is dragging mode?
     if (me.__isDragging) {
       // Compute move distance
-      var moveX = currentTouchLeft - me.__lastTouchLeft;
-      var moveY = currentTouchTop - me.__lastTouchTop;
+      const moveX = currentTouchLeft - me.__lastTouchLeft;
+      const moveY = currentTouchTop - me.__lastTouchTop;
 
       // Read previous scroll position and zooming
-      var scrollLeft = me.__scrollLeft;
-      var scrollTop = me.__scrollTop;
-      var level = me.__zoomLevel;
+      let scrollLeft = me.__scrollLeft;
+      let scrollTop = me.__scrollTop;
+      let level = me.__zoomLevel;
 
       // Work with scaling
       if (scale != null && me.options.zooming) {
-        var oldLevel = level;
+        const oldLevel = level;
 
         // Recompute level based on previous scale and new scale
         level = level / me.__lastScale * scale;
@@ -701,8 +704,8 @@ var members = {
         // Only do further compution when change happened
         if (oldLevel !== level) {
           // Compute relative event position to container
-          var currentTouchLeftRel = currentTouchLeft - me.__clientLeft;
-          var currentTouchTopRel = currentTouchTop - me.__clientTop;
+          const currentTouchLeftRel = currentTouchLeft - me.__clientLeft;
+          const currentTouchTopRel = currentTouchTop - me.__clientTop;
 
           // Recompute left and top coordinates based on new zoom level
           scrollLeft = (currentTouchLeftRel + scrollLeft) * level / oldLevel - currentTouchLeftRel;
@@ -715,7 +718,7 @@ var members = {
 
       if (me.__enableScrollX) {
         scrollLeft -= moveX * this.options.speedMultiplier;
-        var maxScrollLeft = me.__maxScrollLeft;
+        const maxScrollLeft = me.__maxScrollLeft;
 
         if (scrollLeft > maxScrollLeft || scrollLeft < 0) {
           // Slow down on the edges
@@ -732,7 +735,7 @@ var members = {
       // Compute new vertical scroll position
       if (me.__enableScrollY) {
         scrollTop -= moveY * this.options.speedMultiplier;
-        var maxScrollTop = me.__maxScrollTop;
+        const maxScrollTop = me.__maxScrollTop;
 
         if (scrollTop > maxScrollTop || scrollTop < 0) {
           // Slow down on the edges
@@ -774,11 +777,11 @@ var members = {
 
       // Otherwise figure out whether we are switching into dragging mode now.
     } else {
-      var minimumTrackingForScroll = me.options.locking ? 3 : 0;
-      var minimumTrackingForDrag = 5;
+      const minimumTrackingForScroll = me.options.locking ? 3 : 0;
+      const minimumTrackingForDrag = 5;
 
-      var distanceX = Math.abs(currentTouchLeft - me.__initialTouchLeft);
-      var distanceY = Math.abs(currentTouchTop - me.__initialTouchTop);
+      const distanceX = Math.abs(currentTouchLeft - me.__initialTouchLeft);
+      const distanceY = Math.abs(currentTouchTop - me.__initialTouchTop);
 
       me.__enableScrollX = me.options.scrollingX && distanceX >= minimumTrackingForScroll;
       me.__enableScrollY = me.options.scrollingY && distanceY >= minimumTrackingForScroll;
@@ -803,15 +806,15 @@ var members = {
   /**
    * Touch end handler for scrolling support
    */
-  doTouchEnd: function (timeStamp) {
+  doTouchEnd: function(timeStamp) {
     if (timeStamp instanceof Date) {
       timeStamp = timeStamp.valueOf();
     }
     if (typeof timeStamp !== 'number') {
-      throw new Error('Invalid timestamp value: ' + timeStamp);
+      throw new Error(`Invalid timestamp value: ${timeStamp}`);
     }
 
-    var me = this;
+    const me = this;
 
     // Ignore event when tracking is not enabled (no touchstart event on element)
     // This is required as this listener ('touchmove') sits on the document and not on the element itme.
@@ -832,12 +835,12 @@ var members = {
       // Verify that the last move detected was in some relevant time frame
       if (me.__isSingleTouch && me.options.animating && timeStamp - me.__lastTouchMove <= 100) {
         // Then figure out what the scroll position was about 100ms ago
-        var positions = me.__positions;
-        var endPos = positions.length - 1;
-        var startPos = endPos;
+        const positions = me.__positions;
+        const endPos = positions.length - 1;
+        let startPos = endPos;
 
         // Move pointer to position measured 100ms ago
-        for (var i = endPos; i > 0 && positions[i] > me.__lastTouchMove - 100; i -= 3) {
+        for (let i = endPos; i > 0 && positions[i] > me.__lastTouchMove - 100; i -= 3) {
           startPos = i;
         }
 
@@ -845,16 +848,16 @@ var members = {
         // we cannot compute any useful deceleration.
         if (startPos !== endPos) {
           // Compute relative movement between these two points
-          var timeOffset = positions[endPos] - positions[startPos];
-          var movedLeft = me.__scrollLeft - positions[startPos - 2];
-          var movedTop = me.__scrollTop - positions[startPos - 1];
+          const timeOffset = positions[endPos] - positions[startPos];
+          const movedLeft = me.__scrollLeft - positions[startPos - 2];
+          const movedTop = me.__scrollTop - positions[startPos - 1];
 
           // Based on 50ms compute the movement to apply for each render step
           me.__decelerationVelocityX = movedLeft / timeOffset * (1000 / 60);
           me.__decelerationVelocityY = movedTop / timeOffset * (1000 / 60);
 
           // How much velocity is required to start the deceleration
-          var minVelocityToStartDeceleration = me.options.paging || me.options.snapping ? 4 : 1;
+          const minVelocityToStartDeceleration = me.options.paging || me.options.snapping ? 4 : 1;
 
           // Verify that we have enough velocity to start deceleration
           if (
@@ -923,11 +926,11 @@ var members = {
    * @param top {Number} Top scroll position
    * @param animate {Boolean?false} Whether animation should be used to move to the new coordinates
    */
-  __publish: function (left, top, zoom, animate) {
-    var me = this;
+  __publish: function(left, top, zoom, animate) {
+    const me = this;
 
     // Remember whether we had an animation, then we try to continue based on the current "drive" of the animation
-    var wasAnimating = me.__isAnimating;
+    const wasAnimating = me.__isAnimating;
     if (wasAnimating) {
       Animate.stop(wasAnimating);
       me.__isAnimating = false;
@@ -939,15 +942,15 @@ var members = {
       me.__scheduledTop = top;
       me.__scheduledZoom = zoom;
 
-      var oldLeft = me.__scrollLeft;
-      var oldTop = me.__scrollTop;
-      var oldZoom = me.__zoomLevel;
+      const oldLeft = me.__scrollLeft;
+      const oldTop = me.__scrollTop;
+      const oldZoom = me.__zoomLevel;
 
-      var diffLeft = left - oldLeft;
-      var diffTop = top - oldTop;
-      var diffZoom = zoom - oldZoom;
+      const diffLeft = left - oldLeft;
+      const diffTop = top - oldTop;
+      const diffZoom = zoom - oldZoom;
 
-      var step = function (percent, now, render) {
+      const step = function(percent, now, render) {
         if (render) {
           me.__scrollLeft = oldLeft + diffLeft * percent;
           me.__scrollTop = oldTop + diffTop * percent;
@@ -960,11 +963,11 @@ var members = {
         }
       };
 
-      var verify = function (id) {
+      const verify = function(id) {
         return me.__isAnimating === id;
       };
 
-      var completed = function (renderedFramesPerSecond, animationId, wasFinished) {
+      const completed = function(renderedFramesPerSecond, animationId, wasFinished) {
         if (animationId === me.__isAnimating) {
           me.__isAnimating = false;
         }
@@ -1013,8 +1016,8 @@ var members = {
   /**
    * Recomputes scroll minimum values based on client dimensions and content dimensions.
    */
-  __computeScrollMax: function (zoomLevel) {
-    var me = this;
+  __computeScrollMax: function(zoomLevel) {
+    const me = this;
 
     if (zoomLevel == null) {
       zoomLevel = me.__zoomLevel;
@@ -1034,14 +1037,14 @@ var members = {
    * Called when a touch sequence end and the speed of the finger was high enough
    * to switch into deceleration mode.
    */
-  __startDeceleration: function (timeStamp) {
-    var me = this;
+  __startDeceleration: function(timeStamp) {
+    const me = this;
 
     if (me.options.paging) {
-      var scrollLeft = Math.max(Math.min(me.__scrollLeft, me.__maxScrollLeft), 0);
-      var scrollTop = Math.max(Math.min(me.__scrollTop, me.__maxScrollTop), 0);
-      var clientWidth = me.__clientWidth;
-      var clientHeight = me.__clientHeight;
+      const scrollLeft = Math.max(Math.min(me.__scrollLeft, me.__maxScrollLeft), 0);
+      const scrollTop = Math.max(Math.min(me.__scrollTop, me.__maxScrollTop), 0);
+      const clientWidth = me.__clientWidth;
+      const clientHeight = me.__clientHeight;
 
       // We limit deceleration not to the min/max values of the allowed range, but to the size of the visible client area.
       // Each page should have exactly the size of the client area.
@@ -1057,17 +1060,17 @@ var members = {
     }
 
     // Wrap class method
-    var step = function (percent, now, render) {
+    const step = function(percent, now, render) {
       me.__stepThroughDeceleration(render);
     };
 
     // How much velocity is required to keep the deceleration running
-    var minVelocityToKeepDecelerating = me.options.snapping ? 4 : 0.001;
+    const minVelocityToKeepDecelerating = me.options.snapping ? 4 : 0.001;
 
     // Detect whether it's still worth to continue animating steps
     // If we are already slow enough to not being user perceivable anymore, we stop the whole process here.
-    var verify = function () {
-      var shouldContinue =
+    const verify = function() {
+      const shouldContinue =
         Math.abs(me.__decelerationVelocityX) >= minVelocityToKeepDecelerating ||
         Math.abs(me.__decelerationVelocityY) >= minVelocityToKeepDecelerating;
       if (!shouldContinue) {
@@ -1076,7 +1079,7 @@ var members = {
       return shouldContinue;
     };
 
-    var completed = function (renderedFramesPerSecond, animationId, wasFinished) {
+    const completed = function(renderedFramesPerSecond, animationId, wasFinished) {
       me.__isDecelerating = false;
       if (me.__didDecelerationComplete) {
         me.options.scrollingComplete();
@@ -1095,23 +1098,23 @@ var members = {
    *
    * @param inMemory {Boolean?false} Whether to not render the current step, but keep it in memory only. Used internally only!
    */
-  __stepThroughDeceleration: function (render) {
-    var me = this;
+  __stepThroughDeceleration: function(render) {
+    const me = this;
 
     //
     // COMPUTE NEXT SCROLL POSITION
     //
 
     // Add deceleration to scroll position
-    var scrollLeft = me.__scrollLeft + me.__decelerationVelocityX;
-    var scrollTop = me.__scrollTop + me.__decelerationVelocityY;
+    let scrollLeft = me.__scrollLeft + me.__decelerationVelocityX;
+    let scrollTop = me.__scrollTop + me.__decelerationVelocityY;
 
     //
     // HARD LIMIT SCROLL POSITION FOR NON BOUNCING MODE
     //
 
     if (!me.options.bouncing) {
-      var scrollLeftFixed = Math.max(
+      const scrollLeftFixed = Math.max(
         Math.min(me.__maxDecelerationScrollLeft, scrollLeft),
         me.__minDecelerationScrollLeft
       );
@@ -1120,7 +1123,10 @@ var members = {
         me.__decelerationVelocityX = 0;
       }
 
-      var scrollTopFixed = Math.max(Math.min(me.__maxDecelerationScrollTop, scrollTop), me.__minDecelerationScrollTop);
+      const scrollTopFixed = Math.max(
+        Math.min(me.__maxDecelerationScrollTop, scrollTop),
+        me.__minDecelerationScrollTop
+      );
       if (scrollTopFixed !== scrollTop) {
         scrollTop = scrollTopFixed;
         me.__decelerationVelocityY = 0;
@@ -1147,7 +1153,7 @@ var members = {
       // This is the factor applied to every iteration of the animation
       // to slow down the process. This should emulate natural behavior where
       // objects slow down when the initiator of the movement is removed
-      var frictionFactor = 0.95;
+      const frictionFactor = 0.95;
 
       me.__decelerationVelocityX *= frictionFactor;
       me.__decelerationVelocityY *= frictionFactor;
@@ -1158,12 +1164,11 @@ var members = {
     //
 
     if (me.options.bouncing) {
-      var scrollOutsideX = 0;
-      var scrollOutsideY = 0;
+      let scrollOutsideX = 0;
+      let scrollOutsideY = 0;
 
       // This configures the amount of change applied to deceleration/acceleration when reaching boundaries
-      var penetrationDeceleration = me.options.penetrationDeceleration;
-      var penetrationAcceleration = me.options.penetrationAcceleration;
+      const { penetrationDeceleration, penetrationAcceleration } = me.options;
 
       // Check limits
       if (scrollLeft < me.__minDecelerationScrollLeft) {
@@ -1199,7 +1204,9 @@ var members = {
 };
 
 // Copy over members to prototype
-for (var key in members) {
-  Scroller.prototype[key] = members[key];
+for (const key in members) {
+  if (Object.prototype.hasOwnProperty.call(members, key)) {
+    Scroller.prototype[key] = members[key];
+  }
 }
 export default Scroller;
