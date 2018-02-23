@@ -36,11 +36,11 @@ const defaultOption = {
 };
 class Popbase extends EventClass {
   constructor(option) {
-    super();
-    popManager.register(this.instanceId(), this);
+    const obj = merge({}, defaultOption, option);
+    super(obj);
     this._className = 'Popbase';
+    popManager.register(this.instanceId(), this);
     this._createEvent('onCreate onBeforeShow onShow onBeforeClose onClose onDestory');
-    merge(this, defaultOption, option);
     this._initDom();
     this._initEvent();
     window.setTimeout(() => {

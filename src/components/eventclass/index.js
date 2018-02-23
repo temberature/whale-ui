@@ -2,6 +2,8 @@
  * @namespace
  * @name ClassManager
  */
+import { merge } from '@common/util';
+
 const ClassManager = function() {
   let instanceId = 0 | (Math.random() * 998);
   this.getNewInstanceId = function() {
@@ -10,8 +12,9 @@ const ClassManager = function() {
 };
 const classManager = new ClassManager();
 class ClassBase {
-  constructor() {
-    this._className = 'Class';
+  constructor(option) {
+    merge(this, option);
+    this._className = 'ClassBase';
     this._instanceId = classManager.getNewInstanceId();
   }
 
@@ -25,8 +28,8 @@ class ClassBase {
 }
 
 class EventClass extends ClassBase {
-  constructor() {
-    super();
+  constructor(option) {
+    super(option);
     this._className = 'EventClass';
     this._handlers = {};
     this._eventCache = {};

@@ -20,7 +20,6 @@ export default function () {
         '<div class="J-close" style="font-size:14px;color:#fff;">分享到<br>分享到<br>分享到<br>分享到<br>分享到<br>分享到<br>分享到<br></div>'
       ].join(''),
       closeOnClickModal: true,
-      button: ['点我'],
       title: '标题'
       // timeout: 1000
     })
