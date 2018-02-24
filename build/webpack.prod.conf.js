@@ -35,8 +35,7 @@ const webpackConfig = merge(baseWebpackConfig, {
               loader: 'postcss-loader',
               options: {
                 ident: 'postcss',
-                plugins: loader => 
-                  [require('postcss-cssnext')()],
+                plugins: loader => [require('postcss-cssnext')()],
                 sourceMap: config.build.cssSourceMap
               }
             },

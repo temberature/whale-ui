@@ -2,7 +2,7 @@
 const path = require('path');
 const config = require('../config');
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir);
 }
 module.exports = {
