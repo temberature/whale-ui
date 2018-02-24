@@ -5,6 +5,7 @@ const merge = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.base.conf');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const mock = require('../mock');
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -25,8 +26,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
             loader: 'postcss-loader',
             options: {
               ident: 'postcss',
-              plugins: loader => 
-                [require('postcss-cssnext')()],
+              plugins: loader => [require('postcss-cssnext')()],
               sourceMap: config.dev.cssSourceMap
             }
           },
@@ -42,6 +42,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   },
   devtool: config.dev.devtool,
   devServer: {
+    before: (app) => {
+      mock(app);
+    },
     clientLogLevel: 'warning',
     historyApiFallback: true,
     hot: true,

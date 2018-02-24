@@ -8,12 +8,13 @@ import actionsheet from './actionsheet';
 import popover from './popover';
 import popup from './popup';
 import dialog from './dialog';
+import spin from './spin';
 
 window.LMUI = LMUI;
 window.container = document.getElementById('container');
 
-var routes = {
-  '/': function () {
+const routes = {
+  '/': function() {
     console.log(123);
   },
   '/button': button,
@@ -23,12 +24,13 @@ var routes = {
   '/actionsheet': actionsheet,
   '/popover': popover,
   '/popup': popup,
-  '/dialog': dialog
+  '/dialog': dialog,
+  '/spin': spin
 };
 
-var router = Router(routes);
+const router = Router(routes);
 router.configure({
-  on: function () {
+  on: function() {
     console.log('all');
   }
 });

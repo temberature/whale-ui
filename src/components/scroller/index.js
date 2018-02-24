@@ -2,7 +2,7 @@
 import EventClass from '@components/eventclass';
 import { merge } from '@common/util';
 import Scroller from '@common/util/scroller';
-const defaultOption = {
+const defaultOptions = {
   // 是否支持横向滚动
   scrollingX: false,
   // 是否支持竖向滚动
@@ -43,7 +43,7 @@ const renderScroll = (function() {
   } else if (typeof navigator.cpuClass === 'string') {
     engine = 'trident';
   }
-  const vendorPrefix = (defaultOption.vendorPrefix = {
+  const vendorPrefix = (defaultOptions.vendorPrefix = {
     trident: 'ms',
     gecko: 'Moz',
     webkit: 'Webkit',
@@ -71,20 +71,20 @@ const renderScroll = (function() {
 })();
 
 class EasyScroller extends EventClass {
-  constructor(content, option) {
+  constructor(content, options) {
     super();
     this._className = 'Scroller';
     this._createEvent('onCreate onScroll onScrollOver onRefreshLess onRefresh onRefreshMore');
     this.content = content;
     // 默认会把父节点当成滚动的外部容器
     this.container = content.parentNode;
-    this.option = merge({}, defaultOption, option);
+    this.options = merge({}, defaultOptions, options);
     // create Scroller instance
     this.initScroller();
     // bind events
     this.bindEvents();
     // the content element needs a correct transform origin for zooming
-    this.content.style[`${defaultOption.vendorPrefix}TransformOrigin`] = 'left top';
+    this.content.style[`${defaultOptions.vendorPrefix}TransformOrigin`] = 'left top';
     // reflow for the first time
     this.reflow();
     window.setTimeout(() => {
@@ -93,16 +93,16 @@ class EasyScroller extends EventClass {
   }
 
   initScroller() {
-    this.option.scrollingComplete = () => {
+    this.options.scrollingComplete = () => {
       this.dispatch('onScrollOver');
     };
     this.scroller = new Scroller((left, top, zoom) => {
       this.dispatch('onScroll', left, top, zoom);
       this._render(left, top, zoom);
-    }, this.option);
-    if (this.option.PullToRefresh) {
+    }, this.options);
+    if (this.options.PullToRefresh) {
       this.scroller.activatePullToRefresh(
-        this.option.PullToRefreshHeight,
+        this.options.PullToRefreshHeight,
         () => {
           this.dispatch('onRefreshMore');
         },
@@ -117,7 +117,7 @@ class EasyScroller extends EventClass {
   }
 
   finishPullToRefresh() {
-    this.option.PullToRefresh && this.scroller.finishPullToRefresh();
+    this.options.PullToRefresh && this.scroller.finishPullToRefresh();
   }
 
   setDimensions(clientWidth, clientHeight, contentWidth, contentHeight) {
@@ -249,7 +249,7 @@ class EasyScroller extends EventClass {
       this.container.clientWidth,
       this.container.clientHeight,
       this.content.offsetWidth,
-      this.option.PullToRefresh ? this.content.offsetHeight - 50 : this.content.offsetHeight
+      this.options.PullToRefresh ? this.content.offsetHeight - 50 : this.content.offsetHeight
     );
     // refresh the position for zooming purposes
     const rect = this.container.getBoundingClientRect();

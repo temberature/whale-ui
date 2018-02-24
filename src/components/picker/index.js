@@ -4,7 +4,7 @@ import tpl from './index.html';
 import EventClass from '@components/eventclass';
 import { merge, render } from '@common/util';
 import Scroller from '@common/util/scroller';
-const defaultOption = {
+const defaultOptions = {
   // 是否支持横向滚动
   scrollingX: false,
   // 是否支持竖向滚动
@@ -43,7 +43,7 @@ const renderScroll = (function() {
   } else if (typeof navigator.cpuClass === 'string') {
     engine = 'trident';
   }
-  const vendorPrefix = (defaultOption.vendorPrefix = {
+  const vendorPrefix = (defaultOptions.vendorPrefix = {
     trident: 'ms',
     gecko: 'Moz',
     webkit: 'Webkit',
@@ -70,18 +70,18 @@ const renderScroll = (function() {
   };
 })();
 class Picker extends EventClass {
-  constructor(wrapper, option) {
+  constructor(wrapper, options) {
     super();
     this._className = 'Picker';
     this._createEvent('onCreate onScroll onScrollOver');
-    this.option = merge({}, defaultOption, option);
+    this.options = merge({}, defaultOptions, options);
     this._initDom(wrapper);
     // create Scroller instance
     this._initScroller();
     // bind events
     this._bindEvents();
     // the content element needs a correct transform origin for zooming
-    this.content.style[`${defaultOption.vendorPrefix}TransformOrigin`] = 'left top';
+    this.content.style[`${defaultOptions.vendorPrefix}TransformOrigin`] = 'left top';
     // reflow for the first time
     this.reflow();
     this._currentIndex = 0;
@@ -92,22 +92,22 @@ class Picker extends EventClass {
 
   _initDom(wrapper) {
     this.wrapper = wrapper;
-    this.wrapper.innerHTML = render(tpl, this.option);
+    this.wrapper.innerHTML = render(tpl, this.options);
     this.container = this.wrapper.firstElementChild.firstElementChild;
     this.content = this.container.firstElementChild;
   }
 
   _initScroller() {
-    this.option.scrollingComplete = () => {
+    this.options.scrollingComplete = () => {
       this.dispatch('onScrollOver');
     };
     this.scroller = new Scroller((left, top, zoom) => {
       const height = this.container.clientHeight;
       const index = parseInt(top / height, 10);
       this._currentIndex = index;
-      this.dispatch('onScroll', this._currentIndex, this.option.data[this._currentIndex]);
+      this.dispatch('onScroll', this._currentIndex, this.options.data[this._currentIndex]);
       this._render(left, top, zoom);
-    }, this.option);
+    }, this.options);
   }
 
   setDimensions(clientWidth, clientHeight, contentWidth, contentHeight) {

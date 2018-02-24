@@ -2,7 +2,7 @@
 import './index.less';
 import { merge, addClass, removeClass } from '@common/util';
 import Popbase from '@components/popbase';
-const defaultOption = {
+const defaultOptions = {
   // 是否默认打开
   autoShow: true,
   // 外包容器class
@@ -29,10 +29,10 @@ const defaultOption = {
   destoryOnClose: false
 };
 class Popup extends Popbase {
-  constructor(option) {
-    const obj = merge({}, defaultOption, option);
-    obj.closeOnClickModal = obj.backClose;
-    super(obj);
+  constructor(options) {
+    const newOptions = merge({}, defaultOptions, options);
+    newOptions.closeOnClickModal = newOptions.backClose;
+    super(newOptions);
     this._className = 'Popup';
   }
 

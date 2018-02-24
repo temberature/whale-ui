@@ -2,7 +2,7 @@
 import './index.less';
 import { merge, addClass, removeClass } from '@common/util';
 import Popbase from '@components/popbase';
-const defaultOption = {
+const defaultOptions = {
   // 目标元素dom
   target: null,
   // 触发行为 hover focus click
@@ -33,9 +33,9 @@ const defaultOption = {
   destoryOnClose: false
 };
 class Popover extends Popbase {
-  constructor(option) {
-    const obj = merge({}, defaultOption, option);
-    super(obj);
+  constructor(options) {
+    const newOptions = merge({}, defaultOptions, options);
+    super(newOptions);
     this._className = 'Popover';
   }
 

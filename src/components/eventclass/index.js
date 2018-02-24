@@ -12,8 +12,8 @@ const ClassManager = function() {
 };
 const classManager = new ClassManager();
 class ClassBase {
-  constructor(option) {
-    merge(this, option);
+  constructor(options) {
+    merge(this, options);
     this._className = 'ClassBase';
     this._instanceId = classManager.getNewInstanceId();
   }
@@ -28,8 +28,8 @@ class ClassBase {
 }
 
 class EventClass extends ClassBase {
-  constructor(option) {
-    super(option);
+  constructor(options) {
+    super(options);
     this._className = 'EventClass';
     this._handlers = {};
     this._eventCache = {};

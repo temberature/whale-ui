@@ -2,7 +2,7 @@
 import { merge } from '@common/util';
 import EventClass from '@components/eventclass';
 import popManager from '@components/popManager';
-const defaultOption = {
+const defaultOptions = {
   // 是否默认打开
   autoShow: false,
   // 外包容器
@@ -35,9 +35,9 @@ const defaultOption = {
   fixOverlay: false
 };
 class Popbase extends EventClass {
-  constructor(option) {
-    const obj = merge({}, defaultOption, option);
-    super(obj);
+  constructor(options) {
+    const newOptions = merge({}, defaultOptions, options);
+    super(newOptions);
     this._className = 'Popbase';
     popManager.register(this.instanceId(), this);
     this._createEvent('onCreate onBeforeShow onShow onBeforeClose onClose onDestory');

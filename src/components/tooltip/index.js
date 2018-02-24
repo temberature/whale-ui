@@ -2,14 +2,14 @@
 import './index.less';
 import { merge, addClass, removeClass } from '@common/util';
 import Popover from '@components/popover';
-const defaultOption = {
+const defaultOptions = {
   // 外包容器class
   containerClass: 'lmui-tooltip-normal'
 };
 class Tooltip extends Popover {
-  constructor(option) {
-    const obj = merge({}, defaultOption, option);
-    super(obj);
+  constructor(options) {
+    const newOptions = merge({}, defaultOptions, options);
+    super(newOptions);
     this._className = 'Tooltip';
   }
 
