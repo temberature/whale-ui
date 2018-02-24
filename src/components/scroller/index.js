@@ -70,7 +70,7 @@ const renderScroll = (function() {
   };
 })();
 
-class EasyScroller extends EventClass {
+export default class EasyScroller extends EventClass {
   constructor(content, options) {
     super();
     this._className = 'Scroller';
@@ -256,5 +256,3 @@ class EasyScroller extends EventClass {
     this.scroller.setPosition(rect.left + this.container.clientLeft, rect.top + this.container.clientTop);
   }
 }
-
-export default EasyScroller;

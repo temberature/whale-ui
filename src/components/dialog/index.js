@@ -31,7 +31,7 @@ const defaultOptions = {
   button: ['*我知道了']
 };
 
-class Dialog extends Popbase {
+export default class Dialog extends Popbase {
   constructor(options) {
     const newOptions = merge({}, defaultOptions, options);
     super(newOptions);
@@ -136,4 +136,3 @@ Dialog.GlobalConf = {
     return i + 1;
   }
 };
-export default Dialog;

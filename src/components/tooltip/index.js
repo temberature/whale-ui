@@ -6,7 +6,7 @@ const defaultOptions = {
   // 外包容器class
   containerClass: 'lmui-tooltip-normal'
 };
-class Tooltip extends Popover {
+export default class Tooltip extends Popover {
   constructor(options) {
     const newOptions = merge({}, defaultOptions, options);
     super(newOptions);
@@ -39,4 +39,3 @@ class Tooltip extends Popover {
     removeClass(this.container, `lmui-tooltip-${this.placement}-enter`);
   }
 }
-export default Tooltip;

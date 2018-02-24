@@ -69,7 +69,7 @@ const renderScroll = (function() {
     content.style.zoom = zoom || '';
   };
 })();
-class Picker extends EventClass {
+export default class Picker extends EventClass {
   constructor(wrapper, options) {
     super();
     this._className = 'Picker';
@@ -246,4 +246,3 @@ class Picker extends EventClass {
     this.scroller.setPosition(rect.left + this.container.clientLeft, rect.top + this.container.clientTop);
   }
 }
-export default Picker;

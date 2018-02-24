@@ -34,7 +34,7 @@ const defaultOptions = {
   // overlay的zIndex固定
   fixOverlay: false
 };
-class Popbase extends EventClass {
+export default class Popbase extends EventClass {
   constructor(options) {
     const newOptions = merge({}, defaultOptions, options);
     super(newOptions);
@@ -224,5 +224,3 @@ class Popbase extends EventClass {
     delete this;
   }
 }
-
-export default Popbase;

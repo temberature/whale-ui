@@ -32,7 +32,7 @@ const defaultOptions = {
   // 是否关闭时销毁
   destoryOnClose: false
 };
-class Popover extends Popbase {
+export default class Popover extends Popbase {
   constructor(options) {
     const newOptions = merge({}, defaultOptions, options);
     super(newOptions);
@@ -136,4 +136,3 @@ class Popover extends Popbase {
     removeClass(this.container, `lmui-popover-${this.placement}-enter`);
   }
 }
-export default Popover;

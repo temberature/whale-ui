@@ -26,7 +26,7 @@ const defaultOptions = {
   cancelText: '取消'
 };
 
-class Actionsheet extends Popbase {
+export default class Actionsheet extends Popbase {
   constructor(options) {
     const newOptions = merge({}, defaultOptions, options);
     newOptions.closeOnClickModal = newOptions.backClose;
@@ -79,4 +79,3 @@ class Actionsheet extends Popbase {
     }, 300);
   }
 }
-export default Actionsheet;

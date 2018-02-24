@@ -15,7 +15,7 @@ const defaultOptions = {
   // 类型
   type: ''
 };
-class Spin extends Popbase {
+export default class Spin extends Popbase {
   constructor(options) {
     const newOptions = merge({}, defaultOptions, options);
     super(newOptions);
@@ -64,5 +64,3 @@ class Spin extends Popbase {
     this.text = text;
   }
 }
-
-export default Spin;

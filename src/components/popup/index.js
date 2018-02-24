@@ -28,7 +28,7 @@ const defaultOptions = {
   // 是否关闭时销毁
   destoryOnClose: false
 };
-class Popup extends Popbase {
+export default class Popup extends Popbase {
   constructor(options) {
     const newOptions = merge({}, defaultOptions, options);
     newOptions.closeOnClickModal = newOptions.backClose;
@@ -83,4 +83,3 @@ class Popup extends Popbase {
     }, 300);
   }
 }
-export default Popup;
