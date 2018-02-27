@@ -4,6 +4,7 @@ import button from './button';
 import cell from './cell';
 import field from './field';
 import checklist from './checklist';
+import switcher from './switch';
 import toast from './toast';
 import scroll from './scroll';
 import picker from './picker';
@@ -24,6 +25,7 @@ const routes = {
   '/cell': cell,
   '/field': field,
   '/checklist': checklist,
+  '/switch': switcher,
   '/toast': toast,
   '/scroll': scroll,
   '/picker': picker,
