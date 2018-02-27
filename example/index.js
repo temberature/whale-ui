@@ -6,6 +6,7 @@ import field from './field';
 import checklist from './checklist';
 import switcher from './switch';
 import radio from './radio';
+import header from './header';
 import toast from './toast';
 import scroll from './scroll';
 import picker from './picker';
@@ -28,6 +29,7 @@ const routes = {
   '/checklist': checklist,
   '/switch': switcher,
   '/radio': radio,
+  '/header': header,
   '/toast': toast,
   '/scroll': scroll,
   '/picker': picker,
