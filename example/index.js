@@ -3,6 +3,7 @@ import LMUI from '@lmui';
 import button from './button';
 import cell from './cell';
 import field from './field';
+import checklist from './checklist';
 import toast from './toast';
 import scroll from './scroll';
 import picker from './picker';
@@ -22,6 +23,7 @@ const routes = {
   '/button': button,
   '/cell': cell,
   '/field': field,
+  '/checklist': checklist,
   '/toast': toast,
   '/scroll': scroll,
   '/picker': picker,
