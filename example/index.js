@@ -2,6 +2,7 @@ import './index.less';
 import LMUI from '@lmui';
 import button from './button';
 import cell from './cell';
+import field from './field';
 import toast from './toast';
 import scroll from './scroll';
 import picker from './picker';
@@ -20,6 +21,7 @@ const routes = {
   },
   '/button': button,
   '/cell': cell,
+  '/field': field,
   '/toast': toast,
   '/scroll': scroll,
   '/picker': picker,
