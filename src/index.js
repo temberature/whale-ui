@@ -11,6 +11,7 @@ import Spin from '@components/spin';
 import CheckList from '@components/checklist';
 import componentManger from '@components/componentManger';
 import Switch from '@components/switch';
+import RadioList from '@components/radiolist';
 
 export default {
   Popup: Popup,
@@ -42,5 +43,6 @@ export default {
   Spin: Spin,
   CheckList: CheckList,
   componentManger: componentManger,
-  Switch: Switch
+  Switch: Switch,
+  RadioList: RadioList
 };
