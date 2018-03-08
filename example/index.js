@@ -1,6 +1,12 @@
 import './index.less';
 import LMUI from '@lmui';
 import button from './button';
+import cell from './cell';
+import field from './field';
+import checklist from './checklist';
+import switcher from './switch';
+import radiolist from './radiolist';
+import header from './header';
 import toast from './toast';
 import scroll from './scroll';
 import picker from './picker';
@@ -18,6 +24,12 @@ const routes = {
     console.log(123);
   },
   '/button': button,
+  '/cell': cell,
+  '/field': field,
+  '/checklist': checklist,
+  '/switch': switcher,
+  '/radiolist': radiolist,
+  '/header': header,
   '/toast': toast,
   '/scroll': scroll,
   '/picker': picker,

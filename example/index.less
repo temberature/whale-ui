@@ -6,27 +6,28 @@
 @bremz: 100rem;
 @bremZ: 100rem;
 @b: 100rem;
+
 html,
 body {
-    font: 14px Arial, Helvetica, sans-serif;
-    color: #666;
-    background-color: #eee;
-    -webkit-text-size-adjust: none;
-    -webkit-tap-highlight-color: transparent;
+  font: 14px Arial, Helvetica, sans-serif;
+  color: #666;
+  background-color: #eee;
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    min-height: 100%;
-    -webkit-overflow-scrolling: touch;
+  min-height: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 a,
 a:focus {
-    color: inherit;
+  color: inherit;
 }
 
 a,
@@ -34,32 +35,48 @@ a:link,
 a:visited,
 a:hover,
 a:active {
-    text-decoration: none;
-    -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button,
 input,
 select,
 textarea {
-    font: 14px Arial, Helvetica, sans-serif;
-    color: #666;
-    outline: none;
+  font: 14px Arial, Helvetica, sans-serif;
+  color: #666;
+  outline: none;
 }
 
 textarea.fixAndroidKeyboard:focus,
 input.fixAKeyboard:focus {
-    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-    -webkit-user-modify: read-write-plaintext-only;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-user-modify: read-write-plaintext-only;
 }
 
 #main {
-    width: 100%;
+  width: 100%;
 }
 
 @media (min-width: 640px) {
-    #main {
-        max-width: 640px;
-        margin: 0 auto;
-    }
+  #main {
+    max-width: 640px;
+    margin: 0 auto;
+  }
 }
+
+.page-title {
+  font-size: 20px;
+  margin: 20px auto;
+  text-align: center;
+  display: block;
+  line-height: 1;
+}
+
+.page-part {
+  margin-bottom: 15px;
+}
+@import "./button/index.less";
+@import "./switch/index.less";
+@import "./radiolist/index.less";
+@import "./header/index.less";

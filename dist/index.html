@@ -1,0 +1,32 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui"><script>window.desginWidth = 750;
+    window.refresh = 1;
+    ! function (e, t, n) {
+      function r() {
+        var e = s.getBoundingClientRect().width;
+        e > 640 && (e = 640);
+        var t = 100 * e / desginWidth;
+        s.style.fontSize = t + "px", a.rem = t;
+        var n = parseFloat(window.getComputedStyle(document.documentElement)["font-size"]);
+        if (n !== t && n > 0 && Math.abs(n - t) > 1) {
+          var r = t * t / n;
+          s.style.fontSize = r + "px"
+        }
+      }
+
+      function i() {
+        clearTimeout(o), o = setTimeout(r, 100)
+      }
+      var o, a = {},
+        s = e.document.documentElement;
+      n && e.addEventListener("resize", function () {
+        i()
+      }, !1), n && e.addEventListener("pageshow", function (e) {
+        e.persisted && i()
+      }, !1), r(), a.refreshRem = r, a.rem2px = function (e) {
+        var t = parseFloat(e) * this.rem;
+        return "string" == typeof e && e.match(/rem$/) && (t += "px"), t
+      }, a.px2rem = function (e) {
+        var t = parseFloat(e) / this.rem;
+        return "string" == typeof e && e.match(/px$/) && (t += "rem"), t
+      }, e.remCalc = a
+    }(window, window.desginWidth, window.refresh);</script><link href=./example.css rel=stylesheet><link href=./lmui.css rel=stylesheet></head><body><div id=main><ul><li><a href=#/button>button</a></li><li><a href=#/cell>cell</a></li><li><a href=#/field>field</a></li><li><a href=#/checklist>checklist</a></li><li><a href=#/switch>switch</a></li><li><a href=#/radiolist>radiolist</a></li><li><a href=#/header>header</a></li><li><a href=#/toast>toast</a></li><li><a href=#/scroll>scroll</a></li><li><a href=#/picker>picker</a></li><li><a href=#/actionsheet>actionsheet</a></li><li><a href=#/popover>popover</a></li><li><a href=#/popup>popup</a></li><li><a href=#/dialog>dialog</a></li><li><a href=#/spin>spin</a></li></ul><div class=container id=container></div></div><script src=https://cdn.bootcss.com/Director/1.2.8/director.min.js></script><script type=text/javascript src=./example.js></script><script type=text/javascript src=./lmui.js></script></body></html>
