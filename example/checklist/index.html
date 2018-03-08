@@ -1,6 +1,6 @@
 <div class="page-checklist">
     <div class="page-title">Checklist</div>
-    <div class="lmui-checklist page-part">
+    <div id="check1" class="lmui-checklist page-part">
         <label class="lmui-checklist-title">复选框列表</label>
         <a class="lmui-cell">
             <!---->
@@ -31,7 +31,7 @@
                     <!---->
                     <label class="lmui-checklist-label">
                         <span class="lmui-checkbox">
-                            <input type="checkbox" class="lmui-checkbox-input" value="选项B">
+                            <input type="checkbox" class="lmui-checkbox-input" value="选项B" checked>
                             <span class="lmui-checkbox-core"></span>
                         </span>
                         <span class="lmui-checkbox-label">选项B</span>
@@ -66,7 +66,7 @@
             <div class="lmui-cell-right"></div>
         </a>
     </div>
-    <div>
+    <div class="screen">
         <a class="lmui-cell">
             <!---->
             <div class="lmui-cell-left"></div>
@@ -76,7 +76,7 @@
                     <span class="lmui-cell-text">选中的项</span>
                     <!---->
                 </div>
-                <div class="lmui-cell-value">[]</div>
+                <div class="lmui-cell-value">选项B,</div>
                 <!---->
             </div>
             <div class="lmui-cell-right"></div>
@@ -113,7 +113,7 @@
                     <!---->
                     <label class="lmui-checklist-label">
                         <span class="lmui-checkbox">
-                            <input type="checkbox" disabled="disabled" class="lmui-checkbox-input" value="选中禁用的值">
+                            <input type="checkbox" disabled="disabled" class="lmui-checkbox-input" value="选中禁用的值" checked>
                             <span class="lmui-checkbox-core"></span>
                         </span>
                         <span class="lmui-checkbox-label">选中禁用</span>
@@ -169,7 +169,7 @@
             <div class="lmui-cell-right"></div>
         </a>
     </div>
-    <div>
+    <div class="screen">
         <a class="lmui-cell">
             <!---->
             <div class="lmui-cell-left"></div>
@@ -186,7 +186,7 @@
             <div class="lmui-cell-right"></div>
         </a>
     </div>
-    <div class="lmui-checklist page-part">
+    <div data-max="2" class="lmui-checklist page-part">
         <label class="lmui-checklist-title">最多选两个</label>
         <a class="lmui-cell">
             <!---->
@@ -273,7 +273,7 @@
             <div class="lmui-cell-right"></div>
         </a>
     </div>
-    <div>
+    <div class="screen">
         <a class="lmui-cell">
             <!---->
             <div class="lmui-cell-left"></div>
