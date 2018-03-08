@@ -39,7 +39,6 @@ export default {
   Picker: Picker,
   Actionsheet: Actionsheet,
   Spin: Spin,
-  CheckList: CheckList
+  CheckList: CheckList,
+  componentManger: componentManger
 };
-
-export { componentManger };
