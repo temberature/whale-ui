@@ -10,6 +10,7 @@ import Actionsheet from '@components/actionsheet';
 import Spin from '@components/spin';
 import CheckList from '@components/checklist';
 import componentManger from '@components/componentManger';
+import Switch from '@components/switch';
 
 export default {
   Popup: Popup,
@@ -40,5 +41,6 @@ export default {
   Actionsheet: Actionsheet,
   Spin: Spin,
   CheckList: CheckList,
-  componentManger: componentManger
+  componentManger: componentManger,
+  Switch: Switch
 };
