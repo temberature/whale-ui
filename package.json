@@ -1,7 +1,7 @@
 {
-  "name": "lmui",
+  "name": "whale-ui",
   "version": "1.0.0",
-  "description": "立马理财前端ui组件库",
+  "description": "面向多页面的移动端UI库",
   "main": "./dist/lmui.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
@@ -20,7 +20,7 @@
     "cssnano": "^3.10.0",
     "es6-promise": "^4.2.4",
     "eslint": "^4.16.0",
-    "eslint-config-lmfe": "git+https://git.easecreate.com/lmfe/eslint-config-lmfe.git",
+    "eslint-config-lmfe": "git+https://github.com/temberature/eslint-config-lmfe.git",
     "eslint-loader": "^1.9.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
@@ -34,18 +34,25 @@
     "postcss-cssnext": "^3.1.0",
     "postcss-loader": "^2.0.10",
     "style-loader": "^0.19.1",
-    "stylelint-config-lmfe": "git+https://git.easecreate.com/lmfe/stylelint-config-lmfe.git",
+    "stylelint-config-lmfe": "git+https://github.com/temberature/stylelint-config-lmfe.git",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1",
     "webpack-merge": "^4.1.1"
   },
-  "browserslist": ["> 0.1%", "last 10 versions", "not ie <= 8"],
+  "browserslist": [
+    "> 0.1%",
+    "last 10 versions",
+    "not ie <= 8"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://git.easecreate.com/lmfe/lmui.git"
+    "url": "https://github.com/temberature/whale-ui.git"
   },
-  "keywords": ["lmlc", "ui"],
+  "keywords": [
+    "lmlc",
+    "ui"
+  ],
   "author": "lmfe",
   "license": "ISC"
 }

@@ -58,7 +58,7 @@ export default class Popbase extends EventClass {
 
   // 初始化事件 该方法需要继承
   _initEvent() {
-    console.log(this);
+    // console.log(this);
   }
 
   // 显示pop

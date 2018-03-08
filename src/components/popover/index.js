@@ -61,7 +61,7 @@ export default class Popover extends Popbase {
     if (this.action === 'click') {
       this.target.addEventListener(
         'click',
-        (e) => {
+        () => {
           me.show();
         },
         false
@@ -78,14 +78,14 @@ export default class Popover extends Popbase {
     } else if (this.action === 'focus') {
       this.target.addEventListener(
         'focus',
-        (e) => {
+        () => {
           me.show();
         },
         false
       );
       this.target.addEventListener(
         'blur',
-        (e) => {
+        () => {
           me.close();
         },
         false
@@ -93,14 +93,14 @@ export default class Popover extends Popbase {
     } else {
       this.target.addEventListener(
         'mouseenter',
-        (e) => {
+        () => {
           me.show();
         },
         false
       );
       this.target.addEventListener(
         'mouseout',
-        (e) => {
+        () => {
           me.close();
         },
         false

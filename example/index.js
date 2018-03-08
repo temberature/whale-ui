@@ -15,14 +15,14 @@ import popover from './popover';
 import popup from './popup';
 import dialog from './dialog';
 import spin from './spin';
+import $ from './utils/zepto';
+import contents from './contents';
 
 window.LMUI = LMUI;
 window.container = document.getElementById('container');
 
 const routes = {
-  '/': function() {
-    console.log(123);
-  },
+  '/': contents,
   '/button': button,
   '/cell': cell,
   '/field': field,

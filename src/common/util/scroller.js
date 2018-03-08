@@ -161,10 +161,12 @@ const members = {
   /** {Boolean} Whether the refresh process is enabled when the event is released now */
   __refreshActive: false,
 
-  /** {Function} Callback to execute on activation. This is for signalling the user about a refresh is about to happen when he release */
+  /** {Function} Callback to execute on activation. This is for signalling the user about a refresh is about to
+   * happen when he release */
   __refreshActivate: null,
 
-  /** {Function} Callback to execute on deactivation. This is for signalling the user about the refresh being cancelled */
+  /** {Function} Callback to execute on deactivation. This is for signalling the user about the refresh being
+   * cancelled */
   __refreshDeactivate: null,
 
   /** {Function} Callback to execute to start the actual refresh. Call {@link #refreshFinish} when done */
@@ -311,9 +313,12 @@ const members = {
    * the official Twitter client.
    *
    * @param height {Integer} Height of pull-to-refresh zone on top of rendered list
-   * @param activateCallback {Function} Callback to execute on activation. This is for signalling the user about a refresh is about to happen when he release.
-   * @param deactivateCallback {Function} Callback to execute on deactivation. This is for signalling the user about the refresh being cancelled.
-   * @param startCallback {Function} Callback to execute to start the real async refresh action. Call {@link #finishPullToRefresh} after finish of refresh.
+   * @param activateCallback {Function} Callback to execute on activation. This is for signalling the user about
+   * a refresh is about to happen when he release.
+   * @param deactivateCallback {Function} Callback to execute on deactivation. This is for signalling the user
+   * about the refresh being cancelled.
+   * @param startCallback {Function} Callback to execute to start the real async refresh action.
+   * Call {@link #finishPullToRefresh} after finish of refresh.
    */
   activatePullToRefresh: function(height, activateCallback, deactivateCallback, startCallback) {
     const me = this;
@@ -329,7 +334,8 @@ const members = {
    */
   triggerPullToRefresh: function() {
     // Use publish instead of scrollTo to allow scrolling to out of boundary position
-    // We don't need to normalize scrollLeft, zoomLevel, etc. here because we only y-scrolling when pull-to-refresh is enabled
+    // We don't need to normalize scrollLeft, zoomLevel, etc. here because we only y-scrolling
+    // when pull-to-refresh is enabled
     this.__publish(this.__scrollLeft, -this.__refreshHeight, this.__zoomLevel, true);
 
     if (this.__refreshStart) {
@@ -887,7 +893,8 @@ const members = {
     if (!me.__isDecelerating) {
       if (me.__refreshActive && me.__refreshStart) {
         // Use publish instead of scrollTo to allow scrolling to out of boundary position
-        // We don't need to normalize scrollLeft, zoomLevel, etc. here because we only y-scrolling when pull-to-refresh is enabled
+        // We don't need to normalize scrollLeft, zoomLevel, etc. here because we only y-scrolling
+        //  when pull-to-refresh is enabled
         me.__publish(me.__scrollLeft, -me.__refreshHeight, me.__zoomLevel, true);
 
         if (me.__refreshStart) {
@@ -1037,7 +1044,7 @@ const members = {
    * Called when a touch sequence end and the speed of the finger was high enough
    * to switch into deceleration mode.
    */
-  __startDeceleration: function(timeStamp) {
+  __startDeceleration: function() {
     const me = this;
 
     if (me.options.paging) {
@@ -1046,7 +1053,8 @@ const members = {
       const clientWidth = me.__clientWidth;
       const clientHeight = me.__clientHeight;
 
-      // We limit deceleration not to the min/max values of the allowed range, but to the size of the visible client area.
+      // We limit deceleration not to the min/max values of the allowed range,
+      // but to the size of the visible client area.
       // Each page should have exactly the size of the client area.
       me.__minDecelerationScrollLeft = Math.floor(scrollLeft / clientWidth) * clientWidth;
       me.__minDecelerationScrollTop = Math.floor(scrollTop / clientHeight) * clientHeight;
@@ -1079,7 +1087,7 @@ const members = {
       return shouldContinue;
     };
 
-    const completed = function(renderedFramesPerSecond, animationId, wasFinished) {
+    const completed = function() {
       me.__isDecelerating = false;
       if (me.__didDecelerationComplete) {
         me.options.scrollingComplete();
@@ -1096,7 +1104,8 @@ const members = {
   /**
    * Called on every step of the animation
    *
-   * @param inMemory {Boolean?false} Whether to not render the current step, but keep it in memory only. Used internally only!
+   * @param inMemory {Boolean?false} Whether to not render the current step,
+   * but keep it in memory only. Used internally only!
    */
   __stepThroughDeceleration: function(render) {
     const me = this;

@@ -36,7 +36,6 @@ $('.lmui-checklist').each((index, item) => {
   if (+$(item).data('constructed') !== 1) {
     const checklist = new CheckList(item);
     componentManger.add(checklist);
-    console.log(componentManger);
   }
 });
 $('body').data('constructed', 1);

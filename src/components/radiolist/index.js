@@ -44,7 +44,7 @@ class RadioList extends EventClass {
 
       me.dispatch('onChange', selected, old);
     });
-    me.$wrapper.find('input').on('click', function(e) {
+    me.$wrapper.find('input').on('click', function() {
       me.$wrapper.find('input').prop('checked', false);
       $(this).prop('checked', true);
     });

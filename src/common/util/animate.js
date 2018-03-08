@@ -42,7 +42,7 @@ const Animate = {
     let intervalHandle = null;
     let lastActive = +new Date();
 
-    return function(callback, root) {
+    return function(callback) {
       const callbackHandle = rafHandle++;
 
       // Store callback
