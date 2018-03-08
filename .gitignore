@@ -7,7 +7,6 @@ package-lock.json
 
 # 工程忽略
 node_modules
-dist
 
 # 编辑器
 .idea
