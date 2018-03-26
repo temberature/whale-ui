@@ -3,7 +3,7 @@
  */
 'use strict';
 import './index.less';
-import { addClass, removeClass } from '@common/util';
+import { addClass, removeClass } from '../../common/util';
 const initZ = 300;
 const popManager = {
   // 初始z值

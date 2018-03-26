@@ -1,7 +1,7 @@
 'use strict';
-import { merge } from '@common/util';
-import EventClass from '@components/eventclass';
-import popManager from '@components/popManager';
+import { merge } from '../../common/util';
+import EventClass from '../../components/eventclass';
+import popManager from '../../components/popManager';
 const defaultOptions = {
   // 是否默认打开
   autoShow: false,

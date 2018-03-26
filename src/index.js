@@ -1,17 +1,17 @@
 import './index.less';
-import util from '@common/util';
-import Popup from '@components/popup';
-import Dialog from '@components/dialog';
-import Popover from '@components/popover';
-import Tooltip from '@components/tooltip';
-import Scroller from '@components/scroller';
-import Picker from '@components/picker';
-import Actionsheet from '@components/actionsheet';
-import Spin from '@components/spin';
-import CheckList from '@components/checklist';
-import componentManger from '@components/componentManger';
-import Switch from '@components/switch';
-import RadioList from '@components/radiolist';
+import util from '../../common/util';
+import Popup from '../../components/popup';
+import Dialog from '../../components/dialog';
+import Popover from '../../components/popover';
+import Tooltip from '../../components/tooltip';
+import Scroller from '../../components/scroller';
+import Picker from '../../components/picker';
+import Actionsheet from '../../components/actionsheet';
+import Spin from '../../components/spin';
+import CheckList from '../../components/checklist';
+import componentManger from '../../components/componentManger';
+import Switch from '../../components/switch';
+import RadioList from '../../components/radiolist';
 
 export default {
   Popup: Popup,

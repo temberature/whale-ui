@@ -1,8 +1,8 @@
 'use strict';
 import './index.less';
 import tpl from './index.html';
-import { merge, render, addClass, removeClass } from '@common/util';
-import Popbase from '@components/popbase';
+import { merge, render, addClass, removeClass } from '../../common/util';
+import Popbase from '../../components/popbase';
 const defaultOptions = {
   // 是否默认打开
   autoShow: true,

@@ -6,7 +6,7 @@
 	else if(typeof exports === 'object')
 		exports["lmfe.ui"] = factory();
 	else
-		root["LMUI"] = factory();
+		root["lmfe.ui"] = factory();
 })(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache

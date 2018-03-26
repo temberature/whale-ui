@@ -1,23 +1,31 @@
 'use strict';
 const path = require('path');
 const config = require('../config');
+const fs = require('fs');
+
+const dirs = fs
+  .readdirSync('./src/components/')
+  .filter(item => !['.DS_Store', 'button', 'cell', 'field', 'header'].includes(item));
+const entryConfig = {
+  lmui: './src/index.js',
+  example: './example/index.js'
+};
+dirs.forEach((item) => {
+  entryConfig[item] = `./src/components/${item}/index.js`;
+});
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir);
 }
 module.exports = {
   context: path.resolve(__dirname, '../'),
-  entry: {
-    lmui: './src/index.js',
-    example: './example/index.js'
-  },
+  entry: entryConfig,
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: '[name].js',
     publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
     libraryTarget: 'umd',
     library: {
-      root: 'LMUI',
       amd: 'lmfe.ui',
       commonjs: 'lmfe.ui'
     },
